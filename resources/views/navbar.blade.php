@@ -46,9 +46,6 @@
             <li><a href="{{ route('pagina.comunidades') }}"
                     class="text-[#32424D] uppercase whitespace-nowrap text-xs md:text-base hover:text-[#C2841D] transition-colors">Comunidades</a>
             </li>
-            <li><a href="{{ route('pagina.nosotros') }}"
-                    class="text-[#32424D] uppercase whitespace-nowrap text-xs md:text-base hover:text-[#C2841D] transition-colors">Nosotros</a>
-            </li>
 
 
             @auth

@@ -24,8 +24,6 @@ Route::get('/', function() {
 
 Route::get('/inicio', [ActividadesController::class, 'indexPrincipal'])->name('pagina.inicio');
 Route::get('/comunidades', function () { return view('pagina.comunidades'); })->name('pagina.comunidades');
-Route::get('/nosotros', function () { return view('pagina.nosotros'); })->name('pagina.nosotros');
-
 // --- AUTENTICACIÓN PERSONALIZADA ---
 Route::get('/login-usuarios', function () { return view('pagina.login_usuarios'); })->name('pagina.login_usuarios');
 Route::post('/login-usuarios', [AuthController::class, 'authenticate'])->name('login.custom');
