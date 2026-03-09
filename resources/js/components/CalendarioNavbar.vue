@@ -1,7 +1,7 @@
 <template>
     <li class="relative dropdown-container">
         <button @click.stop="toggle"
-            class="text-[#32424D] uppercase flex items-center whitespace-nowrap text-xs md:text-base hover:text-[#C2841D] transition-colors focus:outline-none">
+            class="text-[#32424D] uppercase flex items-center whitespace-nowrap text-base md:text-xl hover:text-[#C2841D] transition-colors focus:outline-none">
             <span class="font-black">Mis Actividades</span>
             <svg class="w-4 h-4 ms-2 transition-transform duration-300" :class="{'rotate-180': isOpen}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" />

@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        {{-- BARRA LATERAL: AMIGOS --}}
+       
         {{-- BARRA LATERAL: AMIGOS --}}
         <div class="w-full md:w-[240px] bg-white rounded-xl p-4 shadow-sm flex flex-col">
             <h4 class="m-0 mb-3 text-[#bc6a50] text-lg font-semibold border-b pb-2 text-center uppercase text-sm">Añadir Amigos</h4>
@@ -68,6 +68,7 @@
         </div>
     </div>
 
+    
     {{-- SECCIÓN ACTIVIDADES --}}
     <section class="w-full max-w-[1100px] bg-white rounded-xl p-6 shadow-sm" aria-labelledby="titulo-actividades">
         <h2 id="titulo-actividades" class="m-0 mb-4 text-gray-800 text-2xl font-bold border-b pb-3 uppercase flex items-center gap-2">
@@ -99,7 +100,20 @@
         </div>
         @endif
     </section>
+
+    @auth
+    {{-- SECCIÓN Albumes --}}
+    <section class="w-full max-w-[1100px] bg-white rounded-xl p-6 shadow-sm mb-4" aria-labelledby="titulo-albumes">
+        <h2 id="titulo-albumes" class="m-0 mb-4 text-gray-800 text-2xl font-bold border-b pb-3 uppercase flex items-center gap-2">
+            <i class="bi bi-images text-[#bc6a50]" aria-hidden="true"></i> Mis Álbumes
+        </h2>
+        <div id="contenedor-albumes" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            @include('album.partials.lista')
+        </div>
+    </section>
+    @endauth
 </div>
+
 
 {{-- MODAL GLOBAL REFORMADO --}}
 <div id="modalGlobal" 

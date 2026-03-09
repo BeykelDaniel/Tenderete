@@ -44,7 +44,7 @@
             </button>
 
             <li class="flex items-start gap-3"><a href="{{ route('pagina.amigos') }}"
-                    class="text-[#32424D] uppercase whitespace-nowrap text-xs md:text-base hover:text-[#C2841D] transition-colors"><i
+                    class="text-[#32424D] uppercase whitespace-nowrap text-7xl md:text-base hover:text-[#C2841D] transition-colors"><i
                         class="bi bi-people-fill"></i> Mis Amigos</a>
             </li>
             <!-- MIS ACTIVIDADES - Componente Vue -->

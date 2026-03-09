@@ -14,7 +14,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false" style="color: #32424D !important;">
+                        data-bs-toggle="dropdown" aria-expanded="false" style="color: #32424D !important; font-size: 1.25rem;">
                         Mis Actividades
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
