@@ -27,16 +27,18 @@
 </head>
 
 <body class="bg-gray-100 antialiased font-sans">
-    <div id="app">
+    <div id="app" class="flex min-h-screen">
         @include('navbar')
 
-        <main class="container mx-auto mt-8 px-4 min-h-screen">
-            @yield('contenido')
-        </main>
+        <div class="flex-1 flex flex-col lg:ml-64 w-full transition-all duration-300 min-h-screen">
+            <main class="container mx-auto mt-8 px-4 flex-1">
+                @yield('contenido')
+            </main>
 
-        <footer class="py-6 text-center text-gray-500 text-sm">
-            &copy; {{ date('Y') }} Tenderete - Todos los derechos reservados.
-        </footer>
+            <footer class="py-6 text-center text-gray-500 text-sm mt-auto w-full">
+                &copy; {{ date('Y') }} Tenderete - Todos los derechos reservados.
+            </footer>
+        </div>
     </div>
 
     <script>
