@@ -88,7 +88,7 @@
 
 <!-- MOBILE NAVBAR (Menú) -->
 <nav id="sidebar-mobile"
-    class="lg:hidden bg-[#D4B830] shadow-xl fixed left-0 top-0 h-full w-full flex flex-col z-[70] overflow-y-auto transform -translate-x-full transition-transform duration-300">
+    class="lg:hidden bg-[#D4B830] shadow-xl fixed left-0 top-0 h-full w-full flex flex-col z-[10000] overflow-y-auto transform -translate-x-full transition-transform duration-300">
     
     <!-- Botón cerrar móvil -->
     <button id="menu-close" aria-label="Cerrar menú" class="absolute top-6 right-6 text-white hover:text-gray-200">
@@ -158,10 +158,12 @@
         <i class="bi bi-people-fill text-[1.4rem]"></i>
         <span class="text-[10px] font-black uppercase leading-none">Amigos</span>
     </a>
-    <a href="{{ route('actividades.mis_inscripciones') }}" class="flex-1 flex flex-col items-center gap-1 transition-all active:scale-90 {{ request()->routeIs('actividades.mis_inscripciones') ? 'text-[#bc6a50]' : 'text-[#32424D]/60' }}" style="color: {{ request()->routeIs('actividades.mis_inscripciones') ? '#bc6a50' : '#32424Dbb' }} !important;">
-        <i class="bi bi-calendar-check-fill text-[1.4rem]"></i>
-        <span class="text-[10px] font-black uppercase leading-none">Citas</span>
-    </a>
+    <calendario-navbar class="flex-1 flex justify-center"
+        :initial-inscripciones="{{ json_encode(array_values($inscripciones_data ?? [])) }}" 
+        route-inscritas="{{ route('actividades.inscritas') }}"
+        :is-auth="{{ Auth::check() ? 'true' : 'false' }}"
+        :is-mobile-mode="true">
+    </calendario-navbar>
     <a href="{{ route('pagina.comunidades') }}" class="flex-1 flex flex-col items-center justify-center gap-1 transition-all active:scale-90 {{ request()->routeIs('pagina.comunidades') ? 'text-[#bc6a50]' : 'text-[#32424D]/60' }}" style="color: {{ request()->routeIs('pagina.comunidades') ? '#bc6a50' : '#32424Dbb' }} !important;">
         <i class="fa-solid fa-users text-[1.4rem]"></i>
         <span class="text-[10px] font-black uppercase leading-none">Comunidad</span>
@@ -174,21 +176,17 @@
 
 @push('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const menuToggle = document.getElementById('menu-toggle');
+    document.addEventListener('click', function (e) {
+        const menuToggle = e.target.closest('#menu-toggle');
+        const closeBtn = e.target.closest('#menu-close');
         const sidebarMobile = document.getElementById('sidebar-mobile');
-        const closeBtn = document.getElementById('menu-close');
         
-        if (menuToggle && sidebarMobile && closeBtn) {
-            menuToggle.addEventListener('click', () => {
-                sidebarMobile.classList.remove('-translate-x-full');
-                document.body.style.overflow = 'hidden';
-            });
-
-            closeBtn.addEventListener('click', () => {
-                sidebarMobile.classList.add('-translate-x-full');
-                document.body.style.overflow = '';
-            });
+        if (menuToggle && sidebarMobile) {
+            sidebarMobile.classList.remove('-translate-x-full');
+            document.body.style.overflow = 'hidden';
+        } else if (closeBtn && sidebarMobile) {
+            sidebarMobile.classList.add('-translate-x-full');
+            document.body.style.overflow = '';
         }
     });
 </script>

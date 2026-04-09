@@ -11,15 +11,15 @@
         </div>
 
         {{-- SUB NAVBAR SENIOR --}}
-        <div class="flex justify-center mb-10">
-            <nav class="flex gap-4 bg-white p-2 rounded-[30px] shadow-sm border border-gray-100">
+        <div class="flex justify-center mb-10 mx-2 sm:mx-0">
+            <nav class="flex flex-wrap sm:flex-nowrap gap-2 sm:gap-4 bg-white p-2 rounded-[30px] shadow-sm border border-gray-100 w-full sm:w-auto">
                 <a href="{{ route('pagina.foro') }}" 
-                   class="flex items-center gap-4 px-10 py-5 rounded-[25px] text-lg font-black uppercase tracking-widest transition-all {{ request()->routeIs('pagina.foro') ? 'bg-indigo-600 text-white shadow-xl' : 'text-gray-400 hover:bg-gray-50' }}">
-                    <i class="bi bi-chat-dots-fill text-2xl"></i> Foros
+                   class="flex flex-1 sm:flex-none justify-center items-center gap-2 sm:gap-4 px-4 sm:px-10 py-3 sm:py-5 rounded-[25px] text-sm sm:text-lg font-black uppercase tracking-widest transition-all {{ request()->routeIs('pagina.foro') ? 'bg-indigo-600 text-white shadow-xl' : 'text-gray-400 hover:bg-gray-50' }}">
+                    <i class="bi bi-chat-dots-fill text-xl sm:text-2xl"></i> Foros
                 </a>
                 <a href="{{ route('pagina.album') }}" 
-                   class="flex items-center gap-4 px-10 py-5 rounded-[25px] text-lg font-black uppercase tracking-widest transition-all {{ request()->routeIs('pagina.album') ? 'bg-pink-500 text-white shadow-xl' : 'text-gray-400 hover:bg-gray-50' }}">
-                    <i class="bi bi-images text-2xl"></i> Álbumes
+                   class="flex flex-1 sm:flex-none justify-center items-center gap-2 sm:gap-4 px-4 sm:px-10 py-3 sm:py-5 rounded-[25px] text-sm sm:text-lg font-black uppercase tracking-widest transition-all {{ request()->routeIs('pagina.album') ? 'bg-pink-500 text-white shadow-xl' : 'text-gray-400 hover:bg-gray-50' }}">
+                    <i class="bi bi-images text-xl sm:text-2xl"></i> Álbumes
                 </a>
             </nav>
         </div>

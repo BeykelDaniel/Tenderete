@@ -1,6 +1,10 @@
 <template>
-    <li class="relative dropdown-container" ref="btnContainer">
-        <button @click.stop="toggle"
+    <component :is="isMobileMode ? 'div' : 'li'" class="relative" :class="isMobileMode ? 'flex-1 flex' : 'dropdown-container w-full'" ref="btnContainer">
+        <button v-if="isMobileMode" @click.stop="toggle" class="flex-1 flex flex-col items-center justify-center gap-1 transition-all active:scale-90 focus:outline-none w-full" :class="isOpen ? 'text-[#bc6a50]' : 'text-[#32424D]/60'" :style="isOpen ? 'color: #bc6a50 !important;' : 'color: #32424Dbb !important;'">
+            <i class="bi bi-calendar-check-fill text-[1.4rem]"></i>
+            <span class="text-[10px] font-black uppercase leading-none">Citas</span>
+        </button>
+        <button v-else @click.stop="toggle"
             class="text-[#32424D] hover:text-[#C2841D] transition-colors flex items-center gap-3 w-full uppercase focus:outline-none">
             <span class="font-black text-xl lg:text-lg">Mis Actividades</span>
             <svg class="w-4 h-4 ms-2 transition-transform duration-300" :class="{'rotate-180': isOpen}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,7 +43,7 @@
                 </div>
             </div>
         </Teleport>
-    </li>
+    </component>
 </template>
 
 <script>
@@ -47,7 +51,15 @@ import flatpickr from 'flatpickr';
 import { Spanish } from 'flatpickr/dist/l10n/es.js';
 
 export default {
-    props: ['initialInscripciones', 'routeInscritas', 'isAuth'],
+    props: {
+        initialInscripciones: {},
+        routeInscritas: {},
+        isAuth: {},
+        isMobileMode: {
+            type: Boolean,
+            default: false
+        }
+    },
     directives: {
         'click-outside': {
             mounted(el, binding) {
@@ -95,7 +107,18 @@ export default {
         updateDropdownPosition() {
             if (!this.$refs.btnContainer) return;
             const rect = this.$refs.btnContainer.getBoundingClientRect();
-            if (window.innerWidth >= 1024) {
+            
+            if (this.isMobileMode) {
+                // Desplegar hacia arriba en móvil porque sale de la barra inferior
+                const bottomVal = window.innerHeight - rect.top + 10;
+                this.dropdownStyle = {
+                    bottom: bottomVal + 'px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    maxHeight: `calc(100vh - ${bottomVal + 20}px)`,
+                    overflowY: 'auto'
+                };
+            } else if (window.innerWidth >= 1024) {
                 const topVal = Math.max(10, rect.top - 20);
                 this.dropdownStyle = {
                     top: topVal + 'px',
