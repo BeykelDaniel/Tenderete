@@ -1,0 +1,52 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+        // Usuario de prueba genérico
+        User::updateOrCreate(
+        ['email' => 'test@example.com'],
+        [
+            'name' => 'Test User',
+            'password' => Hash::make('password'),
+            'fecha_nacimiento' => '2000-01-01',
+            'genero' => 'hombre',
+            'numero_telefono' => '000000000',
+        ]
+        );
+
+        // Tu usuario personal
+        User::updateOrCreate(
+        ['email' => 'cabrerajosedaniel89@gmail.com'],
+        [
+            'name' => 'Daniel',
+            'password' => Hash::make('4567Famara'),
+            'fecha_nacimiento' => '1989-01-01',
+            'genero' => 'hombre',
+            'numero_telefono' => '600000000',
+        ]
+        );
+
+        User::updateOrCreate(
+        ['email' => 'admin@gmail.com'],
+        [
+            'name' => 'Admin',
+            'password' => Hash::make('Admin1234'),
+            'fecha_nacimiento' => '2005-06-04',
+            'genero' => 'hombre',
+            'numero_telefono' => '600000000',
+        ]
+        );
+
+    }
+}
