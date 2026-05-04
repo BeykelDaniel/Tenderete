@@ -15,7 +15,7 @@
                     </div>
 
                 </div>
-                <div class="flex-grow rounded-xl overflow-hidden shadow-sm bg-white flex justify-center items-center p-2">
+                <div class="flex-grow rounded-xl overflow-hidden shadow-sm bg-white flex justify-center items-center p-2 va">
                     <img src="{{ asset('banner.png') }}" class="w-full h-auto object-contain block rounded-lg">
                 </div>
             </div>
@@ -383,7 +383,8 @@
                  $.get( "?page=" + pagina, function(data) {
                     if(data.trim()) {
                         let tempDiv = $('<div>').append(data);
-                        // Contamos los elementos por su clase de contenedorlet nuevas = tempDiv.find('.actividad-item').length; 
+                        // Contamos los elementos por su clase de contenedor
+                        let nuevas = tempDiv.find('.actividad-item').length; 
 
                         if (nuevas > 0) {
                             $("#contenedor-actividades").append(data);
