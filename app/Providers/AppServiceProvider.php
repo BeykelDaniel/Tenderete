@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL; // Añadimos esto arriba
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Tu código actual del Navbar (lo mantenemos igual)
         \Illuminate\Support\Facades\View::composer('navbar', function ($view) {
             $inscripciones_data = [];
             if (auth()->check()) {
@@ -33,5 +35,11 @@ class AppServiceProvider extends ServiceProvider
             }
             $view->with('inscripciones_data', $inscripciones_data);
         });
+
+        // --- EL ARREGLO PARA LOS ESTILOS EMPIEZA AQUÍ ---
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
+        // --- AQUÍ TERMINA ---
     }
 }
