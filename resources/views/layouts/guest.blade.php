@@ -23,6 +23,12 @@
             </div>
 
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+                <!-- Auth Toggle -->
+                <div class="flex bg-gray-200 dark:bg-gray-700 rounded-full p-1 w-full mx-auto mb-6">
+                    <a href="{{ route('login') }}" class="flex-1 text-center py-2 rounded-full text-sm font-semibold transition-colors {{ request()->routeIs('login') ? 'bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100' }}">{{ __('Log in') }}</a>
+                    <a href="{{ route('register') }}" class="flex-1 text-center py-2 rounded-full text-sm font-semibold transition-colors {{ request()->routeIs('register') ? 'bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100' }}">{{ __('Register') }}</a>
+                </div>
+
                 {{ $slot }}
             </div>
         </div>

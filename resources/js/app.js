@@ -2,6 +2,7 @@ import './bootstrap';
 import { createApp } from 'vue';
 import Alpine from 'alpinejs';
 
+window.Alpine = Alpine;
 // Importa los componentes arriba para limpiar el código
 import CarrouselHome from './components/CarrouselHome.vue';
 import NotificacionesAmistad from './components/NotificacionesAmistad.vue';
