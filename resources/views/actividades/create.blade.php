@@ -3,23 +3,23 @@
 @section('title', $oper == 'create' ? 'Crear Actividad - Tenderete' : 'Editar Actividad')
 
 @section('contenido')
-<div class="max-w-4xl mx-auto py-12 px-4">
-    <div class="bg-white rounded-[40px] shadow-2xl overflow-hidden border-4 border-[#32424D]/10">
+<div class="max-w-4xl mx-auto py-6 px-4">
+    <div class="bg-white rounded-[20px] shadow-2xl overflow-hidden border-4 border-[#32424D]/10">
         
         {{-- CABECERA CÁLIDA --}}
-        <div class="bg-[#bc6a50] p-10 text-white flex items-center justify-between">
+        <div class="bg-[#bc6a50] p-4 md:p-6 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
             <div>
-                <h1 class="text-4xl font-black uppercase tracking-tight mb-2">
+                <h1 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-1">
                     {{ $oper == 'create' ? 'Nueva Actividad' : 'Modificar Actividad' }}
                 </h1>
-                <p class="text-lg font-bold opacity-80 italic">Cuéntanos qué plan tienes en mente para hoy.</p>
+                <p class="text-sm md:text-base font-bold opacity-80 italic">Cuéntanos qué plan tienes en mente para hoy.</p>
             </div>
-            <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-md">
-                <i class="bi bi-calendar-plus text-4xl"></i>
+            <div class="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-md self-end md:self-auto hidden md:flex">
+                <i class="bi bi-calendar-plus text-xl md:text-2xl"></i>
             </div>
         </div>
 
-        <div class="p-10">
+        <div class="p-4 md:p-6">
             @if (session('success'))
                 <div class="text-center py-10">
                     <div class="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner animate-bounce">
@@ -45,33 +45,17 @@
                 @endif
 
                 <form action="{{ $oper == 'create' ? route('actividades.store') : route('actividades.update', $actividad->id) }}"
-                      method="POST" enctype="multipart/form-data" class="space-y-10">
+                      method="POST" enctype="multipart/form-data" class="space-y-6">
                     @csrf
                     @if($oper == 'edit') @method('PUT') @endif
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                         @php
-                            $inputClasses = "w-full p-5 bg-gray-50 border-2 border-gray-100 rounded-3xl focus:bg-white focus:border-[#bc6a50] focus:ring-8 focus:ring-[#bc6a50]/10 outline-none transition-all text-lg font-bold";
-                            $labelClasses = "block text-sm font-black text-gray-400 uppercase tracking-widest ml-4 mb-3";
+                            $inputClasses = "w-full p-3 md:p-4 bg-gray-50 border-2 border-gray-100 rounded-xl focus:bg-white focus:border-[#bc6a50] focus:ring-4 focus:ring-[#bc6a50]/10 outline-none transition-all text-sm md:text-base font-bold";
+                            $labelClasses = "block text-xs font-black text-gray-400 uppercase tracking-widest ml-2 mb-1";
                         @endphp
 
-                        {{-- 0. IMAGEN --}}
-                        <div class="col-span-full">
-                            <label class="{{ $labelClasses }}">Foto de la Actividad</label>
-                            <div class="flex items-center gap-6 p-6 bg-orange-50/30 rounded-[35px] border-2 border-dashed border-[#bc6a50]/20">
-                                <div class="w-32 h-32 bg-white border-2 border-orange-100 rounded-3xl overflow-hidden flex items-center justify-center text-[#bc6a50]/30 shadow-sm shrink-0">
-                                    @if(isset($actividad->imagen))
-                                        <img src="{{ asset($actividad->imagen) }}" class="w-full h-full object-cover">
-                                    @else
-                                        <i class="bi bi-camera-fill text-5xl"></i>
-                                    @endif
-                                </div>
-                                <div class="flex-1">
-                                    <input type="file" name="imagen" accept="image/*" class="w-full text-sm font-bold text-gray-500 file:mr-4 file:py-3 file:px-6 file:rounded-full file:border-0 file:text-sm file:font-black file:bg-[#bc6a50] file:text-white hover:file:bg-[#8e4f3c] cursor-pointer" {{ $oper=='show' ? 'disabled' : '' }}>
-                                    <p class="text-xs text-gray-400 mt-3 font-bold italic">Si no tienes foto, pondremos una bonita automáticamente.</p>
-                                </div>
-                            </div>
-                        </div>
+
 
                         {{-- 1. NOMBRE --}}
                         <div class="col-span-full">
@@ -84,7 +68,7 @@
                         {{-- 2. DESCRIPCIÓN --}}
                         <div class="col-span-full">
                             <label class="{{ $labelClasses }}">Cuéntanos un poco más</label>
-                            <textarea name="descripcion" rows="3" class="{{ $inputClasses }}" {{ $oper=='show' ? 'disabled' : 'required' }}
+                            <textarea name="descripcion" rows="2" class="{{ $inputClasses }}" {{ $oper=='show' ? 'disabled' : 'required' }}
                                       placeholder="Escribe aquí de qué trata el plan...">{{ old('descripcion', $actividad->descripcion ?? '') }}</textarea>
                         </div>
 
@@ -125,11 +109,11 @@
                     </div>
 
                     {{-- BOTONES FINALES --}}
-                    <div class="mt-16 flex flex-col md:flex-row gap-4 pt-10 border-t-4 border-gray-50">
-                        <button type="submit" class="flex-1 bg-[#bc6a50] text-white font-black py-6 rounded-[30px] shadow-2xl hover:bg-[#8e4f3c] hover:scale-[1.02] active:scale-95 transition-all uppercase tracking-widest text-xl">
+                    <div class="mt-6 md:mt-8 flex flex-col md:flex-row gap-3 pt-4 md:pt-6 border-t-4 border-gray-50">
+                        <button type="submit" class="flex-1 bg-[#bc6a50] text-white font-black py-3 md:py-4 rounded-xl shadow-lg hover:bg-[#8e4f3c] hover:scale-[1.02] active:scale-95 transition-all uppercase tracking-widest text-base md:text-lg">
                             {{ $oper == 'create' ? 'Crear Actividad Ahora' : 'Guardar Cambios' }}
                         </button>
-                        <a href="{{ route('pagina.inicio') }}" class="px-12 py-6 bg-gray-100 text-gray-400 font-black rounded-[30px] hover:bg-gray-200 transition-all uppercase tracking-widest text-center">
+                        <a href="{{ route('pagina.inicio') }}" class="px-6 md:px-10 py-3 md:py-4 bg-gray-100 text-gray-400 font-black rounded-xl hover:bg-gray-200 transition-all uppercase tracking-widest text-center text-sm md:text-base">
                             Cancelar
                         </a>
                     </div>

@@ -18,7 +18,6 @@ class Actividades extends Model
         'lugar',
         'precio',
         'cupos',
-        'imagen',
     ];
 
    public function posts()

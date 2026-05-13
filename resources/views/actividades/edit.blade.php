@@ -73,13 +73,7 @@
                                 @error('cupos') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                             </div>
 
-                            {{-- Imagen (Opcional) --}}
-                            <div>
-                                <label for="imagen" class="block text-sm font-medium text-gray-700 uppercase tracking-wider">Cambiar Imagen</label>
-                                <input type="file" name="imagen" id="imagen" 
-                                    class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-                            </div>
-                        </div>
+
 
                         {{-- Botones de Acción --}}
                         <div class="mt-10 pt-6 border-t border-gray-100 flex justify-end items-center space-x-3">

@@ -357,24 +357,27 @@
                 $('#restantes-cnt').show();
             } else {
                 $('#restantes-cnt').hide();
+                $('#btn-cargar-mas').hide();
             }
         }
 
         actualizarContador();
 
-        $('#btn-cargar-mas').on('click', function() {
+        $('#btn-cargar-mas').on('click', function(e) {
+            e.preventDefault();
             let btn = $(this);
             let pagina = btn.data('pagina');
             btn.prop('disabled', true).text('BUSCANDO MÁS...');
             
             $.get("?page=" + pagina, function(data) {
                 if(data.trim()) {
-                    let tempDiv = $('<div>').append(data);
-                    // Contamos los elementos por su clase de contenedor
-                    let nuevas = tempDiv.find('.actividad-item').length; 
+                    let tempDiv = $('<div>').html(data);
+                    
+                    let itemsNuevos = tempDiv.find('.actividad-item');
+                    let nuevas = itemsNuevos.length;
                     
                     if (nuevas > 0) {
-                        $("#contenedor-actividades").append(data);
+                        $("#contenedor-actividades").append(itemsNuevos);
                         mostradas += nuevas;
                         btn.data('pagina', pagina + 1).prop('disabled', false).text('Cargar más actividades');
                         actualizarContador();
@@ -386,6 +389,8 @@
                     btn.hide(); 
                     $('#restantes-cnt').hide();
                 }
+            }).fail(function() {
+                btn.prop('disabled', false).text('Error. Reintentar');
             });
         });
     });
