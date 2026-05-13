@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         ['email' => 'cabrerajosedaniel89@gmail.com'],
         [
             'name' => 'Daniel',
-            'password' => Hash::make('4567Famara'),
+            'password' => Hash::make('4567Famara*'),
             'fecha_nacimiento' => '1989-01-01',
             'genero' => 'hombre',
             'numero_telefono' => '600000000',
