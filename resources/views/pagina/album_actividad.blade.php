@@ -163,7 +163,7 @@ function verMedia(index){
     const url = `${baseUrl}${item.url}`;
     const mediaContent = document.getElementById('mediaContent');
     mediaContent.innerHTML = item.tipo==='foto'
-        ? `<img src="${url}" class="max-w-full max-h-full rounded-2xl shadow-2xl object-contain animate-fadeIn" onclick="event.stopPropagation()">`
+        ? `<img src="${url}" class="max-w-[70%] max-h-[90%] rounded-2xl shadow-2xl object-contain animate-fadeIn" onclick="event.stopPropagation()">`
         : `<video src="${url}" controls autoplay class="max-w-full max-h-full rounded-2xl shadow-2xl animate-fadeIn" onclick="event.stopPropagation()"></video>`;
     document.getElementById('mediaCounter').innerText = `${currentIndex+1} / ${mediaItems.length}`;
     document.getElementById('mediaModal').classList.remove('hidden');
