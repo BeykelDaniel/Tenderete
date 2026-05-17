@@ -197,37 +197,44 @@ class AlbumController extends Controller
      */
 
     public function destroy($id)
-{
-    $archivo = DB::table('media')->where('id', $id)->first();
+    {
+        $archivo = DB::table('media')->where('id', $id)->first();
 
-    if (!$archivo) {
+        if (!$archivo) {
+            return response()->json([
+                'success' => false,
+                'message' => 'El archivo no existe.'
+            ], 404);
+        }
+
+        // Obtener la actividad asociada para verificar el creador
+        $actividad = Actividades::find($archivo->actividad_id);
+
+        $esAdmin = (Auth::user()->email === 'cabrerajosedaniel89@gmail.com');
+        $esDuenioArchivo = ($archivo->user_id && $archivo->user_id == Auth::id());
+        $esCreadorActividad = ($actividad && $actividad->user_id == Auth::id());
+
+        // Solo el dueño, el creador de la actividad, o el admin
+        if (!$esDuenioArchivo && !$esCreadorActividad && !$esAdmin) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No tienes permiso para borrar esto.'
+            ], 403);
+        }
+
+        // Borrar archivo físico
+        $pathReal = str_replace('storage/', '', $archivo->url);
+        if (Storage::disk('public')->exists($pathReal)) {
+            Storage::disk('public')->delete($pathReal);
+        }
+
+        // Borrar de la BD
+        DB::table('media')->where('id', $id)->delete();
+
         return response()->json([
-            'success' => false,
-            'message' => 'El archivo no existe.'
-        ], 404);
+            'success' => true,
+            'message' => 'Archivo eliminado correctamente.'
+        ]);
     }
-
-    // Solo el dueño o el admin
-    if ($archivo->user_id != Auth::id() && Auth::user()->email != 'cabrerajosedaniel89@gmail.com') {
-        return response()->json([
-            'success' => false,
-            'message' => 'No tienes permiso para borrar esto.'
-        ], 403);
-    }
-
-    // Borrar archivo físico
-    $pathReal = str_replace('storage/', '', $archivo->url);
-    if (Storage::disk('public')->exists($pathReal)) {
-        Storage::disk('public')->delete($pathReal);
-    }
-
-    // Borrar de la BD
-    DB::table('media')->where('id', $id)->delete();
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Archivo eliminado correctamente.'
-    ]);
-}
 
 }

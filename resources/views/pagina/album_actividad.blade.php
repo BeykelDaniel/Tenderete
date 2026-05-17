@@ -107,6 +107,7 @@
     const authUserId = {{ Auth::id() ?? 'null' }};
     const adminEmail = 'cabrerajosedaniel89@gmail.com';
     const userEmail = '{{ Auth::user()->email ?? "" }}';
+    const actividadCreadorId = {{ $actividad->user_id ?? 'null' }};
 
     /* --- MENSAJES MODAL --- */
     function showToast(mensaje, tipo = 'success') {
@@ -136,7 +137,7 @@
         const baseUrl = '{{ asset("") }}';
         
         mediaItems.forEach((item, index) => {
-            const esDuenio = (String(item.user_id) === String(authUserId) || userEmail === adminEmail);
+            const esDuenio = (String(item.user_id) === String(authUserId) || String(actividadCreadorId) === String(authUserId) || userEmail === adminEmail);
             const mediaHtml = item.tipo === 'foto'
                 ? `<img src="${baseUrl}${item.url}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">`
                 : `<video src="${baseUrl}${item.url}" class="w-full h-full object-cover"></video><div class="absolute inset-0 flex items-center justify-center"><i class="bi bi-play-circle-fill text-white/80 text-5xl"></i></div>`;
