@@ -93,7 +93,7 @@
             <button onclick="cerrarConfirmar()" class="flex-1 py-3 bg-gray-100 text-gray-600 rounded-2xl font-black uppercase text-lg">
                 Cancelar
             </button>
-            <button id="btnConfirmarEliminar" class="flex-1 py-3 bg-red-500 text-white rounded-2xl font-black uppercase text-lg shadow-lg shadow-red-200">
+            <button onclick="ejecutarEliminar()" id="btnConfirmarEliminar" class="flex-1 py-3 bg-red-500 text-white rounded-2xl font-black uppercase text-lg shadow-lg shadow-red-200">
                 Eliminar
             </button>
         </div>
@@ -194,7 +194,7 @@
         itemAEliminar = null;
     }
 
-    document.getElementById('btnConfirmarEliminar').onclick = function() {
+    function ejecutarEliminar() {
         if (!itemAEliminar) return;
         const id = itemAEliminar;
         cerrarConfirmar();
