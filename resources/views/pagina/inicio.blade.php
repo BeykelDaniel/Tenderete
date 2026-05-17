@@ -72,8 +72,9 @@
         </div> {{-- Cierre correcto de la Fila Superior --}}
 
 
+       
         {{-- SECCIÓN ACTIVIDADES --}}
-        <section class="w-full max-w-[1100px] bg-white rounded-xl p-6 shadow-sm" aria-labelledby="titulo-actividades">
+        <section class="w-full max-w-[1100px] bg-white rounded-xl p-6 shadow-sm mb-4" aria-labelledby="titulo-actividades">
             <h2 id="titulo-actividades"
                 class="m-0 mb-4 text-gray-800 text-2xl font-bold border-b pb-3 uppercase flex items-center gap-2">
                 <i class="bi bi-calendar-event text-[#bc6a50]" aria-hidden="true"></i> Próximas Actividades
@@ -349,6 +350,10 @@
                 document.getElementById('step-form').classList.remove('hidden');
                 document.getElementById('step-exito').classList.add('hidden');
                 document.getElementById('error-container').classList.add('hidden');
+
+                if (window.necesitaRecarga) {
+                    window.location.reload();
+                }
             }, 200);
         }
 
@@ -380,6 +385,7 @@
                         document.getElementById('msg-exito').innerText = data.message || "Operación realizada correctamente";
 
                         if (window.tipoAccion === 'actividad') {
+                            window.necesitaRecarga = true;
                             window.dispatchEvent(new CustomEvent('inscripcion-actualizada'));
 
                             if (!window.itemSeleccionado.users) {
