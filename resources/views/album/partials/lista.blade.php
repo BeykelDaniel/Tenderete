@@ -1,9 +1,6 @@
 @foreach($mis_actividades as $a)
     <div class="actividad-item p-4 rounded-xl border-2 border-gray-50 flex items-center gap-4 hover:border-[#82aeb4] transition-all bg-white shadow-sm group">
         
-        <div class="h-20 w-20 overflow-hidden rounded-lg shrink-0 shadow-inner">
-            <img src="{{ asset($a->imagen) }}" alt="{{ $a->nombre }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-        </div>
 
         <div class="flex-1 min-w-0">
             <div class="flex flex-col">
