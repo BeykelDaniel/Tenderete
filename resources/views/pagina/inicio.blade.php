@@ -25,11 +25,12 @@
                 @endauth
             </div>
 
-
-            {{-- BARRA LATERAL: AMIGOS (Sin desplazamiento vertical, se adapta al contenido) --}}
-            <div class="w-full md:w-[240px] bg-white rounded-xl p-4 shadow-sm flex flex-col">
-                <h4 class="m-0 mb-3 text-[#bc6a50] text-lg font-semibold border-b pb-2 text-center uppercase text-sm">Añadir Amigos</h4>
-                <div class="flex-1">
+            {{-- BARRA LATERAL: AMIGOS (Con scroll vertical sutil para deslizar) --}}
+            <div class="w-full md:w-[240px] bg-white rounded-xl p-4 shadow-sm flex flex-col h-fit">
+                <h4 class="m-0 mb-3 text-[#bc6a50] text-lg font-semibold border-b pb-2 text-center uppercase text-sm tracking-wider">Añadir Amigos</h4>
+                
+                {{-- CONTENEDOR CON SCROLL --}}
+                <div class="max-h-[420px] overflow-y-auto pr-1 custom-scrollbar">
                     <ul class="list-none p-0 m-0">
                         @php
                             // Solo ocultamos a:
@@ -49,8 +50,9 @@
 
                             $usuarios_db = \App\Models\User::whereNotIn('id', $idsOcultar)
                                 ->where('email', '!=', 'cabrerajosedaniel89@gmail.com')
-                                ->latest()->take(12)->get();
+                                ->latest()->take(25)->get(); // Aumentado a 25 para que tenga sentido el scroll
                         @endphp
+                        
                         @foreach($usuarios_db as $u)
                             <li data-user='@json($u)'
                                 class="abrir-modal-amigo-btn flex items-center gap-3 p-2 hover:bg-indigo-50 rounded-xl cursor-pointer transition-all mb-2 border border-transparent hover:border-indigo-100 group">
@@ -66,8 +68,8 @@
                         @endforeach
                     </ul>
                 </div>
-            </div>
-        </div>
+            </div> {{-- Cierre correcto de la Barra Lateral --}}
+        </div> {{-- Cierre correcto de la Fila Superior --}}
 
 
         {{-- SECCIÓN ACTIVIDADES --}}
@@ -493,6 +495,21 @@
         }
         .animate-shake { 
             animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; 
+        }
+
+        /* Estilos del scroll de amigos personalizados */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #cbd5e1;
         }
     </style>
 @endsection
