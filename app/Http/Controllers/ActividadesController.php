@@ -42,7 +42,7 @@ class ActividadesController extends Controller
         $horaActual = $ahora->toTimeString();
 
         // Filtramos: Solo actividades futuras (o de hoy pero que no hayan pasado de hora)
-        $actividades = Actividades::where(function($query) use ($hoy, $horaActual) {
+        $actividades = Actividades::with(['users', 'creador'])->where(function($query) use ($hoy, $horaActual) {
             $query->where('fecha', '>', $hoy)
                   ->orWhere(function($q) use ($hoy, $horaActual) {
                       $q->where('fecha', $hoy)
@@ -94,7 +94,6 @@ class ActividadesController extends Controller
             'lugar'            => 'required|string',
             'precio'           => $isAdmin ? 'required|numeric' : 'nullable|numeric',
             'cupos'            => $isAdmin ? 'required|numeric' : 'nullable|numeric',
-            'imagen'           => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if (!$isAdmin) {
@@ -102,16 +101,7 @@ class ActividadesController extends Controller
             $validated['cupos'] = $validated['cupos'] ?? 50;
         }
 
-        if ($request->hasFile('imagen')) {
-            $path = $request->file('imagen')->store('actividades', 'public');
-            $validated['imagen'] = 'storage/' . $path;
-        } else {
-            // Imagen genérica basada en palabras clave + LOCK único para evitar repetidas
-            $keyword = urlencode($request->nombre);
-            $seed = rand(1, 9999);
-            $validated['imagen'] = "https://loremflickr.com/800/600/{$keyword}/all?lock={$seed}";
-        }
-
+        $validated['user_id'] = Auth::id();
         Actividades::create($validated);
 
         // Regresamos con mensaje de éxito
@@ -147,18 +137,7 @@ class ActividadesController extends Controller
             'lugar'       => 'required|string',
             'precio'      => 'required|numeric',
             'cupos'       => 'required|numeric',
-            'imagen'      => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
-        if ($request->hasFile('imagen')) {
-            $path = $request->file('imagen')->store('actividades', 'public');
-            $validated['imagen'] = 'storage/' . $path;
-        } elseif (empty($actividad->imagen) || str_contains($actividad->imagen, 'loremflickr.com')) {
-            // Si no tiene o es de la API, la regeneramos por si ha cambiado el nombre
-            $keyword = urlencode($request->nombre);
-            $seed = rand(1, 9999);
-            $validated['imagen'] = "https://loremflickr.com/800/600/{$keyword}/all?lock={$seed}";
-        }
 
         $actividad->update($validated);
 

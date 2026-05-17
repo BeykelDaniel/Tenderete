@@ -15,23 +15,23 @@
     class="hidden lg:flex bg-[#D4B830] shadow-xl fixed left-0 top-0 h-full w-64 flex-col z-[70] overflow-y-auto">
     
     <!-- Logo Sidebar -->
-    <div class="w-full flex justify-center mt-12 mb-12">
+    <div class="w-full flex justify-center mt-8 mb-6">
         <a href="{{ route('pagina.inicio') }}" class="block p-1 bg-white rounded-full shadow-lg transform hover:scale-105 transition-transform">
-            <img src="{{ asset('logo.png') }}" class="h-32 w-32 rounded-full border-[3px] border-[#D4B830] object-cover">
+            <img src="{{ asset('logo.png') }}" class="h-28 w-28 rounded-full border-[3px] border-[#D4B830] object-cover">
         </a>
     </div>
 
     <!-- Enlaces (Desktop) -->
-    <ul id="nav-lista-desktop" class="w-full flex flex-col items-start px-8 gap-y-8 font-black text-[#32424D] text-lg">
+    <ul id="nav-lista-desktop" class="w-full flex flex-col items-start px-6 gap-y-6 font-black text-[#32424D] text-lg pb-6">
         
         <li class="w-full">
-            <a href="{{ route('pagina.amigos') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-4 w-full uppercase text-xl">
-               <i class="bi bi-people-fill text-xl"></i> Mis Amigos
+            <a href="{{ route('pagina.amigos') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-3 w-full uppercase hover:translate-x-1">
+               <i class="bi bi-people-fill text-xl w-6 text-center"></i> Mis Amigos
             </a>
         </li>
         
         <!-- MIS ACTIVIDADES - Componente Vue -->
-        <li class="w-full">
+        <li class="w-full hover:translate-x-1">
             <calendario-navbar 
                 :initial-inscripciones="{{ json_encode(array_values($inscripciones_data ?? [])) }}" 
                 route-inscritas="{{ route('actividades.inscritas') }}"
@@ -40,13 +40,13 @@
         </li>
 
         <li class="w-full">
-            <a href="{{ route('pagina.comunidades') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-4 w-full uppercase text-xl transform hover:translate-x-2 transition-transform">
-                <i class="fa-solid fa-users text-xl"></i> Comunidades
+            <a href="{{ route('pagina.comunidades') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-3 w-full uppercase hover:translate-x-1 transition-transform">
+                <i class="fa-solid fa-users text-xl w-6 text-center"></i> Comunidades
             </a>
         </li>
 
         @auth
-        <li class="w-full">
+        <li class="w-full hover:translate-x-1">
             <!-- NOTIFICACIONES (Amigos) - Componente Vue -->
             <notificaciones-amistad 
                 route-index="{{ route('notificaciones.index') }}"
@@ -57,29 +57,35 @@
         </li>
 
         <li class="w-full mt-auto pt-6 border-t border-[#32424D]/20">
-            <a href="{{ route('profile.edit') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-4 w-full uppercase text-xl">
+            <a href="{{ route('profile.edit') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-3 w-full uppercase hover:translate-x-1">
                 @if(Auth::check() && Auth::user()->perfil_foto)
-                    <img src="{{ asset(Auth::user()->perfil_foto) }}" class="w-10 h-10 rounded-full border-2 border-[#32424D] object-cover" alt="">
+                    <img src="{{ asset(Auth::user()->perfil_foto) }}" class="w-8 h-8 rounded-full border-2 border-[#32424D] object-cover" alt="">
                 @else
-                    <i class="bi bi-gear-fill text-xl" aria-hidden="true"></i>
+                    <i class="bi bi-gear-fill text-xl w-6 text-center" aria-hidden="true"></i>
                 @endif
                 Ajustes
             </a>
         </li>
+        
+        <li class="w-full">
+            <a href="{{ route('pagina.saber_mas') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-3 w-full uppercase hover:translate-x-1">
+                 <i class="bi bi-info-circle-fill text-xl w-6 text-center"></i> Saber Mas
+            </a>
+        </li>
 
-        <li class="w-full mb-8 pt-4">
+        <li class="w-full pt-2 hover:translate-x-1">
             <form method="POST" action="{{ route('logout') }}" class="w-full">
                 @csrf
-                <button type="submit" class="hover:scale-105 transition-transform flex items-center gap-4 w-full text-[#bc6a50] uppercase text-left text-xl">
-                    <i class="fa-solid fa-right-from-bracket text-xl" aria-hidden="true"></i>
+                <button type="submit" class="hover:text-[#C2841D] transition-colors flex items-center gap-3 w-full text-[#bc6a50] uppercase text-left">
+                    <i class="fa-solid fa-right-from-bracket text-xl w-6 text-center" aria-hidden="true"></i>
                     Salir
                 </button>
             </form>
         </li>
         @else
-        <li class="w-full mt-auto pt-8 border-t border-[#32424D]/20 mb-8">
-            <a href="{{ route('pagina.login_usuarios') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-4 w-full uppercase text-xl">
-                <i class="fa-solid fa-user text-xl"></i> Entrar
+        <li class="w-full mt-auto pt-8 border-t border-[#32424D]/20 mb-8 hover:translate-x-1">
+            <a href="{{ route('pagina.login_usuarios') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-3 w-full uppercase text-xl">
+                <i class="fa-solid fa-user text-xl w-6 text-center"></i> Entrar
             </a>
         </li>
         @endauth
@@ -108,18 +114,8 @@
     <ul id="nav-lista-movil" class="w-full flex flex-col items-start px-8 gap-y-8 font-black text-[#32424D] text-lg">
         
         @auth
-        <li class="w-full">
-            <!-- NOTIFICACIONES (Amigos) - Componente Vue -->
-            <notificaciones-amistad 
-                route-index="{{ route('notificaciones.index') }}"
-                route-aceptar="{{ route('amigos.accept', ':id') }}"
-                route-rechazar="{{ route('amigos.reject', ':id') }}"
-                csrf="{{ csrf_token() }}">
-            </notificaciones-amistad>
-        </li>
-
-        <li class="w-full mt-auto pt-6 border-t border-[#32424D]/20">
-            <a href="{{ route('profile.edit') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-4 w-full uppercase text-2xl">
+        <li class="w-full mt-auto pt-6 border-t border-[#32424D]/20 ">
+            <a href="{{ route('profile.edit') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-4 w-full uppercase hover:translate-x-2  text-2xl">
                 @if(Auth::check() && Auth::user()->perfil_foto)
                     <img src="{{ asset(Auth::user()->perfil_foto) }}" class="w-10 h-10 rounded-full border-2 border-[#32424D] object-cover" alt="">
                 @else
@@ -128,6 +124,9 @@
                 Ajustes
             </a>
         </li>
+        <li><a href="{{ route('pagina.saber_mas') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-4 w-full uppercase text-xl">
+                 Saber Mas
+            </a></li>
 
         <li class="w-full mb-8 pt-4">
             <form method="POST" action="{{ route('logout') }}" class="w-full">
@@ -173,6 +172,19 @@
         <span class="text-[10px] font-black uppercase leading-none">Menú</span>
     </button>
 </div>
+
+<!-- Notificaciones Flotantes (Móvil) -->
+@auth
+<div class="lg:hidden fixed top-6 right-6 z-[9000]">
+    <notificaciones-amistad 
+        route-index="{{ route('notificaciones.index') }}"
+        route-aceptar="{{ route('amigos.accept', ':id') }}"
+        route-rechazar="{{ route('amigos.reject', ':id') }}"
+        csrf="{{ csrf_token() }}"
+        :is-mobile-floating="true">
+    </notificaciones-amistad>
+</div>
+@endauth
 
 @push('scripts')
 <script>

@@ -10,6 +10,8 @@ use App\Http\Controllers\AmigosController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ForoController;
 use App\Http\Controllers\NotificacionController;
+use App\Http\Controllers\SoporteController;
+use App\Http\Controllers\SaberMasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +23,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function() {
     return view('pagina.portada');
 })->name('pagina.portada');
+
+
+Route::post('/soporte/enviar', [SoporteController::class, 'send'])->name('soporte.send');
+Route::get('/saber-mas', [SaberMasController::class, 'index'])->name('pagina.saber_mas');
 
 Route::get('/inicio', [ActividadesController::class, 'indexPrincipal'])->name('pagina.inicio');
 Route::get('/comunidades', function () { return view('pagina.comunidades'); })->name('pagina.comunidades');
