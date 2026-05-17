@@ -155,7 +155,7 @@
         });
     }
 
-    /* --- MODAL --- */
+    /* --- MODAL LIGHTBOX --- */
     function verMedia(index) {
         if (index < 0) index = mediaItems.length - 1;
         if (index >= mediaItems.length) index = 0;
@@ -199,13 +199,17 @@
         cerrarConfirmar();
         
         const eliminarUrl = `/album/${id}`;
+        
+        // CORRECCIÓN DEFINITIVA: Usamos método POST encapsulado con FormData para camuflar el DELETE.
+        // Esto previene que proxies intermedios o balanceadores en la nube (como Railway) tumben la petición.
+        const formData = new FormData();
+        formData.append('_token', '{{ csrf_token() }}');
+        formData.append('_method', 'DELETE');
 
-        // CORRECCIÓN: Usamos método DELETE real nativo con cabeceras JSON limpias para Railway
         fetch(eliminarUrl, {
-            method: 'DELETE',
+            method: 'POST',
+            body: formData,
             headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
         })

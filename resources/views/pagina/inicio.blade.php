@@ -1,301 +1,523 @@
 @extends('layout')
 
-@section('title', 'Álbum: ' . $actividad->nombre)
+@section('title', 'Inicio')
 
 @section('contenido')
-<div class="bg-gray-50 min-h-screen p-6 font-sans">
-    <div class="max-w-4xl mx-auto">
-        {{-- MODAL DE MENSAJES --}}
-        <div id="messageModal" class="fixed inset-0 bg-black/80 z-[10007] hidden flex items-center justify-center p-4">
-            <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl transform animate-fadeIn relative">
-                <i id="imgMensaje" class="bi text-5xl mb-4 block"></i>
-                <h3 id="tituloMensaje" class="text-2xl font-black text-gray-800 uppercase mb-2"></h3>
-                <p id="textoMensaje" class="text-gray-500 font-bold text-lg mb-6 uppercase"></p>
-                <button onclick="cerrarMensaje()" class="w-full py-3 bg-gray-100 text-gray-600 rounded-2xl font-black uppercase text-lg hover:bg-gray-200 transition-all shadow-sm">
-                    Aceptar
-                </button>
+    <div class="min-h-screen p-4 font-sans flex flex-col items-center gap-4 rounded-2xl">
+
+        {{-- FILA SUPERIOR --}}
+        <div class="flex flex-col md:flex-row gap-4 w-full max-w-[1100px] items-stretch">
+            <div class="md:flex-[3] flex flex-col gap-4">
+                <div class="w-full bg-white rounded-xl p-4 shadow-sm h-auto">
+                    <img src="{{ asset('banner.png') }}" class="w-full max-h-[300px] object-cover rounded-lg block">
+                </div>
+                
+                @auth
+                <div class="w-full">
+                    <button onclick="window.location.href='{{ route('actividades.create') }}'"
+                        aria-label="Crear una nueva actividad"
+                        class="w-full h-32 bg-white border-4 border-dashed border-indigo-600 rounded-[35px] text-indigo-600 hover:bg-indigo-50 transition-all flex flex-col items-center justify-center gap-2 group shadow-sm">
+                        <i class="bi bi-plus-circle-fill text-5xl group-hover:scale-110 transition-transform"
+                            aria-hidden="true"></i>
+                        <span class="text-2xl font-black uppercase tracking-widest">Crear Nueva Actividad</span>
+                    </button>
+                </div>
+                @endauth
+            </div>
+
+
+            {{-- BARRA LATERAL: AMIGOS --}}
+            <div class="w-full md:w-[240px] bg-white rounded-xl p-4 shadow-sm flex flex-col">
+                <h4 class="m-0 mb-3 text-[#bc6a50] text-lg font-semibold border-b pb-2 text-center uppercase text-sm">Añadir
+                    Amigos</h4>
+                <div class="flex-1 overflow-y-auto custom-scrollbar">
+                    <ul class="list-none p-0 m-0">
+                        @php
+                            // Solo ocultamos a:
+                            // 1. Nosotros mismos
+                            // 2. Amigos ya ACEPTADOS (status = aceptada) en cualquier dirección
+                            $idsOcultar = \DB::table('amigos')
+                                ->where(function ($q) {
+                                    $q->where('user_id', auth()->id())
+                                        ->orWhere('amigo_id', auth()->id());
+                                })
+                                ->where('status', 'aceptada')
+                                ->get()
+                                ->map(function ($row) {
+                                    return $row->user_id == auth()->id() ? $row->amigo_id : $row->user_id;
+                                })
+                                ->push(auth()->id());
+
+                            $usuarios_db = \App\Models\User::whereNotIn('id', $idsOcultar)
+                                ->where('email', '!=', 'cabrerajosedaniel89@gmail.com')
+                                ->latest()->take(12)->get();
+                        @endphp
+                        @foreach($usuarios_db as $u)
+                            <li data-user='@json($u)'
+                                class="abrir-modal-amigo-btn flex items-center gap-3 p-2 hover:bg-indigo-50 rounded-xl cursor-pointer transition-all mb-2 border border-transparent hover:border-indigo-100 group">
+                                <div
+                                    class="w-9 h-9 rounded-full bg-gray-100 flex-shrink-0 border shadow-sm overflow-hidden group-hover:scale-110 transition-transform">
+                                    @if($u->perfil_foto)
+                                        <img src="/{{ $u->perfil_foto }}" class="w-full h-full object-cover">
+                                    @else
+                                        <div class="w-full h-full flex items-center justify-center text-xl">👤</div>
+                                    @endif
+                                </div>
+                                <span class="text-sm font-medium text-gray-700 truncate">{{ $u->name }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
         </div>
 
-        {{-- CABECERA --}}
-        <div class="flex flex-col md:flex-row items-center gap-4 mb-8 bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
-            <div class="flex items-center gap-4 w-full md:w-auto">
-                @if($actividad->imagen)
-                    <img src="{{ asset($actividad->imagen) }}" class="w-14 h-14 md:w-16 md:h-16 rounded-2xl object-cover shadow-sm">
-                @endif
-                <div class="flex-1">
-                    <h2 class="text-2xl md:text-3xl font-black text-gray-800 uppercase leading-tight">
-                        {{ $actividad->nombre }}
-                    </h2>
-                    <p class="text-gray-400 font-bold uppercase text-[10px] md:text-xs tracking-widest">
-                        <i class="bi bi-images text-pink-500 mr-1"></i> Álbum Digital
-                    </p>
-                </div>
-            </div>
-            <a href="{{ route('pagina.album') }}" class="w-full md:w-auto md:ml-auto px-6 py-4 md:py-3 bg-gray-100 text-gray-600 rounded-2xl font-black uppercase text-xs hover:bg-gray-200 transition-all text-center">
-                <i class="bi bi-arrow-left mr-1"></i> Volver
-            </a>
-        </div>
 
-        {{-- DROPZONE --}}
-        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-gray-100 mb-8 text-center">
-            <h4 class="text-lg font-black text-gray-800 uppercase mb-4">Subir contenido</h4>
-            <div id="dropzone" class="border-4 border-dashed border-gray-100 rounded-[30px] p-6 md:p-10 flex flex-col items-center justify-center cursor-pointer hover:border-pink-300 hover:bg-pink-50 transition-all group relative">
-                <input type="file" id="fileInput" class="absolute inset-0 opacity-0 cursor-pointer z-50" accept="image/*,video/*">
-                <div class="w-16 h-16 md:w-20 md:h-20 bg-gray-50 group-hover:bg-white rounded-2xl flex items-center justify-center mb-4 transition-colors">
-                    <i class="bi bi-cloud-arrow-up-fill text-3xl md:text-4xl text-gray-300 group-hover:text-pink-500"></i>
+        {{-- SECCIÓN ACTIVIDADES --}}
+        <section class="w-full max-w-[1100px] bg-white rounded-xl p-6 shadow-sm" aria-labelledby="titulo-actividades">
+            <h2 id="titulo-actividades"
+                class="m-0 mb-4 text-gray-800 text-2xl font-bold border-b pb-3 uppercase flex items-center gap-2">
+                <i class="bi bi-calendar-event text-[#bc6a50]" aria-hidden="true"></i> Próximas Actividades
+            </h2>
+            <div id="contenedor-actividades" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @include('actividades.partials.lista')
+            </div>
+
+            @if($actividades->hasMorePages())
+                <div id="wrapper-btn-cargar" class="flex flex-col items-center mt-10 border-t pt-6">
+                    <button id="btn-cargar-mas" data-pagina="2" aria-label="Cargar más actividades en la lista"
+                        class="bg-[#ecb577] text-[#212121] px-12 py-4 rounded-xl font-black uppercase text-sm hover:bg-[#d9a466] shadow-lg transition-all min-h-[60px]">
+                        Cargar más actividades
+                    </button>
+                    <p id="restantes-cnt" class="mt-4 text-gray-600 font-bold uppercase text-xs tracking-widest hidden"
+                        role="status"></p>
                 </div>
-                <p class="text-gray-400 font-bold uppercase text-xs md:text-sm group-hover:text-gray-600">
-                    Pulsa para elegir fotos o videos
-                </p>
-                <div id="progressContainer" class="hidden w-full max-w-md bg-gray-100 rounded-full h-4 mt-8 overflow-hidden">
-                    <div id="progressBar" class="bg-pink-500 h-full w-0 transition-all duration-300 flex items-center justify-center text-[12px] text-white font-bold">
-                        0%
+            @endif
+        </section>
+
+        @auth
+            {{-- SECCIÓN Albumes --}}
+            <section class="w-full max-w-[1100px] bg-white rounded-xl p-6 shadow-sm mb-4" aria-labelledby="titulo-albumes">
+                <h2 id="titulo-albumes"
+                    class="m-0 mb-4 text-gray-800 text-2xl font-bold border-b pb-3 uppercase flex items-center gap-2">
+                    <i class="bi bi-images text-[#bc6a50]" aria-hidden="true"></i> Mis Álbumes
+                </h2>
+                <div id="contenedor-albumes" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    @include('album.partials.lista')
+                </div>
+            </section>
+        @endauth
+    </div>
+
+
+    {{-- MODAL GLOBAL REFORMADO --}}
+    <div id="modalGlobal"
+        class="fixed inset-0 bg-black/70 z-[99999] hidden flex items-center justify-center p-4 backdrop-blur-sm"
+        role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div id="modalContenido"
+            class="bg-white rounded-[40px] max-w-sm w-full p-8 shadow-2xl transition-all transform scale-95 opacity-0">
+
+            {{-- PASO 1: FORMULARIO/INFO --}}
+            <div id="step-form">
+                <div id="modal-dinamico-body" class="text-center">
+                    {{-- Contenido dinámico --}}
+                </div>
+
+                {{-- CONTENEDOR DE ERROR ESTILIZADO (Sustituye al Alert) --}}
+                <div id="error-container"
+                    class="hidden mt-6 p-4 bg-red-50 border border-red-100 rounded-2xl flex items-center gap-3 animate-pulse"
+                    role="alert">
+                    <i class="bi bi-exclamation-octagon-fill text-red-500 text-xl" aria-hidden="true"></i>
+                    <p id="error-msg" class="text-red-700 text-sm font-bold uppercase italic"></p>
+                </div>
+
+                <button id="btn-confirmar-accion"
+                    class="w-full py-5 text-white rounded-2xl font-black uppercase tracking-widest shadow-lg mt-6 active:scale-95 transition-all text-lg"></button>
+                <button onclick="cerrarModal()"
+                    class="w-full mt-6 text-gray-500 font-bold uppercase text-sm hover:text-gray-700 transition-colors p-2">Cancelar</button>
+            </div>
+
+            {{-- PASO 2: ÉXITO --}}
+            <div id="step-exito" class="hidden text-center py-6">
+                <div
+                    class="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 id="modal-exito-title" class="text-2xl font-black text-gray-800 uppercase">¡Completado!</h3>
+                <p id="msg-exito" class="text-gray-600 text-lg mt-3 italic font-medium"></p>
+                <button onclick="cerrarModal()"
+                    class="mt-8 w-full py-5 bg-gray-800 text-white rounded-2xl font-black uppercase hover:bg-black transition-all text-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    {{-- SCRIPTS --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Variables de Estado
+        window.itemSeleccionado = null;
+        window.tipoAccion = '';
+        @php
+            $amigosCollection = \DB::table('amigos')
+                ->where('status', 'aceptada')
+                ->where(function ($q) {
+                    $q->where('user_id', auth()->id())
+                      ->orWhere('amigo_id', auth()->id());
+                })
+                ->get();
+            $misAmigosIds = $amigosCollection->pluck('user_id')->merge($amigosCollection->pluck('amigo_id'))->unique()->reject(function($id) { return $id == auth()->id(); })->values()->toArray();
+        @endphp
+        window.misAmigosIds = @json($misAmigosIds ?? []);
+        window.currentUserId = {{ auth()->id() ?? 0 }};
+        window.currentUserData = { 
+            id: window.currentUserId, 
+            name: @json(auth()->user()?->name ?? 'Usuario'), 
+            perfil_foto: @json(auth()->user()?->perfil_foto ?? '') 
+        };
+
+        window.cerrarSwalYAbrirAmigo = function(u) {
+            if(typeof Swal !== 'undefined') Swal.close();
+            abrirModalAmigo(u);
+        };
+
+        // Soporte para tecla Escape
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('modalGlobal');
+                if (!modal.classList.contains('hidden')) {
+                    cerrarModal();
+                }
+            }
+        });
+
+        // 1. DELEGACIÓN DE EVENTOS (Para botones de amigos y actividades)
+        document.addEventListener('click', function (e) {
+            // Click en Amigo
+            const btnAmigo = e.target.closest('.abrir-modal-amigo-btn');
+            if (btnAmigo) {
+                const data = JSON.parse(btnAmigo.getAttribute('data-user'));
+                abrirModalAmigo(data);
+                return;
+            }
+
+            // Click en Actividad (Botón Ver Más)
+            if (e.target && e.target.classList.contains('btn-ver-mas-act')) {
+                const data = JSON.parse(e.target.getAttribute('data-actividad'));
+                abrirModalAct(data);
+                return;
+            }
+
+            // Click en Ver Inscritos
+            const btnInscritos = e.target.closest('.btn-ver-inscritos');
+            if (btnInscritos) {
+                const act = JSON.parse(btnInscritos.getAttribute('data-actividad'));
+                
+                let htmlList = '<div class="flex flex-col gap-3 mt-4 text-left max-h-60 overflow-y-auto custom-scrollbar p-2">';
+                if (act.users && act.users.length > 0) {
+                    act.users.forEach(u => {
+                        let foto = u.perfil_foto ? `/${u.perfil_foto}` : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(u.name) + '&background=random';
+                        
+                        let esAmigo = window.misAmigosIds && window.misAmigosIds.includes(u.id);
+                        let isMe = u.id === window.currentUserId;
+                        
+                        let badgeOrBtn = '';
+                        if (isMe) {
+                            badgeOrBtn = `<span class="text-[10px] font-bold text-gray-400 uppercase">Tú</span>`;
+                        } else if (esAmigo) {
+                            badgeOrBtn = `<span class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-md uppercase border border-green-200"><i class="fa-solid fa-user-check"></i> Amigo</span>`;
+                        } else {
+                            badgeOrBtn = `<button onclick='cerrarSwalYAbrirAmigo(${JSON.stringify(u)})' class="bg-indigo-50 text-indigo-600 hover:bg-indigo-100 text-[10px] font-bold px-2 py-1 rounded-md uppercase border border-indigo-200 transition-colors"><i class="fa-solid fa-user-plus"></i> Ver Perfil</button>`;
+                        }
+                        
+                        htmlList += `
+                            <div class="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-200 shadow-sm hover:border-indigo-100 transition-colors">
+                                <div class="flex items-center gap-3">
+                                    <img src="${foto}" class="w-10 h-10 rounded-full object-cover shadow-sm">
+                                    <span class="font-bold text-gray-800">${u.name}</span>
+                                </div>
+                                <div>
+                                    ${badgeOrBtn}
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    htmlList += '<div class="p-4 text-center text-gray-500 italic">Aún no hay usuarios inscritos en esta actividad.</div>';
+                }
+                htmlList += '</div>';
+
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        title: `Inscritos: ${act.nombre}`,
+                        html: htmlList,
+                        confirmButtonColor: '#bc6a50',
+                        confirmButtonText: 'Cerrar',
+                        customClass: { popup: 'rounded-3xl' }
+                    });
+                } else {
+                    alert('Inscritos: ' + (act.users ? act.users.map(u=>u.name).join(', ') : 'Ninguno'));
+                }
+                return;
+            }
+
+            // Click en Botón Confirmar Modal
+            if (e.target && e.target.id === 'btn-confirmar-accion') {
+                enviarServidor(e.target);
+            }
+        });
+
+        // 2. FUNCIONES DE APERTURA
+        function abrirModalAmigo(user) {
+            window.itemSeleccionado = user;
+            window.tipoAccion = 'amigo';
+
+            let edad = 'N/A';
+            if (user.fecha_nacimiento) {
+                let nac = new Date(user.fecha_nacimiento);
+                let hoy = new Date();
+                edad = hoy.getFullYear() - nac.getFullYear();
+                if (hoy.getMonth() < nac.getMonth() || (hoy.getMonth() === nac.getMonth() && hoy.getDate() < nac.getDate())) edad--;
+            }
+
+            const fotoHtml = user.perfil_foto
+                ? `<img src="/${user.perfil_foto}" class="w-24 h-24 rounded-full border-4 border-white shadow-xl object-cover mx-auto">`
+                : `<div class="w-24 h-24 bg-gray-100 rounded-full border-4 border-white shadow-xl flex items-center justify-center text-5xl mx-auto">👤</div>`;
+
+            document.getElementById('modal-dinamico-body').innerHTML = `
+                ${fotoHtml}
+                <h3 class="text-2xl font-black text-[#32424D] uppercase mt-4">${user.name}</h3>
+                <div class="grid grid-cols-2 gap-4 mt-8">
+                    <div class="bg-gray-50 p-5 rounded-2xl border-2 font-bold italic">
+                        <p class="text-xs text-gray-500 uppercase tracking-wider">Género</p>
+                        <p class="text-indigo-700 uppercase text-sm">${user.genero || 'N/A'}</p>
+                    </div>
+                    <div class="bg-gray-50 p-5 rounded-2xl border-2 font-bold italic">
+                        <p class="text-xs text-gray-500 uppercase tracking-wider">Edad</p>
+                        <p class="text-indigo-700 uppercase text-sm">${edad} AÑOS</p>
                     </div>
                 </div>
-            </div>
-        </div>
+                <p class="mt-6 text-gray-600 font-bold uppercase text-xs tracking-widest">¿Enviar solicitud de amistad?</p>
+            `;
 
-        {{-- GALERÍA --}}
-        <div id="galeria-grid" class="grid grid-cols-2 md:grid-cols-3 gap-6">
-            {{-- Se rellena dinámicamente por JS --}}
-        </div>
-    </div>
-</div>
+            const btn = document.getElementById('btn-confirmar-accion');
+            btn.disabled = false;
+            btn.innerText = 'ENVIAR SOLICITUD';
+            btn.className = "w-full py-4 bg-[#B8A019] text-white rounded-2xl font-black uppercase tracking-widest shadow-lg hover:bg-[#907D14]";
 
-<!-- MODAL LIGHTBOX -->
-<div id="mediaModal" class="fixed inset-0 bg-black/98 z-[9999] hidden flex flex-col items-center justify-center p-4 backdrop-blur-md">
-    <!-- BOTÓN CERRAR -->
-    <button onclick="cerrarMedia()" class="absolute top-4 right-4 md:top-6 md:right-6 w-14 h-14 md:w-16 md:h-16 rounded-full border-2 border-white bg-black/40 shadow-2xl flex items-center justify-center text-white text-2xl md:text-3xl hover:bg-black/60 transition-all duration-300 z-[10002]">
-        <i class="bi bi-x-lg"></i>
-    </button>
-    <!-- FLECHA IZQUIERDA -->
-    <button onclick="cambiarMedia(-1)" class="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-white bg-black/40 shadow-2xl flex items-center justify-center text-white text-2xl md:text-3xl hover:bg-black/60 transition-all duration-300 z-[10001]">
-        <i class="bi bi-chevron-left"></i>
-    </button>
-    <!-- CONTENIDO -->
-    <div id="mediaContent" class="w-full h-full flex items-center justify-center" onclick="cerrarMedia()"></div>
-    <!-- FLECHA DERECHA -->
-    <button onclick="cambiarMedia(1)" class="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-white bg-black/40 shadow-2xl flex items-center justify-center text-white text-2xl md:text-3xl hover:bg-black/60 transition-all duration-300 z-[10001]">
-        <i class="bi bi-chevron-right"></i>
-    </button>
-    <!-- CONTADOR FIJO ABAJO -->
-    <div id="mediaCounter" class="mt-4 text-white text-lg md:text-xl font-bold uppercase tracking-widest z-[10003] bg-black/40 px-6 py-2 rounded-full border border-white/20"></div>
-</div>
-
-{{-- MODAL DE CONFIRMACIÓN --}}
-<div id="confirmModal" class="fixed inset-0 bg-black/80 z-[10006] hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl transform animate-fadeIn">
-        <i class="bi bi-exclamation-octagon text-red-500 text-5xl mb-4"></i>
-        <h3 class="text-2xl font-black text-gray-800 uppercase mb-2">¿Estás seguro?</h3>
-        <p class="text-gray-500 font-bold text-lg mb-6 uppercase">Esta acción no se puede deshacer.</p>
-        <div class="flex gap-3">
-            <button onclick="cerrarConfirmar()" class="flex-1 py-3 bg-gray-100 text-gray-600 rounded-2xl font-black uppercase text-lg">
-                Cancelar
-            </button>
-            <button id="btnConfirmarEliminar" class="flex-1 py-3 bg-red-500 text-white rounded-2xl font-black uppercase text-lg shadow-lg shadow-red-200">
-                Eliminar
-            </button>
-        </div>
-    </div>
-</div>
-
-<script>
-    let mediaItems = @json($items); // Archivos cargados desde el backend
-    let currentIndex = 0;
-    let itemAEliminar = null;
-    const authUserId = {{ Auth::id() ?? 'null' }};
-    const adminEmail = 'cabrerajosedaniel89@gmail.com';
-    const userEmail = '{{ Auth::user()->email ?? "" }}';
-
-    /* --- MENSAJES MODAL --- */
-    function showToast(mensaje, tipo = 'success') {
-        const modal = document.getElementById('messageModal');
-        const icon = document.getElementById('imgMensaje');
-        const title = document.getElementById('tituloMensaje');
-        
-        if (tipo === 'success') {
-            icon.className = 'bi bi-check-circle-fill text-green-500 text-6xl mb-4 block animate-bounce';
-            title.innerText = '¡Éxito!';
-        } else {
-            icon.className = 'bi bi-exclamation-triangle-fill text-red-500 text-6xl mb-4 block animate-pulse';
-            title.innerText = 'Error';
+            lanzarModal();
         }
-        document.getElementById('textoMensaje').innerText = mensaje;
-        modal.classList.remove('hidden');
-    }
 
-    function cerrarMensaje() {
-        document.getElementById('messageModal').classList.add('hidden');
-    }
+        function abrirModalAct(act) {
+            window.itemSeleccionado = act;
+            window.tipoAccion = 'actividad';
 
-    /* --- GALERÍA --- */
-    function renderizarGaleria() {
-        const grid = document.getElementById('galeria-grid');
-        grid.innerHTML = '';
-        const baseUrl = '{{ asset("") }}';
-        
-        mediaItems.forEach((item, index) => {
-            const esDuenio = (String(item.user_id) === String(authUserId) || userEmail === adminEmail);
-            const mediaHtml = item.tipo === 'foto'
-                ? `<img src="${baseUrl}${item.url}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">`
-                : `<video src="${baseUrl}${item.url}" class="w-full h-full object-cover"></video><div class="absolute inset-0 flex items-center justify-center"><i class="bi bi-play-circle-fill text-white/80 text-5xl"></i></div>`;
-            
-            const div = document.createElement('div');
-            div.className = "aspect-square relative group rounded-3xl overflow-hidden shadow-sm border border-gray-100 bg-white animate-fadeIn";
-            div.innerHTML = `
-                ${mediaHtml}
-                <div class="absolute inset-0 bg-black/40 md:opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                    <button onclick="verMedia(${index})" class="w-12 h-12 md:w-16 md:h-16 bg-white rounded-2xl flex items-center justify-center text-gray-800 hover:scale-110 transition-transform text-xl md:text-2xl">
-                        <i class="bi bi-eye-fill"></i>
-                    </button>
-                    ${esDuenio ? `<button onclick="confirmarEliminar(${item.id})" class="w-12 h-12 md:w-16 md:h-16 bg-red-500 rounded-2xl flex items-center justify-center text-white hover:scale-110 transition-transform text-xl md:text-2xl"><i class="bi bi-trash-fill"></i></button>` : ''}
-                </div>`;
-            grid.appendChild(div);
-        });
-    }
+            document.getElementById('modal-dinamico-body').innerHTML = `
+                <h3 class="text-2xl font-black text-gray-800 uppercase">${act.nombre}</h3>
+                <div class="my-6 bg-indigo-50 p-8 rounded-[30px] border-2 border-dashed border-indigo-200">
+                    <p class="text-indigo-700 font-bold uppercase tracking-widest text-xs mb-2">Creado por</p>
+                    <p class="text-gray-900 font-black italic mb-4 text-xl">${act.user ? act.user.name : (act.creador ? act.creador.name : (act.usuario ? act.usuario.name : 'Usuario'))}</p>
+                    <div class="h-[2px] bg-indigo-100 mb-4"></div>
+                    <p class="text-indigo-700 font-bold uppercase tracking-widest text-xs mb-2">Lugar del evento</p>
+                    <p class="text-gray-900 font-black italic mb-4 text-xl">${act.lugar}</p>
+                    <div class="h-[2px] bg-indigo-100 mb-4"></div>
+                    <p class="text-indigo-700 font-bold uppercase tracking-widest text-xs mb-2">Hora inicio</p>
+                    <p class="text-4xl font-black text-indigo-800 italic">${act.hora ? act.hora.substring(0, 5) : ''}h</p>
+                </div>
+            `;
 
-    /* --- MODAL LIGHTBOX --- */
-    function verMedia(index) {
-        if (index < 0) index = mediaItems.length - 1;
-        if (index >= mediaItems.length) index = 0;
-        currentIndex = index;
-        
-        const item = mediaItems[currentIndex];
-        const baseUrl = '{{ asset("") }}';
-        const url = `${baseUrl}${item.url}`;
-        const mediaContent = document.getElementById('mediaContent');
-        
-        mediaContent.innerHTML = item.tipo === 'foto'
-            ? `<img src="${url}" class="max-w-[70%] max-h-[90%] rounded-2xl shadow-2xl object-contain animate-fadeIn" onclick="event.stopPropagation()">`
-            : `<video src="${url}" controls autoplay class="max-w-[70%] max-h-[90%] rounded-2xl shadow-2xl animate-fadeIn" onclick="event.stopPropagation()"></video>`;
-        
-        document.getElementById('mediaCounter').innerText = `${currentIndex + 1} / ${mediaItems.length}`;
-        document.getElementById('mediaModal').classList.remove('hidden');
-    }
+            const btn = document.getElementById('btn-confirmar-accion');
+            btn.disabled = false;
+            btn.innerText = 'CONFIRMAR ASISTENCIA';
+            btn.className = "w-full py-4 bg-[#bc6a50] text-white rounded-2xl font-black uppercase tracking-widest shadow-lg hover:bg-[#8e4f3c]";
 
-    function cambiarMedia(dir) { 
-        verMedia(currentIndex + dir); 
-    }
+            lanzarModal();
+        }
 
-    function cerrarMedia() {
-        document.getElementById('mediaModal').classList.add('hidden'); 
-    }
+        // 3. CONTROL VISUAL MODAL
+        function lanzarModal() {
+            const m = document.getElementById('modalGlobal');
+            const c = document.getElementById('modalContenido');
+            m.classList.remove('hidden');
+            setTimeout(() => { c.classList.remove('scale-95', 'opacity-0'); c.classList.add('scale-100', 'opacity-100'); }, 10);
+        }
 
-    /* --- ELIMINAR --- */
-    function confirmarEliminar(id) {
-        itemAEliminar = id;
-        document.getElementById('confirmModal').classList.remove('hidden');
-    }
+        window.cerrarModal = function () {
+            const c = document.getElementById('modalContenido');
+            c.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                document.getElementById('modalGlobal').classList.add('hidden');
+                document.getElementById('step-form').classList.remove('hidden');
+                document.getElementById('step-exito').classList.add('hidden');
+                document.getElementById('error-container').classList.add('hidden');
+            }, 200);
+        }
 
-    function cerrarConfirmar() {
-        document.getElementById('confirmModal').classList.add('hidden');
-        itemAEliminar = null;
-    }
+        // 4. LÓGICA DE SERVIDOR (AJAX + FEEDBACK)
+        function enviarServidor(btn) {
+            const errContainer = document.getElementById('error-container');
+            errContainer.classList.add('hidden');
 
-    document.getElementById('btnConfirmarEliminar').onclick = function() {
-        if (!itemAEliminar) return;
-        const id = itemAEliminar;
-        cerrarConfirmar();
-        
-        const eliminarUrl = `/album/${id}`;
-        
-        // CORRECCIÓN DEFINITIVA: Usamos método POST encapsulado con FormData para camuflar el DELETE.
-        // Esto previene que proxies intermedios o balanceadores en la nube (como Railway) tumben la petición.
-        const formData = new FormData();
-        formData.append('_token', '{{ csrf_token() }}');
-        formData.append('_method', 'DELETE');
+            btn.disabled = true;
+            btn.innerText = 'PROCESANDO...';
 
-        fetch(eliminarUrl, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        .then(async res => {
-            if (!res.ok) {
-                const text = await res.text();
-                console.error("Respuesta fallida del servidor:", text);
-                throw new Error(`Error HTTP: ${res.status}`);
-            }
-            return res.json();
-        })
-        .then(data => {
-            if (data.success) {
-                const wasInLightbox = !document.getElementById('mediaModal').classList.contains('hidden');
-                mediaItems = mediaItems.filter(item => item.id !== id);
-                renderizarGaleria();
-                showToast("Archivo eliminado correctamente");
-                
-                if (wasInLightbox) {
-                    if (mediaItems.length > 0) {
-                        if (currentIndex >= mediaItems.length) currentIndex = mediaItems.length - 1;
-                        verMedia(currentIndex);
+            const url = window.tipoAccion === 'amigo'
+                ? `/amigos/${window.itemSeleccionado.id}/solicitar`
+                : `/actividades/${window.itemSeleccionado.id}/inscribir`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('step-form').classList.add('hidden');
+                        document.getElementById('step-exito').classList.remove('hidden');
+                        document.getElementById('msg-exito').innerText = data.message || "Operación realizada correctamente";
+
+                        // Reactividad en la lista
+                        if (window.tipoAccion === 'actividad') {
+                            // Notificar al calendario de la navbar
+                            window.dispatchEvent(new CustomEvent('inscripcion-actualizada'));
+
+                            // AGREGADO: Actualizar la lista de inscritos dinámicamente
+                            if (!window.itemSeleccionado.users) {
+                                window.itemSeleccionado.users = [];
+                            }
+                            if (!window.itemSeleccionado.users.some(u => u.id === window.currentUserId)) {
+                                window.itemSeleccionado.users.push(window.currentUserData);
+                            }
+
+                            // Buscar el botón de ver inscritos y actualizar su data
+                            const btnInscritos = document.querySelector(`.btn-ver-inscritos[data-actividad*='"id":${window.itemSeleccionado.id}']`);
+                            if (btnInscritos) {
+                                let actData = JSON.parse(btnInscritos.getAttribute('data-actividad'));
+                                if (!actData.users) actData.users = [];
+                                if (!actData.users.some(u => u.id === window.currentUserId)) {
+                                    actData.users.push(window.currentUserData);
+                                }
+                                btnInscritos.setAttribute('data-actividad', JSON.stringify(actData));
+                            }
+
+                            const selector = `.btn-ver-mas-act[data-actividad*='"id":${window.itemSeleccionado.id}']`;
+                            const bOriginal = document.querySelector(selector);
+                            if (bOriginal) {
+                                bOriginal.disabled = true;
+                                bOriginal.innerText = '¡APUNTADO!';
+                                bOriginal.className = "bg-gray-100 text-gray-400 px-4 py-1.5 rounded-lg font-black text-xs uppercase cursor-default shadow-none border-none";
+                                bOriginal.classList.remove('btn-ver-mas-act');
+                            }
+                        }
                     } else {
-                        cerrarMedia();
+                        // FORMATO ERROR ESTILIZADO
+                        errContainer.classList.remove('hidden');
+                        document.getElementById('error-msg').innerText = data.message || "Error al procesar la solicitud";
+
+                        // Efecto de vibración al contenido
+                        const c = document.getElementById('modalContenido');
+                        c.classList.add('animate-shake');
+                        setTimeout(() => c.classList.remove('animate-shake'), 400);
+
+                        btn.disabled = false;
+                        btn.innerText = 'REINTENTAR';
                     }
-                }
-            } else {
-                showToast(data.message || "Error al eliminar", "error");
-            }
-        })
-        .catch(err => {
-            console.error("Error en fetch:", err);
-            showToast("Error de red o del servidor. Revisa F12.", "error");
-        });
-    }
+                })
+                .catch(err => {
+                    errContainer.classList.remove('hidden');
+                    document.getElementById('error-msg').innerText = "Fallo de conexión con el servidor";
+                    btn.disabled = false;
+                    btn.innerText = 'ERROR';
+                });
+        }
 
-    /* --- SUBIDA DE ARCHIVOS --- */
-    document.addEventListener('DOMContentLoaded', function() {
-        renderizarGaleria();
-        const fileInput = document.getElementById('fileInput');
-        
-        fileInput?.addEventListener('change', function(e) {
-            const file = e.target.files[0]; 
-            if (!file) return;
-            
-            const formData = new FormData();
-            formData.append('archivo', file);
-            formData.append('actividad_id', '{{ $actividad->id }}');
-            document.getElementById('progressContainer').classList.remove('hidden');
-            
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', '{{ route("album.subir") }}', true);
-            xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
-            
-            xhr.upload.onprogress = (ev) => {
-                const percent = Math.round((ev.loaded / ev.total) * 100);
-                document.getElementById('progressBar').style.width = percent + '%';
-                document.getElementById('progressBar').innerText = percent + '%';
-            };
-            
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    const res = JSON.parse(xhr.responseText);
-                    mediaItems.unshift(res.item);
-                    renderizarGaleria();
-                    showToast("¡Contenido subido con éxito!");
-                    document.getElementById('progressContainer').classList.add('hidden');
-                    document.getElementById('progressBar').style.width = '0%';
-                    fileInput.value = '';
+        // 5. CARGAR MÁS (SCROLL INFINITO)
+        $(document).ready(function () {
+            // Inicializar contador de actividades restantes
+            @php
+                $ahora = \Carbon\Carbon::now();
+                $hoyNum = $ahora->toDateString();
+                $horaNum = $ahora->toTimeString();
+                $totalActividades = \App\Models\Actividades::where(function ($query) use ($hoyNum, $horaNum) {
+                    $query->where('fecha', '>', $hoyNum)
+                        ->orWhere(function ($q) use ($hoyNum, $horaNum) {
+                            $q->where('fecha', $hoyNum)
+                                ->where('hora', '>=', $horaNum);
+                        });
+                })->count();
+            @endphp
+            let totalActividades = {{ $totalActividades }};
+    let mostradas = {{ $actividades->count() }};
+
+            function actualizarContador() {
+                let restantes = totalActividades - mostradas;
+                if (restantes > 0) {
+                    $('#restantes-cnt').html(`QUEDAN <span class="text-blue-600 font-black">${restantes}</span> ACTIVIDADES OCULTAS`);
+                    $('#restantes-cnt').show();
                 } else {
-                    showToast("Error al subir el archivo", "error");
-                    document.getElementById('progressContainer').classList.add('hidden');
+                    $('#restantes-cnt').hide();
                 }
-            };
-            xhr.send(formData);
-        });
-    });
-</script>
+            }
 
-<style>
-    @keyframes fadeIn {
-        from { opacity: 0; transform: scale(0.9); }
-        to { opacity: 1; transform: scale(1); }
+            actualizarContador();
+
+             $('#btn-cargar-mas').on('click', function() {
+                let btn = $(this);
+                let pagina = btn.data('pagina');
+    btn.prop('disabled', true).text('BUSCANDO MÁS...');
+
+                 $.get( "?page=" + pagina, function(data) {
+                    if(data.trim()) {
+                        let tempDiv = $('<div>').append(data);
+                        // Contamos los elementos por su clase de contenedor
+                        let nuevas = tempDiv.find('.actividad-item').length; 
+
+                        if (nuevas > 0) {
+                            $("#contenedor-actividades").append(data);
+                            mostradas += nuevas;
+                            btn.data('pagina', pagina + 1).prop('disabled', false).text('Cargar más actividades');
+                            actualizarContador();
+                        } else {
+                            btn.hide();
+                            $('#restantes-cnt').hide();
+                        }
+                    } else { 
+                        btn.hide(); 
+                        $('#restantes-cnt').hide();
+                    }
+                });
+            });
+        });
+    </script>
+
+        <style>
+        /* Animación Shake
+     para errores */
+        @keyfra
+           mes sha
+        k       e {
+
+
+            0%, 1
+    0           0% { transform: translateX(0
+    )       ; }
+
+            25% {
+                transform: translateX(-8px)
+           ; 
     }
-    .animate-fadeIn { 
-        animation: fadeIn 0.3s ease-out forwards; 
-    }
-</style>
+            50% {
+                transform: translateX(8px); 
+           }
+
+       75% { transform: translateX(-8px); }
+        }
+
+
+       .animate-shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+    </style>
 @endsection
