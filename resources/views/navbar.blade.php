@@ -10,15 +10,18 @@
     }
 @endphp
 
+<!-- DESKTOP NAVBAR -->
 <nav id="sidebar-desktop"
     class="hidden lg:flex bg-[#D4B830] shadow-xl fixed left-0 top-0 h-full w-64 flex-col z-[70] overflow-y-auto">
     
+    <!-- Logo Sidebar -->
     <div class="w-full flex justify-center mt-8 mb-6">
         <a href="{{ route('pagina.inicio') }}" class="block p-1 bg-white rounded-full shadow-lg transform hover:scale-105 transition-transform">
             <img src="{{ asset('logo.png') }}" class="h-28 w-28 rounded-full border-[3px] border-[#D4B830] object-cover">
         </a>
     </div>
 
+    <!-- Enlaces (Desktop) -->
     <ul id="nav-lista-desktop" class="w-full flex flex-col items-start px-6 gap-y-6 font-black text-[#32424D] text-lg pb-6">
         
         <li class="w-full">
@@ -27,6 +30,7 @@
             </a>
         </li>
         
+        <!-- MIS ACTIVIDADES - Componente Vue -->
         <li class="w-full hover:translate-x-1">
             <calendario-navbar 
                 :initial-inscripciones="{{ json_encode(array_values($inscripciones_data ?? [])) }}" 
@@ -43,6 +47,7 @@
 
         @auth
         <li class="w-full hover:translate-x-1">
+            <!-- NOTIFICACIONES (Amigos) - Componente Vue -->
             <notificaciones-amistad 
                 route-index="{{ route('notificaciones.index') }}"
                 route-aceptar="{{ route('amigos.accept', ':id') }}"
@@ -87,35 +92,30 @@
     </ul>
 </nav>
 
+<!-- MOBILE NAVBAR (Menú) -->
 <nav id="sidebar-mobile"
     class="lg:hidden bg-[#D4B830] shadow-xl fixed left-0 top-0 h-full w-full flex flex-col z-[10000] overflow-y-auto transform -translate-x-full transition-transform duration-300">
     
+    <!-- Botón cerrar móvil -->
     <button id="menu-close" aria-label="Cerrar menú" class="absolute top-6 right-6 text-white hover:text-gray-200">
         <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
         </svg>
     </button>
 
+    <!-- Logo Sidebar -->
     <div class="w-full flex justify-center mt-6 mb-6">
         <a href="{{ route('pagina.inicio') }}" class="block p-1 bg-white rounded-full shadow-lg transform hover:scale-105 transition-transform">
             <img src="{{ asset('logo.png') }}" class="h-20 w-20 rounded-full border-[3px] border-[#D4B830] object-cover">
         </a>
     </div>
 
+    <!-- Enlaces (Móvil) -->
     <ul id="nav-lista-movil" class="w-full flex flex-col items-start px-8 gap-y-8 font-black text-[#32424D] text-lg">
         
         @auth
-        <li class="w-full hover:translate-x-2 transition-transform">
-            <notificaciones-amistad 
-                route-index="{{ route('notificaciones.index') }}"
-                route-aceptar="{{ route('amigos.accept', ':id') }}"
-                route-rechazar="{{ route('amigos.reject', ':id') }}"
-                csrf="{{ csrf_token() }}">
-            </notificaciones-amistad>
-        </li>
-
         <li class="w-full mt-auto pt-6 border-t border-[#32424D]/20 ">
-            <a href="{{ route('profile.edit') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-4 w-full uppercase hover:translate-x-2 text-2xl">
+            <a href="{{ route('profile.edit') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-4 w-full uppercase hover:translate-x-2  text-2xl">
                 @if(Auth::check() && Auth::user()->perfil_foto)
                     <img src="{{ asset(Auth::user()->perfil_foto) }}" class="w-10 h-10 rounded-full border-2 border-[#32424D] object-cover" alt="">
                 @else
@@ -124,11 +124,9 @@
                 Ajustes
             </a>
         </li>
-        <li>
-            <a href="{{ route('pagina.saber_mas') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-4 w-full uppercase text-xl">
+        <li><a href="{{ route('pagina.saber_mas') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-4 w-full uppercase text-xl">
                  Saber Mas
-            </a>
-        </li>
+            </a></li>
 
         <li class="w-full mb-8 pt-4">
             <form method="POST" action="{{ route('logout') }}" class="w-full">
@@ -149,12 +147,13 @@
     </ul>
 </nav>
 
+<!-- Barra de Navegación Inferior (Móvil) -->
 <div id="barra-inferior" class="lg:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 z-[9999] flex justify-around items-center py-2 shadow-[0_-10px_40px_rgba(0,0,0,0.15)] rounded-t-[30px]">
-    <a href="{{ route('pagina.inicio') }}" class="flex-1 flex flex-col items-center gap-1 transition-all active:scale-90" style="color: {{ request()->routeIs('pagina.inicio') ? '#bc6a50' : '#32424Dbb' }} !important;">
+    <a href="{{ route('pagina.inicio') }}" class="flex-1 flex flex-col items-center gap-1 transition-all active:scale-90 {{ request()->routeIs('pagina.inicio') ? 'text-[#bc6a50]' : 'text-[#32424D]/60' }}" style="color: {{ request()->routeIs('pagina.inicio') ? '#bc6a50' : '#32424Dbb' }} !important;">
         <i class="bi bi-house-door-fill text-[1.4rem]"></i>
         <span class="text-[10px] font-black uppercase leading-none">Inicio</span>
     </a>
-    <a href="{{ route('pagina.amigos') }}" class="flex-1 flex flex-col items-center gap-1 transition-all active:scale-90" style="color: {{ request()->routeIs('pagina.amigos') ? '#bc6a50' : '#32424Dbb' }} !important;">
+    <a href="{{ route('pagina.amigos') }}" class="flex-1 flex flex-col items-center gap-1 transition-all active:scale-90 {{ request()->routeIs('pagina.amigos') ? 'text-[#bc6a50]' : 'text-[#32424D]/60' }}" style="color: {{ request()->routeIs('pagina.amigos') ? '#bc6a50' : '#32424Dbb' }} !important;">
         <i class="bi bi-people-fill text-[1.4rem]"></i>
         <span class="text-[10px] font-black uppercase leading-none">Amigos</span>
     </a>
@@ -164,15 +163,28 @@
         :is-auth="{{ Auth::check() ? 'true' : 'false' }}"
         :is-mobile-mode="true">
     </calendario-navbar>
-    <a href="{{ route('pagina.comunidades') }}" class="flex-1 flex flex-col items-center justify-center gap-1 transition-all active:scale-90" style="color: {{ request()->routeIs('pagina.comunidades') ? '#bc6a50' : '#32424Dbb' }} !important;">
+    <a href="{{ route('pagina.comunidades') }}" class="flex-1 flex flex-col items-center justify-center gap-1 transition-all active:scale-90 {{ request()->routeIs('pagina.comunidades') ? 'text-[#bc6a50]' : 'text-[#32424D]/60' }}" style="color: {{ request()->routeIs('pagina.comunidades') ? '#bc6a50' : '#32424Dbb' }} !important;">
         <i class="fa-solid fa-users text-[1.4rem]"></i>
         <span class="text-[10px] font-black uppercase leading-none">Comunidad</span>
     </a>
-    <button id="menu-toggle" class="flex-1 flex flex-col items-center justify-center gap-1 transition-all active:scale-90 focus:outline-none" style="color: #32424Dbb !important;">
+    <button id="menu-toggle" class="flex-1 flex flex-col items-center justify-center gap-1 transition-all active:scale-90 text-[#32424D]/60 focus:outline-none" style="color: #32424Dbb !important;">
         <i class="bi bi-list text-[1.8rem] leading-none mb-[-2px]"></i>
         <span class="text-[10px] font-black uppercase leading-none">Menú</span>
     </button>
 </div>
+
+<!-- Notificaciones Flotantes (Móvil) -->
+@auth
+<div class="lg:hidden fixed top-6 right-6 z-[9000]">
+    <notificaciones-amistad 
+        route-index="{{ route('notificaciones.index') }}"
+        route-aceptar="{{ route('amigos.accept', ':id') }}"
+        route-rechazar="{{ route('amigos.reject', ':id') }}"
+        csrf="{{ csrf_token() }}"
+        :is-mobile-floating="true">
+    </notificaciones-amistad>
+</div>
+@endauth
 
 @push('scripts')
 <script>

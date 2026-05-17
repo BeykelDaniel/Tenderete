@@ -41,8 +41,8 @@ class ActividadesController extends Controller
         $hoy = $ahora->toDateString();
         $horaActual = $ahora->toTimeString();
 
-        // Filtramos: Solo actividades futuras (o de hoy pero que no hayan pasado de hora)
-        $actividades = Actividades::with(['users', 'creador'])->where(function($query) use ($hoy, $horaActual) {
+        // Filtramos usando únicamente la relación 'users' ya que 'creador' requería la columna user_id en la tabla principal
+        $actividades = Actividades::with(['users'])->where(function($query) use ($hoy, $horaActual) {
             $query->where('fecha', '>', $hoy)
                   ->orWhere(function($q) use ($hoy, $horaActual) {
                       $q->where('fecha', $hoy)
@@ -101,8 +101,19 @@ class ActividadesController extends Controller
             $validated['cupos'] = $validated['cupos'] ?? 50;
         }
 
-        $validated['user_id'] = Auth::id();
-        Actividades::create($validated);
+        // Se crea la actividad únicamente con los campos mapeados en la tabla original
+        $actividad = Actividades::create([
+            'nombre'      => $validated['nombre'],
+            'descripcion' => $validated['descripcion'],
+            'fecha'       => $validated['fecha'],
+            'hora'        => $validated['hora'],
+            'lugar'       => $validated['lugar'],
+            'precio'      => $validated['precio'],
+            'cupos'       => $validated['cupos'],
+        ]);
+
+        // Vinculamos al usuario que crea la actividad directamente en la tabla pivote 'actividad_user'
+        $actividad->users()->attach(Auth::id());
 
         // Regresamos con mensaje de éxito
         return back()->with('success', '¡La actividad se ha creado con éxito!');
