@@ -26,11 +26,10 @@
             </div>
 
 
-            {{-- BARRA LATERAL: AMIGOS --}}
+            {{-- BARRA LATERAL: AMIGOS (Sin desplazamiento vertical, se adapta al contenido) --}}
             <div class="w-full md:w-[240px] bg-white rounded-xl p-4 shadow-sm flex flex-col">
-                <h4 class="m-0 mb-3 text-[#bc6a50] text-lg font-semibold border-b pb-2 text-center uppercase text-sm">Añadir
-                    Amigos</h4>
-                <div class="flex-1 overflow-y-auto custom-scrollbar">
+                <h4 class="m-0 mb-3 text-[#bc6a50] text-lg font-semibold border-b pb-2 text-center uppercase text-sm">Añadir Amigos</h4>
+                <div class="flex-1">
                     <ul class="list-none p-0 m-0">
                         @php
                             // Solo ocultamos a:
@@ -55,8 +54,7 @@
                         @foreach($usuarios_db as $u)
                             <li data-user='@json($u)'
                                 class="abrir-modal-amigo-btn flex items-center gap-3 p-2 hover:bg-indigo-50 rounded-xl cursor-pointer transition-all mb-2 border border-transparent hover:border-indigo-100 group">
-                                <div
-                                    class="w-9 h-9 rounded-full bg-gray-100 flex-shrink-0 border shadow-sm overflow-hidden group-hover:scale-110 transition-transform">
+                                <div class="w-9 h-9 rounded-full bg-gray-100 flex-shrink-0 border shadow-sm overflow-hidden group-hover:scale-110 transition-transform">
                                     @if($u->perfil_foto)
                                         <img src="/{{ $u->perfil_foto }}" class="w-full h-full object-cover">
                                     @else
@@ -95,7 +93,7 @@
         </section>
 
         @auth
-            {{-- SECCIÓN Albumes --}}
+            {{-- SECCIÓN ÁLBUMES --}}
             <section class="w-full max-w-[1100px] bg-white rounded-xl p-6 shadow-sm mb-4" aria-labelledby="titulo-albumes">
                 <h2 id="titulo-albumes"
                     class="m-0 mb-4 text-gray-800 text-2xl font-bold border-b pb-3 uppercase flex items-center gap-2">
@@ -122,7 +120,7 @@
                     {{-- Contenido dinámico --}}
                 </div>
 
-                {{-- CONTENEDOR DE ERROR ESTILIZADO (Sustituye al Alert) --}}
+                {{-- CONTENEDOR DE ERROR ESTILIZADO --}}
                 <div id="error-container"
                     class="hidden mt-6 p-4 bg-red-50 border border-red-100 rounded-2xl flex items-center gap-3 animate-pulse"
                     role="alert">
@@ -138,8 +136,7 @@
 
             {{-- PASO 2: ÉXITO --}}
             <div id="step-exito" class="hidden text-center py-6">
-                <div
-                    class="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
+                <div class="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
                     <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
                     </svg>
@@ -191,7 +188,7 @@
             }
         });
 
-        // 1. DELEGACIÓN DE EVENTOS (Para botones de amigos y actividades)
+        // 1. DELEGACIÓN DE EVENTOS
         document.addEventListener('click', function (e) {
             // Click en Amigo
             const btnAmigo = e.target.closest('.abrir-modal-amigo-btn');
@@ -353,7 +350,7 @@
             }, 200);
         }
 
-        // 4. LÓGICA DE SERVIDOR (AJAX + FEEDBACK)
+        // 4. LÓGICA DE SERVIDOR
         function enviarServidor(btn) {
             const errContainer = document.getElementById('error-container');
             errContainer.classList.add('hidden');
@@ -380,12 +377,9 @@
                         document.getElementById('step-exito').classList.remove('hidden');
                         document.getElementById('msg-exito').innerText = data.message || "Operación realizada correctamente";
 
-                        // Reactividad en la lista
                         if (window.tipoAccion === 'actividad') {
-                            // Notificar al calendario de la navbar
                             window.dispatchEvent(new CustomEvent('inscripcion-actualizada'));
 
-                            // AGREGADO: Actualizar la lista de inscritos dinámicamente
                             if (!window.itemSeleccionado.users) {
                                 window.itemSeleccionado.users = [];
                             }
@@ -393,7 +387,6 @@
                                 window.itemSeleccionado.users.push(window.currentUserData);
                             }
 
-                            // Buscar el botón de ver inscritos y actualizar su data
                             const btnInscritos = document.querySelector(`.btn-ver-inscritos[data-actividad*='"id":${window.itemSeleccionado.id}']`);
                             if (btnInscritos) {
                                 let actData = JSON.parse(btnInscritos.getAttribute('data-actividad'));
@@ -414,11 +407,9 @@
                             }
                         }
                     } else {
-                        // FORMATO ERROR ESTILIZADO
                         errContainer.classList.remove('hidden');
                         document.getElementById('error-msg').innerText = data.message || "Error al procesar la solicitud";
 
-                        // Efecto de vibración al contenido
                         const c = document.getElementById('modalContenido');
                         c.classList.add('animate-shake');
                         setTimeout(() => c.classList.remove('animate-shake'), 400);
@@ -435,9 +426,8 @@
                 });
         }
 
-        // 5. CARGAR MÁS (SCROLL INFINITO)
+        // 5. CARGAR MÁS
         $(document).ready(function () {
-            // Inicializar contador de actividades restantes
             @php
                 $ahora = \Carbon\Carbon::now();
                 $hoyNum = $ahora->toDateString();
@@ -451,7 +441,7 @@
                 })->count();
             @endphp
             let totalActividades = {{ $totalActividades }};
-    let mostradas = {{ $actividades->count() }};
+            let mostradas = {{ $actividades->count() }};
 
             function actualizarContador() {
                 let restantes = totalActividades - mostradas;
@@ -465,15 +455,14 @@
 
             actualizarContador();
 
-             $('#btn-cargar-mas').on('click', function() {
+            $('#btn-cargar-mas').on('click', function() {
                 let btn = $(this);
                 let pagina = btn.data('pagina');
-    btn.prop('disabled', true).text('BUSCANDO MÁS...');
+                btn.prop('disabled', true).text('BUSCANDO MÁS...');
 
-                 $.get( "?page=" + pagina, function(data) {
+                $.get( "?page=" + pagina, function(data) {
                     if(data.trim()) {
                         let tempDiv = $('<div>').append(data);
-                        // Contamos los elementos por su clase de contenedor
                         let nuevas = tempDiv.find('.actividad-item').length; 
 
                         if (nuevas > 0) {
@@ -494,30 +483,16 @@
         });
     </script>
 
-        <style>
-        /* Animación Shake
-     para errores */
-        @keyfra
-           mes sha
-        k       e {
-
-
-            0%, 1
-    0           0% { transform: translateX(0
-    )       ; }
-
-            25% {
-                transform: translateX(-8px)
-           ; 
-    }
-            50% {
-                transform: translateX(8px); 
-           }
-
-       75% { transform: translateX(-8px); }
+    <style>
+        /* Animación Shake para errores */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-8px); }
         }
-
-
-       .animate-shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+        .animate-shake { 
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; 
+        }
     </style>
 @endsection
