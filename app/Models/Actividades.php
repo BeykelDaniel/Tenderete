@@ -18,7 +18,12 @@ class Actividades extends Model
         'lugar',
         'precio',
         'cupos',
+        'user_id',
     ];
+
+    public function creador() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
    public function posts()
     {
