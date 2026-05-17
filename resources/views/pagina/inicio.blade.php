@@ -450,8 +450,10 @@
                 if (restantes > 0) {
                     $('#restantes-cnt').html(`QUEDAN <span class="text-blue-600 font-black">${restantes}</span> ACTIVIDADES OCULTAS`);
                     $('#restantes-cnt').show();
+                    $('#btn-cargar-mas').show();
                 } else {
                     $('#restantes-cnt').hide();
+                    $('#btn-cargar-mas').hide();
                 }
             }
 

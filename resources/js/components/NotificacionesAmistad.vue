@@ -1,6 +1,15 @@
 <template>
-    <li class="relative dropdown-container" ref="btnContainer">
-        <button @click="toggle" class="relative text-[#32424D] hover:text-[#C2841D] transition-colors p-2 flex items-center focus:outline-none uppercase font-black text-2xl lg:text-xl gap-4">
+    <li :class="[isMobileFloating ? 'list-none' : 'relative dropdown-container']" ref="btnContainer">
+        <!-- BOTÓN EN MÓVIL (FLOTANTE) - Círculo blanco con sombra elegante y campana oscura, idéntico a la imagen -->
+        <button v-if="isMobileFloating" @click.stop="toggle" 
+                class="w-14 h-14 bg-white rounded-full shadow-[0_10px_25px_rgba(0,0,0,0.15)] flex items-center justify-center text-[#32424D] hover:text-[#C2841D] hover:scale-105 active:scale-95 transition-all focus:outline-none relative border border-gray-100">
+            <i class="bi bi-bell-fill text-2xl"></i>
+            <span v-if="count > 0" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-6 h-6 flex items-center justify-center rounded-full border-2 border-white shadow-sm">
+                {{ count }}
+            </span>
+        </button>
+        <!-- BOTÓN EN ESCRITORIO O MENÚ NORMAL -->
+        <button v-else @click.stop="toggle" class="relative text-[#32424D] hover:text-[#C2841D] transition-colors p-2 flex items-center focus:outline-none uppercase font-black text-2xl lg:text-xl gap-4">
             <i class="bi bi-bell-fill text-2xl lg:text-xl"></i> Notificaciones
             <span v-if="count > 0" class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-black w-5 h-5 flex items-center justify-center rounded-full border-2 border-[#D4B830]">
                 {{ count }}
@@ -8,7 +17,7 @@
         </button>
 
         <Teleport to="body">
-            <div v-if="isOpen" @click.away="isOpen = false" 
+            <div v-if="isOpen" 
                  class="dropdown-content fixed z-[9999] bg-white rounded-[30px] shadow-2xl p-6 border border-gray-100 min-w-[300px]"
                  :style="dropdownStyle">
                 <p class="text-[11px] font-black text-gray-400 uppercase text-center mb-4 tracking-widest">Solicitudes de Amistad</p>
@@ -41,7 +50,16 @@
 
 <script>
 export default {
-    props: ['routeIndex', 'routeAceptar', 'routeRechazar', 'csrf'],
+    props: {
+        routeIndex: String,
+        routeAceptar: String,
+        routeRechazar: String,
+        csrf: String,
+        isMobileFloating: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
             isOpen: false,
@@ -55,10 +73,12 @@ export default {
         this.poll();
         this.interval = setInterval(this.poll, 7000);
         window.addEventListener('resize', this.handleResize);
+        document.addEventListener('click', this.handleOutsideClick);
     },
     beforeUnmount() {
         clearInterval(this.interval);
         window.removeEventListener('resize', this.handleResize);
+        document.removeEventListener('click', this.handleOutsideClick);
     },
     methods: {
         toggle() {
@@ -80,17 +100,34 @@ export default {
                 };
             } else {
                 const topVal = rect.bottom + 10;
-                this.dropdownStyle = {
-                    top: topVal + 'px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    maxHeight: `calc(100vh - ${topVal + 20}px)`,
-                    overflowY: 'auto'
-                };
+                if (this.isMobileFloating) {
+                    this.dropdownStyle = {
+                        top: topVal + 'px',
+                        right: '24px',
+                        maxHeight: `calc(100vh - ${topVal + 20}px)`,
+                        overflowY: 'auto'
+                    };
+                } else {
+                    this.dropdownStyle = {
+                        top: topVal + 'px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        maxHeight: `calc(100vh - ${topVal + 20}px)`,
+                        overflowY: 'auto'
+                    };
+                }
             }
         },
         handleResize() {
             if (this.isOpen) this.updateDropdownPosition();
+        },
+        handleOutsideClick(e) {
+            if (this.isOpen && this.$refs.btnContainer && !this.$refs.btnContainer.contains(e.target)) {
+                const dropdown = document.querySelector('.dropdown-content');
+                if (dropdown && !dropdown.contains(e.target)) {
+                    this.isOpen = false;
+                }
+            }
         },
         poll() {
             fetch(this.routeIndex)

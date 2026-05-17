@@ -2,7 +2,7 @@
 
 @foreach($actividades as $a)
     @if($a->cupos > 0 && !isset($a->hidden))
-    <div class="p-4 rounded-xl border border-gray-100 flex flex-col hover:border-[#82aeb4] transition-all bg-white shadow-sm">
+    <div class="actividad-item p-4 rounded-xl border border-gray-100 flex flex-col hover:border-[#82aeb4] transition-all bg-white shadow-sm">
         
         @if($a->imagen)
         <div class="h-32 w-full overflow-hidden rounded-lg mb-3">
