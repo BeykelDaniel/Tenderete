@@ -319,9 +319,6 @@
             document.getElementById('modal-dinamico-body').innerHTML = `
                 <h3 class="text-2xl font-black text-gray-800 uppercase">${act.nombre}</h3>
                 <div class="my-6 bg-indigo-50 p-8 rounded-[30px] border-2 border-dashed border-indigo-200">
-                    <p class="text-indigo-700 font-bold uppercase tracking-widest text-xs mb-2">Creado por</p>
-                    <p class="text-gray-900 font-black italic mb-4 text-xl">${act.user ? act.user.name : (act.creador ? act.creador.name : (act.usuario ? act.usuario.name : 'Usuario'))}</p>
-                    <div class="h-[2px] bg-indigo-100 mb-4"></div>
                     <p class="text-indigo-700 font-bold uppercase tracking-widest text-xs mb-2">Lugar del evento</p>
                     <p class="text-gray-900 font-black italic mb-4 text-xl">${act.lugar}</p>
                     <div class="h-[2px] bg-indigo-100 mb-4"></div>
