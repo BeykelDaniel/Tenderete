@@ -82,7 +82,7 @@
             <div x-show="activeTab === 'video'" x-transition.opacity.duration.300ms class="flex flex-col gap-4">
                 <h3 class="text-xl font-bold text-[#1e293b] border-b pb-2">Conoce Tenderete</h3>
                 <div class="w-full max-w-2xl mx-auto">
-                    <video id="mainVideo" src="{{ asset('vid.mp4') }}" autoplay muted loop controls class="w-full rounded-lg bg-black shadow-md"></video>
+                    <video id="mainVideo" src="{{ asset('Tenderete.mp4') }}" autoplay muted loop controls class="w-full rounded-lg bg-black shadow-md"></video>
                 </div>
                 <div class="mt-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
                     <h4 class="text-[#bc6a50] text-sm font-semibold uppercase mb-2">Transcripción</h4>
