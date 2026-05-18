@@ -126,21 +126,29 @@
         modal.classList.remove('hidden');
     }
 
+    /* --- CERRAR MENSAJE --- */
     function cerrarMensaje() {
         document.getElementById('messageModal').classList.add('hidden');
     }
 
-    /* --- GALERÍA --- */
+    /* --- GALERÍA (Muestra los elementos multimedia) --- */
     function renderizarGaleria() {
         const grid = document.getElementById('galeria-grid');
+        if (!grid) return;
+        
         grid.innerHTML = '';
-        const baseUrl = '{{ asset("") }}';
+        // Limpiamos la URL base para evitar fallos de dobles barras '//'
+        const baseUrl = '{{ asset("/") }}'.replace(/\/$/, '') + '/';
         
         mediaItems.forEach((item, index) => {
             const esDuenio = (String(item.user_id) === String(authUserId) || String(actividadCreadorId) === String(authUserId) || userEmail === adminEmail);
+            
+            const urlLimpia = item.url.replace(/^\//, '');
+            const urlCompleta = `${baseUrl}${urlLimpia}`;
+
             const mediaHtml = item.tipo === 'foto'
-                ? `<img src="${baseUrl}${item.url}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">`
-                : `<video src="${baseUrl}${item.url}" class="w-full h-full object-cover"></video><div class="absolute inset-0 flex items-center justify-center"><i class="bi bi-play-circle-fill text-white/80 text-5xl"></i></div>`;
+                ? `<img src="${urlCompleta}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">`
+                : `<video src="${urlCompleta}" class="w-full h-full object-cover"></video><div class="absolute inset-0 flex items-center justify-center"><i class="bi bi-play-circle-fill text-white/80 text-5xl"></i></div>`;
             
             const div = document.createElement('div');
             div.className = "aspect-square relative group rounded-3xl overflow-hidden shadow-sm border border-gray-100 bg-white animate-fadeIn";
@@ -156,20 +164,21 @@
         });
     }
 
-    /* --- MODAL LIGHTBOX --- */
+    /* --- MODAL LIGHTBOX (Visualizador de pantalla completa) --- */
     function verMedia(index) {
         if (index < 0) index = mediaItems.length - 1;
         if (index >= mediaItems.length) index = 0;
         currentIndex = index;
         
         const item = mediaItems[currentIndex];
-        const baseUrl = '{{ asset("") }}';
-        const url = `${baseUrl}${item.url}`;
+        const baseUrl = '{{ asset("/") }}'.replace(/\/$/, '') + '/';
+        const urlLimpia = item.url.replace(/^\//, '');
+        const urlCompleta = `${baseUrl}${urlLimpia}`;
         const mediaContent = document.getElementById('mediaContent');
         
         mediaContent.innerHTML = item.tipo === 'foto'
-            ? `<img src="${url}" class="max-w-[70%] max-h-[90%] rounded-2xl shadow-2xl object-contain animate-fadeIn" onclick="event.stopPropagation()">`
-            : `<video src="${url}" controls autoplay class="max-w-[70%] max-h-[90%] rounded-2xl shadow-2xl animate-fadeIn" onclick="event.stopPropagation()"></video>`;
+            ? `<img src="${urlCompleta}" class="max-w-[70%] max-h-[90%] rounded-2xl shadow-2xl object-contain animate-fadeIn" onclick="event.stopPropagation()">`
+            : `<video src="${urlCompleta}" controls autoplay class="max-w-[70%] max-h-[90%] rounded-2xl shadow-2xl animate-fadeIn" onclick="event.stopPropagation()"></video>`;
         
         document.getElementById('mediaCounter').innerText = `${currentIndex + 1} / ${mediaItems.length}`;
         document.getElementById('mediaModal').classList.remove('hidden');
@@ -183,7 +192,7 @@
         document.getElementById('mediaModal').classList.add('hidden'); 
     }
 
-    /* --- ELIMINAR --- */
+    /* --- ELIMINAR CONTENIDO --- */
     function confirmarEliminar(id) {
         itemAEliminar = id;
         document.getElementById('confirmModal').classList.remove('hidden');
@@ -201,8 +210,6 @@
         
         const eliminarUrl = `/album/${id}`;
         
-        // CORRECCIÓN DEFINITIVA: Usamos método POST encapsulado con FormData para camuflar el DELETE.
-        // Esto previene que proxies intermedios o balanceadores en la nube (como Railway) tumben la petición.
         const formData = new FormData();
         formData.append('_token', '{{ csrf_token() }}');
         formData.append('_method', 'DELETE');
@@ -243,13 +250,15 @@
         })
         .catch(err => {
             console.error("Error en fetch:", err);
-            showToast("Error de red o del servidor. Revisa F12.", "error");
+            showToast("Error de red o del servidor.", "error");
         });
     }
 
     /* --- SUBIDA DE ARCHIVOS --- */
     document.addEventListener('DOMContentLoaded', function() {
+        // Renderizado al cargar el árbol estructurado HTML
         renderizarGaleria();
+        
         const fileInput = document.getElementById('fileInput');
         
         fileInput?.addEventListener('change', function(e) {
@@ -288,6 +297,11 @@
             xhr.send(formData);
         });
     });
+
+    // Lanzamiento de seguridad instantáneo si el script termina tras el ciclo del DOM
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        renderizarGaleria();
+    }
 </script>
 
 <style>
