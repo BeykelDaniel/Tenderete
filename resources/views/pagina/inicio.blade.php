@@ -382,8 +382,36 @@
                         document.getElementById('msg-exito').innerText = data.message || "Operación realizada correctamente";
 
                         if (window.tipoAccion === 'actividad') {
-                            window.necesitaRecarga = true;
+                            window.necesitaRecarga = false; // ¡Sin recargar la página!
                             window.dispatchEvent(new CustomEvent('inscripcion-actualizada'));
+
+                            // Agregar dinámicamente el álbum a la lista de "Mis Álbumes"
+                            const contenedorAlbumes = document.getElementById('contenedor-albumes');
+                            if (contenedorAlbumes) {
+                                // Si estaba el aviso de "Aún no tienes álbumes", lo removemos
+                                const vacioPlaceholder = contenedorAlbumes.querySelector('.col-span-full');
+                                if (vacioPlaceholder) {
+                                    vacioPlaceholder.remove();
+                                }
+
+                                // Construimos la tarjeta exacta del álbum con su respectivo enlace
+                                const nuevoAlbumHtml = `
+                                    <a href="/actividades/${window.itemSeleccionado.id}/album" 
+                                       class="actividad-item bg-white rounded-[24px] p-4 border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 transition-all duration-300 flex flex-col group text-center">
+                                        
+                                        <div class="aspect-[1.6] bg-gray-50 rounded-2xl flex items-center justify-center mb-4 overflow-hidden relative border border-gray-100 group-hover:bg-gray-100/70 transition-colors">
+                                            <i class="bi bi-images text-5xl text-gray-300 transition-transform duration-300 group-hover:scale-110"></i>
+                                        </div>
+
+                                        <span class="font-extrabold text-gray-950 text-sm uppercase tracking-wider block truncate group-hover:text-indigo-600 transition-colors">
+                                            ${window.itemSeleccionado.nombre}
+                                        </span>
+                                    </a>
+                                `;
+
+                                // Lo agregamos al contenedor del grid
+                                contenedorAlbumes.insertAdjacentHTML('beforeend', nuevoAlbumHtml);
+                            }
 
                             if (!window.itemSeleccionado.users) {
                                 window.itemSeleccionado.users = [];
