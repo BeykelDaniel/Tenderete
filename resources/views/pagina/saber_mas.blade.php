@@ -24,7 +24,7 @@
             if(this.activeTab === 'otros') { bg = '#bc6a50'; border = '#9a543e'; }
             return `background-color: ${bg}; height: 12px; width: 100%; border-top: 1px solid ${border}; position: relative; z-index: 5; box-shadow: inset 0 3px 5px rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.1); transition: background-color 0.2s, border-color 0.2s;`;
         },
-        soporteForm: { name: '', email: '', message: '' },
+        soporteForm: { name: '', email: 'tenderete2026@gmail.com', message: '' },
         isSubmitting: false
     }" class="flex flex-col gap-4 pb-4">
 
@@ -147,7 +147,7 @@
                         } else {
                             alert(res.data.message);
                         }
-                        soporteForm = { name: '', email: '', message: '' };
+                        soporteForm = { name: '', email: 'tenderete2026@gmail.com', message: '' };
                     })
                     .catch(err => {
                         if(typeof Swal !== 'undefined') {
@@ -162,10 +162,7 @@
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Nombre</label>
                         <input type="text" x-model="soporteForm.name" required placeholder="Ej: María García" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2" style="outline-color: #a855f7;">
                     </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-1">Correo Electrónico</label>
-                        <input type="email" x-model="soporteForm.email" required placeholder="tu@correo.com" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2" style="outline-color: #a855f7;">
-                    </div>
+
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Mensaje o Problema</label>
                         <textarea x-model="soporteForm.message" required rows="4" placeholder="Escribe aquí en qué podemos ayudarte..." class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2" style="outline-color: #a855f7;"></textarea>
