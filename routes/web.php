@@ -125,8 +125,18 @@ Route::get('/clean-database-media', function () {
     return "Base de datos limpia. Se han eliminado " . $deletedCount . " registros de imágenes rotas de la base de datos de producción.";
 });
 
-// Ruta temporal para listar archivos de la carpeta public en producción
+// Ruta temporal para listar archivos de la carpeta public en producción con sus tamaños
 Route::get('/list-public-files', function () {
-    $files = scandir(public_path());
-    return response()->json($files);
+    $dir = public_path();
+    $files = scandir($dir);
+    $result = [];
+    foreach ($files as $file) {
+        $path = $dir . '/' . $file;
+        $result[] = [
+            'name' => $file,
+            'is_file' => is_file($path),
+            'size_bytes' => is_file($path) ? filesize($path) : null
+        ];
+    }
+    return response()->json($result);
 });
