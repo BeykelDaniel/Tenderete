@@ -98,11 +98,15 @@
         @auth
             {{-- SECCIÓN ÁLBUMES --}}
             <section class="w-full max-w-[1100px] bg-white rounded-xl p-6 shadow-sm mb-4" aria-labelledby="titulo-albumes">
-                <h2 id="titulo-albumes"
-                    class="m-0 mb-4 text-gray-800 text-2xl font-bold border-b pb-3 uppercase flex items-center gap-2">
-                    <i class="bi bi-images text-[#bc6a50]" aria-hidden="true"></i> Mis Álbumes
-                </h2>
-                <div id="contenedor-albumes" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex items-center gap-4 mb-6 border-b border-gray-100 pb-4">
+                    <div class="w-12 h-12 bg-[#bc6a50] rounded-full flex items-center justify-center shadow-md">
+                        <i class="bi bi-images text-white text-xl"></i>
+                    </div>
+                    <h2 id="titulo-albumes" class="m-0 text-[#111827] text-2xl font-black uppercase tracking-wide">
+                        Mis Álbumes
+                    </h2>
+                </div>
+                <div id="contenedor-albumes" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     @include('album.partials.lista')
                 </div>
             </section>

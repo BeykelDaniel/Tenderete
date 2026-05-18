@@ -41,8 +41,8 @@ class ActividadesController extends Controller
         $hoy = $ahora->toDateString();
         $horaActual = $ahora->toTimeString();
 
-        // Filtramos usando únicamente la relación 'users' ya que 'creador' requería la columna user_id en la tabla principal
-        $actividades = Actividades::with(['users'])->where(function($query) use ($hoy, $horaActual) {
+        // Filtramos usando las relaciones 'users' y 'creador' para tener el creador disponible
+        $actividades = Actividades::with(['users', 'creador'])->where(function($query) use ($hoy, $horaActual) {
             $query->where('fecha', '>', $hoy)
                   ->orWhere(function($q) use ($hoy, $horaActual) {
                       $q->where('fecha', $hoy)

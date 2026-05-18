@@ -25,8 +25,8 @@
             <div class="flex flex-col gap-1.5">
                 <span class="text-[12px] text-blue-500 font-black uppercase">Cupos: {{ $a->cupos }}</span>
                 
-                {{-- Modificado para incluir la relación de creador (user) y la de inscritos (users) --}}
-                <button data-actividad='@json(array_merge($a->toArray(), ["user" => $a->user, "users" => $a->users]))' 
+                {{-- Modificado para incluir la relación de creador y la de inscritos --}}
+                <button data-actividad='@json(array_merge($a->toArray(), ["user" => $a->creador, "creador" => $a->creador, "users" => $a->users]))' 
                         class="btn-ver-inscritos text-[10px] text-indigo-600 font-bold uppercase hover:text-indigo-800 hover:bg-indigo-100 transition-colors bg-indigo-50 px-3 py-1 rounded w-fit border border-indigo-100 shadow-sm flex items-center gap-1">
                     <i class="fa-solid fa-users"></i> Ver inscritos
                 </button>
@@ -37,9 +37,9 @@
                     ¡Apuntado!
                 </button>
             @else
-                {{-- Modificado para incluir la relación de creador (user) y la de inscritos (users) --}}
+                {{-- Modificado para incluir la relación de creador y la de inscritos --}}
                 <button 
-                    data-actividad='@json(array_merge($a->toArray(), ["user" => $a->user, "users" => $a->users]))'
+                    data-actividad='@json(array_merge($a->toArray(), ["user" => $a->creador, "creador" => $a->creador, "users" => $a->users]))'
                     class="btn-ver-mas-act bg-[#82aeb4] text-white px-4 py-1.5 rounded-lg font-black text-[10px] uppercase hover:bg-[#32424D] transition-colors shadow-md">
                     Ver más
                 </button>

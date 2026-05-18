@@ -1,29 +1,36 @@
 @foreach($mis_actividades as $a)
-    <div class="actividad-item p-4 rounded-xl border-2 border-gray-50 flex items-center gap-4 hover:border-[#82aeb4] transition-all bg-white shadow-sm group">
+    <a href="{{ route('actividades.album', $a->id) }}" 
+       class="actividad-item bg-white rounded-[24px] p-4 border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 transition-all duration-300 flex flex-col group text-center">
         
-
-        <div class="flex-1 min-w-0">
-            <div class="flex flex-col">
-                <span class="font-black text-gray-900 text-lg uppercase leading-tight truncate">{{ $a->nombre }}</span>
-                <span class="text-xs font-bold text-gray-500 uppercase tracking-widest italic mt-1">
-                    <i class="bi bi-geo-fill text-[#bc6a50]"></i> {{ $a->lugar }}
-                </span>
-            </div>
+        {{-- Área del placeholder / primera foto --}}
+        <div class="aspect-[1.6] bg-gray-50 rounded-2xl flex items-center justify-center mb-4 overflow-hidden relative border border-gray-100 group-hover:bg-gray-100/70 transition-colors">
+            @php
+                $primeraFoto = $a->media->first();
+            @endphp
+            @if($primeraFoto)
+                @if($primeraFoto->tipo === 'video')
+                    <video src="{{ asset($primeraFoto->url) }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></video>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="bi bi-play-circle-fill text-white/80 text-4xl"></i>
+                    </div>
+                @else
+                    <img src="{{ asset($primeraFoto->url) }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="{{ $a->nombre }}">
+                @endif
+            @else
+                <i class="bi bi-images text-5xl text-gray-300 transition-transform duration-300 group-hover:scale-110"></i>
+            @endif
         </div>
 
-        <div class="shrink-0 flex items-center gap-2">
-            <a href="{{ route('actividades.album', $a->id) }}" 
-               class="bg-[#82aeb4] text-white p-3 rounded-xl hover:bg-[#32424D] transition-colors shadow-md flex items-center justify-center group-hover:shadow-[#82aeb4]/20"
-               title="Ver álbum de fotos">
-                <i class="bi bi-images text-xl"></i>
-            </a>
-        </div>
-    </div>
+        {{-- Título del Álbum --}}
+        <span class="font-extrabold text-gray-950 text-sm uppercase tracking-wider block truncate group-hover:text-indigo-600 transition-colors">
+            {{ $a->nombre }}
+        </span>
+    </a>
 @endforeach
 
 @if($mis_actividades->isEmpty())
-    <div class="col-span-full py-8 text-center bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
-        <i class="bi bi-journal-album text-4xl text-gray-300 mb-2 block"></i>
-        <p class="text-gray-400 font-bold italic uppercase text-xs tracking-widest">Aún no tienes álbumes de actividades</p>
+    <div class="col-span-full py-12 text-center bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
+        <i class="bi bi-images text-5xl text-gray-300 mb-4 block"></i>
+        <p class="text-gray-500 font-black italic uppercase text-sm tracking-widest">Aún no tienes álbumes de actividades</p>
     </div>
 @endif
