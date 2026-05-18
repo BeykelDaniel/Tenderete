@@ -21,7 +21,7 @@
           
           <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6 z-20">
             <h1 class="!text-2xl md:!text-8xl font-black text-[#32424D] mb-4 md:mb-8 leading-tight drop-shadow-sm" v-html="slide.title"></h1>
-            <p class="!text-sm md:!text-4xl text-[#32424D] font-bold max-w-5xl mb-6 md:mb-12 leading-relaxed px-2 opactiy-90">{{ slide.desc }}</p>
+            <p v-if="slide.desc" class="!text-sm md:!text-4xl text-[#32424D] font-bold max-w-5xl mb-6 md:mb-12 leading-relaxed px-2 opactiy-90">{{ slide.desc }}</p>
             
             <div class="flex flex-col sm:flex-row gap-3 md:gap-6 w-full sm:w-auto px-4">
                 <a :href="loginRoute" class="w-full sm:w-auto bg-[#32424D] text-[#E8D258] !text-lg md:!text-4xl font-bold px-6 py-3 md:px-12 md:py-6 rounded-full hover:scale-105 transition-transform shadow-lg text-center">
@@ -63,9 +63,10 @@ const props = defineProps(['loginRoute', 'bannerImg', 'logoImg', 'storageImg']);
 
 const activeSlide = ref(0);
 const slides = [
-  { image: props.bannerImg, title: 'Tu comunidad, <br><span class=\'text-[#bc6a50]\'>más viva que nunca.</span>', desc: '¡Vive Tenderete! Amigos, momentos y diversión.' },
-  { image: props.storageImg, title: 'Actividades <br><span class=\'text-[#bc6a50]\'>para todos.</span>', desc: 'Talleres, paseos y charlas pensadas específicamente para tu bienestar y diversión.' },
-  { image: props.logoImg, title: 'Un entorno <br><span class=\'text-[#bc6a50]\'>cerca de ti.</span>', desc: 'Diseñado con cariño y respeto, pensando siempre en tu comodidad y seguridad.' }
+  { image: '/banner.png', title: 'Tenderete', desc: '' },
+  { image: '/storage/album/0AQykyFPJD7rP9rjNJMI4W7U7vVRQD4lj8H9OY0G.jpg', title: 'Tu comunidad, <br><span class=\'text-[#bc6a50]\'>más viva que nunca.</span>', desc: '¡Vive Tenderete! Amigos, momentos y diversión.' },
+  { image: '/storage/album/BhykZKZQTEMPfpIQrPk5E9eL5SsSBmlg77iM0jXr.jpg', title: 'Actividades <br><span class=\'text-[#bc6a50]\'>para todos.</span>', desc: 'Talleres, paseos y charlas pensadas específicamente para tu bienestar y diversión.' },
+  { image: '/storage/album/V6BLJqNXbbnzkfaN7MGOd90mGLbQopOe5iza5ipy.jpg', title: 'Un entorno <br><span class=\'text-[#bc6a50]\'>cerca de ti.</span>', desc: 'Diseñado con cariño y respeto, pensando siempre en tu comodidad y seguridad.' }
 ];
 
 let timer = null;
