@@ -70,8 +70,6 @@ class AlbumController extends Controller
 
         
 
-        // 2. Obtener los archivos multimedia de la tabla 'media'
-
         $items = DB::table('media')
 
             ->where('actividad_id', $id)
@@ -79,6 +77,11 @@ class AlbumController extends Controller
             ->orderBy('created_at', 'desc')
 
             ->get();
+
+        // Filtrar dinámicamente para conservar solo archivos que existan físicamente en el disco
+        $items = $items->filter(function ($item) {
+            return file_exists(public_path($item->url));
+        })->values();
 
 
 
