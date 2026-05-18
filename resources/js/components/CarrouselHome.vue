@@ -64,9 +64,9 @@ const props = defineProps(['loginRoute', 'bannerImg', 'logoImg', 'storageImg']);
 const activeSlide = ref(0);
 const slides = [
   { image: '/banner.png', title: 'Tenderete', desc: '' },
-  { image: '/storage/album/0AQykyFPJD7rP9rjNJMI4W7U7vVRQD4lj8H9OY0G.jpg', title: 'Tu comunidad, <br><span class=\'text-[#bc6a50]\'>más viva que nunca.</span>', desc: '¡Vive Tenderete! Amigos, momentos y diversión.' },
-  { image: '/storage/album/BhykZKZQTEMPfpIQrPk5E9eL5SsSBmlg77iM0jXr.jpg', title: 'Actividades <br><span class=\'text-[#bc6a50]\'>para todos.</span>', desc: 'Talleres, paseos y charlas pensadas específicamente para tu bienestar y diversión.' },
-  { image: '/storage/album/V6BLJqNXbbnzkfaN7MGOd90mGLbQopOe5iza5ipy.jpg', title: 'Un entorno <br><span class=\'text-[#bc6a50]\'>cerca de ti.</span>', desc: 'Diseñado con cariño y respeto, pensando siempre en tu comodidad y seguridad.' }
+  { image: '/banner-1.png', title: 'Tu comunidad, <br><span class=\'text-[#bc6a50]\'>más viva que nunca.</span>', desc: '¡Vive Tenderete! Amigos, momentos y diversión.' },
+  { image: '/banner-2.png', title: 'Actividades <br><span class=\'text-[#bc6a50]\'>para todos.</span>', desc: 'Talleres, paseos y charlas pensadas específicamente para tu bienestar y diversión.' },
+  { image: '/banner-3.png', title: 'Un entorno <br><span class=\'text-[#bc6a50]\'>cerca de ti.</span>', desc: 'Diseñado con cariño y respeto, pensando siempre en tu comodidad y seguridad.' }
 ];
 
 let timer = null;
