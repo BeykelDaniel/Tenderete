@@ -105,38 +105,3 @@ Route::middleware(['auth'])->group(function () {
 |--------------------------------------------------------------------------
 */
 require __DIR__ . '/auth.php';
-
-// Ruta temporal para limpiar registros huérfanos de la base de datos de producción
-Route::get('/clean-database-media', function () {
-    $validUrls = [
-        'storage/album/0AQykyFPJD7rP9rjNJMI4W7U7vVRQD4lj8H9OY0G.jpg',
-        'storage/album/86wnQ7TyvEdmfe6zArcUdlT9BuHBPm7dp06MEQeC.png',
-        'storage/album/BhykZKZQTEMPfpIQrPk5E9eL5SsSBmlg77iM0jXr.jpg',
-        'storage/album/TByAoREoQmXsS5U4VxUPdN6qvXEL1qi8bmhw6Mbq.png',
-        'storage/album/TcjO2jWKcsMYzRsBySUCsEqPsuyfCjjpighvHrLH.png',
-        'storage/album/V6BLJqNXbbnzkfaN7MGOd90mGLbQopOe5iza5ipy.jpg',
-        'storage/album/Vr19MyOgJEDvS8FH4hhvpvXsWht2YrvvEZrnc4dJ.png'
-    ];
-
-    $deletedCount = Illuminate\Support\Facades\DB::table('media')
-        ->whereNotIn('url', $validUrls)
-        ->delete();
-
-    return "Base de datos limpia. Se han eliminado " . $deletedCount . " registros de imágenes rotas de la base de datos de producción.";
-});
-
-// Ruta temporal para listar archivos de la carpeta public en producción con sus tamaños
-Route::get('/list-public-files', function () {
-    $dir = public_path();
-    $files = scandir($dir);
-    $result = [];
-    foreach ($files as $file) {
-        $path = $dir . '/' . $file;
-        $result[] = [
-            'name' => $file,
-            'is_file' => is_file($path),
-            'size_bytes' => is_file($path) ? filesize($path) : null
-        ];
-    }
-    return response()->json($result);
-});
