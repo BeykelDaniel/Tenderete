@@ -21,8 +21,11 @@ class SoporteController extends Controller
             // Dirección de correo elegida para recibir el soporte técnico
             $recipient = 'tenderete2026@gmail.com';
 
-            // Ejecuta el envío real usando el Mailable
+            // 1. Enviar el correo de soporte al administrador del sitio
             Mail::to($recipient)->send(new ContactMessageMail($validated));
+
+            // 2. Enviar una copia de confirmación al usuario que rellenó el formulario
+            Mail::to($validated['email'])->send(new ContactMessageMail($validated));
 
             return response()->json([
                 'success' => true,
