@@ -17,21 +17,6 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('usuarios.index')" :active="request()->routeIs('usuarios.index')">
-                        {{ __('Usuarios') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('actividades.index')" :active="request()->routeIs('actividades.index')">
-                        {{ __('Actividades') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('fotos.index')" :active="request()->routeIs('fotos.index')">
-                        {{ __('Media') }}
-                    </x-nav-link>
-                </div>
                 @endauth
             </div>
 

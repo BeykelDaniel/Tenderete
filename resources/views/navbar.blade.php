@@ -67,7 +67,7 @@
             </a>
         </li>
         
-        @if(Auth::check() && Auth::user()->email === 'cabrerajosedaniel89@gmail.com')
+        @if(Auth::check() && in_array(Auth::user()->email, ['cabrerajosedaniel89@gmail.com', 'admin@gmail.com', 'tenderete@tenderete.com']))
         <li class="w-full">
             <a href="{{ route('admin.dashboard') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-3 w-full uppercase hover:translate-x-1">
                 <i class="bi bi-shield-lock-fill text-xl w-6 text-center text-red-600"></i> Admin Panel
@@ -133,7 +133,7 @@
             </a>
         </li>
         
-        @if(Auth::check() && Auth::user()->email === 'cabrerajosedaniel89@gmail.com')
+        @if(Auth::check() && in_array(Auth::user()->email, ['cabrerajosedaniel89@gmail.com', 'admin@gmail.com', 'tenderete@tenderete.com']))
         <li>
             <a href="{{ route('admin.dashboard') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-4 w-full uppercase text-xl">
                  <i class="bi bi-shield-lock-fill text-2xl w-6 text-center text-red-600"></i> Admin Panel
