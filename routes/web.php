@@ -83,7 +83,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/notificaciones', [NotificacionController::class, 'index'])->name('notificaciones.index');
 
     // --- ADMINISTRACIÓN ---
-    Route::get('/admin/fotos', [AlbumController::class, 'indexAdmin'])->name('fotos.index');
+    Route::get('/admin/fotos', [AlbumController::class, 'indexAdmin'])->name('album.index');
     Route::delete('/admin/fotos/{id}', [AlbumController::class, 'destroy'])->name('fotos.destroy');
     Route::resource('usuarios', UsuarioController::class);
 
