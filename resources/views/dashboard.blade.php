@@ -51,18 +51,20 @@
                                     Acceder <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                 </a>
                             </div>
-                             <div class="bg-gradient-to-br from-emerald-50 to-emerald-100/50 dark:from-emerald-950/30 dark:to-emerald-900/10 border border-emerald-200/60 dark:border-emerald-800/60 p-6 rounded-2xl shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300">
+
+                            <!-- Tarjeta de Multimedia -->
+                             <div class="bg-gradient-to-br from-orange-50 to-orange-100/50 dark:from-orange-950/30 dark:to-orange-900/10 border border-orange-200/60 dark:border-orange-800/60 p-6 rounded-2xl shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300">
                                 <div class="flex items-center justify-between mb-4">
-                                    <div class="p-3 bg-emerald-500 text-white rounded-xl shadow-md">
+                                    <div class="p-3 bg-orange-500 text-white rounded-xl shadow-md">
                                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     </div>
-                                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Album</span>
+                                    <span class="text-xs font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400">Multimedia</span>
                                 </div>
-                                <h4 class="text-lg font-black text-gray-800 dark:text-white mb-2">Gestionar Albumes</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Administrar el calendario de eventos comunitarios, crear actividades grupales o editar cupos.</p>
-                                <a href="{{ route('album.index') }}" class="inline-flex items-center gap-2 text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 font-bold transition text-sm">
+                                <h4 class="text-lg font-black text-gray-800 dark:text-white mb-2">Gestionar Multimedia</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Gestionar las fotos y videos de los eventos.</p>
+                                <a href="{{ route('album.index') }}" class="inline-flex items-center gap-2 text-orange-600 dark:text-orange-400 hover:text-orange-800 font-bold transition text-sm">
                                     Acceder <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                                </a>
+                                </a>    
                             </div>
 
 
