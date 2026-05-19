@@ -51,21 +51,22 @@
                                     Acceder <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                 </a>
                             </div>
-
-                            <!-- Tarjeta de Fotos/Media -->
-                            <div class="bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-950/30 dark:to-amber-900/10 border border-amber-200/60 dark:border-amber-800/60 p-6 rounded-2xl shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300">
+                             <div class="bg-gradient-to-br from-emerald-50 to-emerald-100/50 dark:from-emerald-950/30 dark:to-emerald-900/10 border border-emerald-200/60 dark:border-emerald-800/60 p-6 rounded-2xl shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300">
                                 <div class="flex items-center justify-between mb-4">
-                                    <div class="p-3 bg-amber-500 text-white rounded-xl shadow-md">
-                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    <div class="p-3 bg-emerald-500 text-white rounded-xl shadow-md">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     </div>
-                                    <span class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">Multimedia</span>
+                                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Album</span>
                                 </div>
-                                <h4 class="text-lg font-black text-gray-800 dark:text-white mb-2">Moderación de Fotos</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Supervisar y liberar espacio en disco eliminando archivos multimedia obsoletos o rotos.</p>
-                                <a href="{{ route('album.index') }}" class="inline-flex items-center gap-2 text-amber-600 dark:text-amber-400 hover:text-amber-800 font-bold transition text-sm">
+                                <h4 class="text-lg font-black text-gray-800 dark:text-white mb-2">Gestionar Albumes</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Administrar el calendario de eventos comunitarios, crear actividades grupales o editar cupos.</p>
+                                <a href="{{ route('album.index') }}" class="inline-flex items-center gap-2 text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 font-bold transition text-sm">
                                     Acceder <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                 </a>
                             </div>
+
+
+                           
 
                         </div>
                     </div>
