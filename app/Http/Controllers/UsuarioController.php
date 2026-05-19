@@ -174,7 +174,7 @@ class UsuarioController extends Controller
         \Illuminate\Support\Facades\DB::table('actividad_user')->where('user_id', $usuario->id)->delete();
         
         // 4. Borrar mensajes privados del usuario
-        \Illuminate\Support\Facades\DB::table('mensajes_privados')->where('emisor_id', $usuario->id)->orWhere('receptor_id', $usuario->id)->delete();
+        \Illuminate\Support\Facades\DB::table('mensajes_privados')->where('user_id', $usuario->id)->orWhere('amigo_id', $usuario->id)->delete();
 
         // 5. Actividades creadas por el usuario (y sus archivos)
         $actividades = \App\Models\Actividades::where('user_id', $usuario->id)->get();
