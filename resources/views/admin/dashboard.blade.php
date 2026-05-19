@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
 <div class="min-h-screen bg-gray-50 flex flex-col md:flex-row">
 
     <!-- Menú Lateral Izquierdo (Mismo diseño que Tenderete) -->
@@ -175,4 +173,4 @@
         </div>
     </div>
 </div>
-@endsection
+</x-app-layout>
