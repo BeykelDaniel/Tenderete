@@ -31,7 +31,7 @@
                                     <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Usuarios</span>
                                 </div>
                                 <h4 class="text-lg font-black text-gray-800 dark:text-white mb-2">Gestionar Usuarios</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Ver el listado completo de usuarios, dar de alta nuevos amigos, modificar perfiles o gestionar bajas.</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Gestiona usuarios que forman parte de Tenderete.</p>
                                 <a href="{{ route('usuarios.index') }}" class="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 font-bold transition text-sm">
                                     Acceder <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                 </a>
@@ -46,7 +46,7 @@
                                     <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Actividades</span>
                                 </div>
                                 <h4 class="text-lg font-black text-gray-800 dark:text-white mb-2">Gestionar Actividades</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Administrar el calendario de eventos comunitarios, crear actividades grupales o editar cupos.</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Administra las actividades que se realizan en Tenderete.</p>
                                 <a href="{{ route('actividades.index') }}" class="inline-flex items-center gap-2 text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 font-bold transition text-sm">
                                     Acceder <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                 </a>
