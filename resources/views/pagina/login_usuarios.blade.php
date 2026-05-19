@@ -107,11 +107,7 @@
                         class="w-full p-3 bg-gray-50 border-2 border-gray-100 rounded-xl focus:bg-white focus:border-orange-500 outline-none font-bold text-sm">
                 </div>
 
-                <!-- CHECKBOX RECORDAR -->
-                <div class="col-span-full flex items-center gap-3 bg-orange-50/20 p-4 rounded-2xl border border-orange-100/50 mt-2">
-                    <input type="checkbox" id="recordar_credenciales" class="w-5 h-5 rounded text-[#bc6a50] focus:ring-[#bc6a50] border-gray-300 accent-[#bc6a50] cursor-pointer">
-                    <label for="recordar_credenciales" class="text-xs font-bold text-gray-700 select-none cursor-pointer">Recordar mi correo y contraseña en este dispositivo</label>
-                </div>
+
 
                 <button type="submit"
                     class="col-span-full mt-4 bg-[#bc6a50] text-white font-black py-4 rounded-2xl hover:bg-orange-800 hover:scale-[1.02] active:scale-95 transition-all shadow-xl uppercase tracking-widest text-lg">
@@ -144,67 +140,8 @@
         }
     }
     
-    // Check if there are validation errors for registration and switch to it automatically
     @if($errors->has('name') || $errors->has('fecha_nacimiento') || $errors->has('genero') || $errors->has('numero_telefono') || old('name'))
         switchTab('register');
     @endif
-
-    // Guardar credenciales en tiempo real al escribir o marcar/desmarcar
-    const registerForm = document.querySelector('#bloque-register form');
-    const recordarCheck = document.getElementById('recordar_credenciales');
-
-    function checkAndSave() {
-        if (recordarCheck && recordarCheck.checked) {
-            const emailInput = registerForm ? registerForm.querySelector('input[name="email"]') : null;
-            const passInput = registerForm ? registerForm.querySelector('input[name="password"]') : null;
-            if (emailInput && emailInput.value) {
-                localStorage.setItem('tenderete_remembered_email', emailInput.value);
-            }
-            if (passInput && passInput.value) {
-                localStorage.setItem('tenderete_remembered_pass', passInput.value);
-            }
-            localStorage.setItem('tenderete_remember_checked', 'true');
-        } else {
-            localStorage.removeItem('tenderete_remembered_email');
-            localStorage.removeItem('tenderete_remembered_pass');
-            localStorage.setItem('tenderete_remember_checked', 'false');
-        }
-    }
-
-    if (recordarCheck) {
-        recordarCheck.addEventListener('change', checkAndSave);
-    }
-    if (registerForm) {
-        const emailInput = registerForm.querySelector('input[name="email"]');
-        const passInput = registerForm.querySelector('input[name="password"]');
-        if (emailInput) emailInput.addEventListener('input', checkAndSave);
-        if (passInput) passInput.addEventListener('input', checkAndSave);
-        
-        // Ejecutar también al enviar el formulario para capturar datos autofiltrados
-        registerForm.addEventListener('submit', function() {
-            checkAndSave();
-        });
-    }
-
-    // Prefilar al cargar si existen datos guardados
-    document.addEventListener('DOMContentLoaded', function() {
-        const savedEmail = localStorage.getItem('tenderete_remembered_email');
-        const savedPass = localStorage.getItem('tenderete_remembered_pass');
-        const wasChecked = localStorage.getItem('tenderete_remember_checked') === 'true';
-
-        if (recordarCheck) {
-            recordarCheck.checked = wasChecked;
-        }
-
-        if (savedEmail && savedPass) {
-            const loginForm = document.querySelector('#bloque-login form');
-            if (loginForm) {
-                const emailInput = loginForm.querySelector('input[name="email"]');
-                const passInput = loginForm.querySelector('input[name="password"]');
-                if (emailInput) emailInput.value = savedEmail;
-                if (passInput) passInput.value = savedPass;
-            }
-        }
-    });
 </script>
 @endsection
