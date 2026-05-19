@@ -62,7 +62,7 @@
                                 </div>
                                 <h4 class="text-lg font-black text-gray-800 dark:text-white mb-2">Moderación de Fotos</h4>
                                 <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Supervisar y liberar espacio en disco eliminando archivos multimedia obsoletos o rotos.</p>
-                                <a href="{{ route('albums.index') }}" class="inline-flex items-center gap-2 text-amber-600 dark:text-amber-400 hover:text-amber-800 font-bold transition text-sm">
+                                <a href="{{ route('album.index') }}" class="inline-flex items-center gap-2 text-amber-600 dark:text-amber-400 hover:text-amber-800 font-bold transition text-sm">
                                     Acceder <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                 </a>
                             </div>
