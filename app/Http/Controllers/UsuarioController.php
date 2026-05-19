@@ -179,7 +179,7 @@ class UsuarioController extends Controller
         // 6. Eliminar usuario
         $usuario->delete();
 
-        return redirect()->route('usuarios.index')->with('success', 'Usuario, archivos y mensajes asociados de forma segura eliminados correctamente (RGPD).');
+        return redirect()->route('usuarios.index')->with('success', 'Usuario y archivos asociados eliminados correctamente.');
     }
 
     /**
