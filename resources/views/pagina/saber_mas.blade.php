@@ -244,7 +244,7 @@
                     <div class="bg-teal-50/40 border border-teal-200/60 rounded-2xl p-5 shadow-sm">
                         <div class="flex items-center gap-2.5 mb-3 text-teal-800">
                             <span class="p-1.5 bg-teal-100 rounded-lg text-teal-700"><i class="fa-solid fa-leaf"></i></span>
-                            <h4 class="font-black text-sm uppercase tracking-wide">SOJ — Sostenibilidad (Green IT)</h4>
+                            <h4 class="font-black text-sm uppercase tracking-wide">SOJ — Sostenibilidad</h4>
                         </div>
                         <p class="text-xs text-gray-600 leading-relaxed text-justify">
                             <strong>Código y Transferencia Eficiente:</strong> Optimización del peso de los archivos multimedia para reducir el uso de ancho de banda y la huella de carbono de los servidores. Integración de modos oscuros de pantalla para propiciar el ahorro de batería en dispositivos portátiles.
@@ -255,7 +255,7 @@
                     <div class="bg-purple-50/40 border border-purple-200/60 rounded-2xl p-5 shadow-sm md:col-span-2">
                         <div class="flex items-center gap-2.5 mb-3 text-purple-800">
                             <span class="p-1.5 bg-purple-100 rounded-lg text-purple-700"><i class="fa-solid fa-chart-line"></i></span>
-                            <h4 class="font-black text-sm uppercase tracking-wide">IPW — Empleabilidad e Impacto de Mercado</h4>
+                            <h4 class="font-black text-sm uppercase tracking-wide">IPW — Itinerario para la Empleabilidad</h4>
                         </div>
                         <p class="text-xs text-gray-600 leading-relaxed text-justify">
                             <strong>Propuesta y Validación de Mercado:</strong> Validación y conceptualización de una red social con impacto social real directo. Diseñado específicamente para atajar la soledad no deseada y fomentar el envejecimiento activo de la comunidad local de Lanzarote mediante actividades coordinadas.
@@ -266,7 +266,7 @@
 
                 <div class="border-t pt-4 mt-6 text-gray-500 text-xs">
                     <h5 class="font-bold text-gray-700 mb-1">Otros Términos y Condiciones</h5>
-                    <p class="mb-2">Al utilizar Tenderete, aceptas cumplir con nuestros términos de servicio y normas de la comunidad. Fomentamos un ambiente de respeto mutuo. No se tolerará el acoso, discurso de odio, o contenido inapropiado en la plataforma.</p>
+                    <p class="text-xs text-gray-600 leading-relaxed text-justify">Al utilizar Tenderete, aceptas cumplir con nuestros términos de servicio y normas de la comunidad. Fomentamos un ambiente de respeto mutuo. No se tolerará el acoso, discurso de odio, o contenido inapropiado en la plataforma.</p>
                 </div>
             </div>
 
