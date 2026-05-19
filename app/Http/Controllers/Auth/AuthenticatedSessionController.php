@@ -28,6 +28,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $request->session()->put('logged_via_admin', true);
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

@@ -12,6 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectGuestsTo(fn () => route('pagina.login_usuarios'));
+        $middleware->web(append: [
+            \App\Http\Middleware\RestrictToAdminPanel::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

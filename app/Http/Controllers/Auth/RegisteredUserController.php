@@ -45,6 +45,8 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        $request->session()->put('logged_via_admin', true);
+
         return redirect(route('dashboard', absolute: false));
     }
 }
