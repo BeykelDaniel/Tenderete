@@ -87,6 +87,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/admin/fotos/{id}', [AlbumController::class, 'destroy'])->name('fotos.destroy');
     Route::resource('usuarios', UsuarioController::class);
 
+
     // --- GESTIÓN DE PERFIL ---
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
