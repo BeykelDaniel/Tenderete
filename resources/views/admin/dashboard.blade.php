@@ -126,11 +126,6 @@
                             </tbody>
                         </table>
                     </div>
-
-                    {{-- Paginación --}}
-                    <div class="mt-6">
-                        {{ $album->links() }}
-                    </div>
                 </div>
             </div>
         </div>
