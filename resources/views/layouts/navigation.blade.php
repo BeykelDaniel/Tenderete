@@ -28,7 +28,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('album.index')" :active="request()->routeIs('fotos.index')">
+                    <x-nav-link :href="route('album.index')" :active="request()->routeIs('album.index')">
                         {{ __('Media') }}
                     </x-nav-link>
                 </div>
