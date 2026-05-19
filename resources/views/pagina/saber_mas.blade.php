@@ -84,13 +84,6 @@
                 <div class="w-full max-w-2xl mx-auto">
                     <video id="mainVideo" src="{{ asset('Tenderete.mp4') }}" controls class="w-full rounded-lg bg-black shadow-md"></video>
                 </div>
-                <div class="mt-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <h4 class="text-[#bc6a50] text-sm font-semibold uppercase mb-2">Transcripción</h4>
-                    <p class="text-[#3b4d57] text-sm leading-relaxed text-justify italic">
-                        "Explora las actividades, añade nuevos amigos y organiza tu calendario sin complicaciones. Únete a nuestra comunidad y descubre todo lo que Tenderete tiene para ofrecerte."
-                    </p>
-
-                </div>
             </div>
 
             <!-- CONTENIDO PRIVACIDAD -->
