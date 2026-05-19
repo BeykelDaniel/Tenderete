@@ -12,6 +12,7 @@ use App\Http\Controllers\ForoController;
 use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\SoporteController;
 use App\Http\Controllers\SaberMasController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -82,9 +83,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/notificaciones', [NotificacionController::class, 'index'])->name('notificaciones.index');
 
     // --- ADMINISTRACIÓN ---
-    Route::get('/admin/fotos', [AlbumController::class, 'indexAdmin'])->name('fotos.index');
-    Route::delete('/admin/fotos/{id}', [AlbumController::class, 'destroy'])->name('fotos.destroy');
-    Route::resource('usuarios', UsuarioController::class);
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::delete('/admin/usuarios/{id}', [AdminController::class, 'destroyUser'])->name('admin.usuarios.destroy');
+    Route::delete('/admin/media/{id}', [AdminController::class, 'destroyMedia'])->name('admin.media.destroy');
 
     // --- GESTIÓN DE PERFIL ---
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

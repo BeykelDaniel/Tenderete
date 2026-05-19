@@ -67,6 +67,14 @@
             </a>
         </li>
         
+        @if(Auth::check() && Auth::user()->email === 'cabrerajosedaniel89@gmail.com')
+        <li class="w-full">
+            <a href="{{ route('admin.dashboard') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-3 w-full uppercase hover:translate-x-1">
+                <i class="bi bi-shield-lock-fill text-xl w-6 text-center text-red-600"></i> Admin Panel
+            </a>
+        </li>
+        @endif
+        
         <li class="w-full">
             <a href="{{ route('pagina.saber_mas') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-3 w-full uppercase hover:translate-x-1">
                  <i class="bi bi-info-circle-fill text-xl w-6 text-center"></i> Saber Mas
@@ -124,6 +132,15 @@
                 Ajustes
             </a>
         </li>
+        
+        @if(Auth::check() && Auth::user()->email === 'cabrerajosedaniel89@gmail.com')
+        <li>
+            <a href="{{ route('admin.dashboard') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-4 w-full uppercase text-xl">
+                 <i class="bi bi-shield-lock-fill text-2xl w-6 text-center text-red-600"></i> Admin Panel
+            </a>
+        </li>
+        @endif
+        
         <li><a href="{{ route('pagina.saber_mas') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-4 w-full uppercase text-xl">
                  Saber Mas
             </a></li>
