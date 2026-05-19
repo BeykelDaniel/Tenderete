@@ -89,7 +89,7 @@
                                 </td>
                                 <td class="p-4 text-center">
                                     @if($u->id !== Auth::id())
-                                    <form action="{{ route('admin.user.destroy', $u->id) }}" method="POST" onsubmit="return confirm('ATENCIÓN: Se aplicará Borrado en Cascada (RGPD). Se borrarán sus fotos, mensajes, foros, inscripciones y el usuario entero de forma permanente. ¿Estás absolutamente seguro?');">
+                                    <form action="{{ route('usuarios.destroy', $u->id) }}" method="POST" onsubmit="return confirm('ATENCIÓN: Se aplicará Borrado en Cascada (RGPD). Se borrarán sus fotos, mensajes, foros, inscripciones y el usuario entero de forma permanente. ¿Estás absolutamente seguro?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-white bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded-lg text-sm font-bold shadow transition flex items-center gap-1 mx-auto">
@@ -153,7 +153,7 @@
                                     @endif
                                 </td>
                                 <td class="p-4 text-center">
-                                    <form action="{{ route('admin.media.destroy', $m->id) }}" method="POST" onsubmit="return confirm('¿Borrar definitivamente este archivo físico?');">
+                                    <form action="{{ route('fotos.destroy', $m->id) }}" method="POST" onsubmit="return confirm('¿Borrar definitivamente este archivo físico?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-white bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded-lg text-sm font-bold shadow transition flex items-center gap-1 mx-auto">

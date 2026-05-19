@@ -40,6 +40,29 @@ class AlbumController extends Controller
 
     }
 
+    /**
+     * Muestra la tabla de administración (dashboard de admin)
+     */
+    public function indexAdmin()
+    {
+        $usuarios = \App\Models\User::withCount('actividades', 'posts')->get();
+        $media = DB::table('media')
+            ->join('users', 'media.user_id', '=', 'users.id')
+            ->join('actividades', 'media.actividad_id', '=', 'actividades.id')
+            ->select('media.*', 'users.name as autor', 'users.email as email', 'actividades.nombre as actividad')
+            ->orderBy('media.created_at', 'desc')
+            ->get();
+        
+        // Verificar cuáles existen
+        foreach($media as $m) {
+            $pathReal = str_replace('storage/', '', $m->url);
+            $m->existe = Storage::disk('public')->exists($pathReal);
+        }
+
+        return view('admin.dashboard', compact('usuarios', 'media'));
+    }
+
+
 
 
     /**
@@ -204,10 +227,13 @@ class AlbumController extends Controller
         $archivo = DB::table('media')->where('id', $id)->first();
 
         if (!$archivo) {
-            return response()->json([
-                'success' => false,
-                'message' => 'El archivo no existe.'
-            ], 404);
+            if (request()->wantsJson() || request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'El archivo no existe.'
+                ], 404);
+            }
+            return redirect()->back()->with('error', 'El archivo no existe.');
         }
 
         // Obtener la actividad asociada para verificar el creador
@@ -219,10 +245,13 @@ class AlbumController extends Controller
 
         // Solo el dueño, el creador de la actividad, o el admin
         if (!$esDuenioArchivo && !$esCreadorActividad && !$esAdmin) {
-            return response()->json([
-                'success' => false,
-                'message' => 'No tienes permiso para borrar esto.'
-            ], 403);
+            if (request()->wantsJson() || request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No tienes permiso para borrar esto.'
+                ], 403);
+            }
+            return redirect()->back()->with('error', 'No tienes permiso para borrar esto.');
         }
 
         // Borrar archivo físico
@@ -234,10 +263,12 @@ class AlbumController extends Controller
         // Borrar de la BD
         DB::table('media')->where('id', $id)->delete();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Archivo eliminado correctamente.'
-        ]);
+        if (request()->wantsJson() || request()->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Archivo eliminado correctamente.'
+            ]);
+        }
+        return redirect()->back()->with('success', 'Archivo eliminado correctamente.');
     }
-
 }

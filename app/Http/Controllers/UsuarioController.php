@@ -151,15 +151,48 @@ class UsuarioController extends Controller
             return back()->with('error', 'No puedes eliminar tu propia cuenta desde aquí.');
         }
 
-        // Borrar foto del storage si existe
+        // --- BORRADO EN CASCADA MANUAL Y SEGURO (RGPD) ---
+
+        // 1. Borrar foto del perfil si existe
         if ($usuario->perfil_foto) {
             $path = str_replace('storage/', '', $usuario->perfil_foto);
             Storage::disk('public')->delete($path);
         }
 
+        // 2. Borrar fotos físicas del disco y BD subidas por el usuario
+        $medias = \Illuminate\Support\Facades\DB::table('media')->where('user_id', $usuario->id)->get();
+        foreach ($medias as $media) {
+            $pathReal = str_replace('storage/', '', $media->url);
+            if (Storage::disk('public')->exists($pathReal)) {
+                Storage::disk('public')->delete($pathReal);
+            }
+        }
+        \Illuminate\Support\Facades\DB::table('media')->where('user_id', $usuario->id)->delete();
+
+        // 3. Borrar de tablas pivote (amigos, actividad_user)
+        \Illuminate\Support\Facades\DB::table('amigos')->where('user_id', $usuario->id)->orWhere('amigo_id', $usuario->id)->delete();
+        \Illuminate\Support\Facades\DB::table('actividad_user')->where('user_id', $usuario->id)->delete();
+        
+        // 4. Borrar mensajes privados del usuario
+        \Illuminate\Support\Facades\DB::table('mensajes_privados')->where('emisor_id', $usuario->id)->orWhere('receptor_id', $usuario->id)->delete();
+
+        // 5. Actividades creadas por el usuario (y sus archivos)
+        $actividades = \App\Models\Actividades::where('user_id', $usuario->id)->get();
+        foreach ($actividades as $act) {
+            // Borramos también los archivos de estas actividades aunque sean de otros
+            $actMedias = \Illuminate\Support\Facades\DB::table('media')->where('actividad_id', $act->id)->get();
+            foreach ($actMedias as $m) {
+                $p = str_replace('storage/', '', $m->url);
+                if (Storage::disk('public')->exists($p)) { Storage::disk('public')->delete($p); }
+            }
+            \Illuminate\Support\Facades\DB::table('media')->where('actividad_id', $act->id)->delete();
+            $act->delete(); // Elimina la actividad
+        }
+
+        // 6. Eliminar usuario
         $usuario->delete();
 
-        return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado con éxito.');
+        return redirect()->route('usuarios.index')->with('success', 'Usuario, archivos y actividades asociadas eliminados correctamente (RGPD).');
     }
 
     /**
