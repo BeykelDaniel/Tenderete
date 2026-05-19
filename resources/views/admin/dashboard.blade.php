@@ -2,12 +2,9 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-white leading-tight">
-                {{ __('Listado de Álbumes') }}
+                {{ __('Contenido Multimedia') }}
             </h2>
-            <a href="{{ route('album.create') }}"
-                class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition ease-in-out duration-150 shadow-sm">
-                + Nuevo Álbum
-            </a>
+
         </div>
     </x-slot>
 
