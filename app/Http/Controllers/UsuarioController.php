@@ -160,24 +160,17 @@ class UsuarioController extends Controller
         }
 
         // 2. Borrar fotos físicas del disco y BD subidas por el usuario
-        $medias = \Illuminate\Support\Facades\DB::table('media')->where('user_id', $usuario->id)->get();
-        foreach ($medias as $media) {
-            $pathReal = str_replace('storage/', '', $media->url);
-            if (Storage::disk('public')->exists($pathReal)) {
-                Storage::disk('public')->delete($pathReal);
-            }
-        }
         \Illuminate\Support\Facades\DB::table('media')->where('user_id', $usuario->id)->delete();
 
         // 3. Borrar de tablas pivote (amigos, actividad_user)
         \Illuminate\Support\Facades\DB::table('amigos')->where('user_id', $usuario->id)->orWhere('amigo_id', $usuario->id)->delete();
         \Illuminate\Support\Facades\DB::table('actividad_user')->where('user_id', $usuario->id)->delete();
         
-        // 4. Borrar mensajes privados del usuario
-        \Illuminate\Support\Facades\DB::table('mensajes_privados')->where('user_id', $usuario->id)->orWhere('amigo_id', $usuario->id)->delete();
+        // 4. Borrar mensajes privados del usuario (Corregido a emisor/receptor)
+        \Illuminate\Support\Facades\DB::table('mensajes_privados')->where('emisor_id', $usuario->id)->orWhere('receptor_id', $usuario->id)->delete();
 
-        // 5. Actividades creadas por el usuario (y sus archivos)
-        $actividades = \App\Models\Actividades::where('user_id', $usuario->id)->get();
+        // 5. Actividades creadas por el usuario (Corregido user_id por usuario_id)
+        $actividades = \App\Models\Actividades::where('usuario_id', $usuario->id)->get();
         foreach ($actividades as $act) {
             // Borramos también los archivos de estas actividades aunque sean de otros
             $actMedias = \Illuminate\Support\Facades\DB::table('media')->where('actividad_id', $act->id)->get();
