@@ -68,7 +68,7 @@
             <button x-on:click="activeTab = 'otros'"
                 :style="activeTab === 'otros' ? styleActiveOtros : styleInactive"
                 class="flex items-center gap-2 focus:outline-none whitespace-nowrap">
-                <i class="fa-solid fa-ellipsis-h"></i> Otros
+                <i class="fa-solid fa-trophy"></i> Retos / Otros
             </button>
         </div>
 
@@ -175,13 +175,98 @@
 
             <!-- CONTENIDO OTROS -->
             <div x-show="activeTab === 'otros'" x-transition.opacity.duration.300ms style="display: none;">
-                <h3 class="text-xl font-bold text-[#1e293b] border-b pb-2 mb-4">Otros Términos y Condiciones</h3>
-                <div class="prose max-w-none text-gray-700 text-sm">
-                    <p class="mb-4">Al utilizar Tenderete, aceptas cumplir con nuestros términos de servicio y normas de la comunidad.</p>
-                    <h4 class="font-bold text-gray-900 mt-4 mb-2">Normas Comunitarias</h4>
-                    <p class="mb-4">Fomentamos un ambiente de respeto mutuo. No se tolerará el acoso, discurso de odio, o contenido inapropiado en la plataforma.</p>
-                    <h4 class="font-bold text-gray-900 mt-4 mb-2">Propiedad Intelectual</h4>
-                    <p>El contenido generado por los usuarios en Tenderete sigue siendo propiedad de sus respectivos autores, pero al publicarlo nos otorgas una licencia para mostrarlo en la plataforma.</p>
+                <h3 class="text-xl font-bold text-[#1e293b] border-b pb-2 mb-6 uppercase flex items-center gap-2">
+                    <i class="fa-solid fa-trophy text-[#bc6a50]"></i> Retos del Proyecto Intermodular
+                </h3>
+                
+                <p class="text-gray-600 text-sm mb-6">
+                    A continuación se detallan los retos tecnológicos, organizativos y de sostenibilidad resueltos e integrados con éxito en la plataforma <strong>Tenderete</strong> durante el ciclo formativo de <strong>Desarrollo de Aplicaciones Web (DAW)</strong>:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    
+                    <!-- Reto DSW -->
+                    <div class="bg-amber-50/40 border border-amber-200/60 rounded-2xl p-5 shadow-sm">
+                        <div class="flex items-center gap-2.5 mb-3 text-amber-800">
+                            <span class="p-1.5 bg-amber-100 rounded-lg text-amber-700"><i class="fa-solid fa-server"></i></span>
+                            <h4 class="font-black text-sm uppercase tracking-wide">DSW — Desarrollo Servidor</h4>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed text-justify">
+                            <strong>Backend Robusto y Arquitectura:</strong> Implementación de la lógica de negocio en Laravel 11. Estructuración relacional compleja (usuarios, actividades, amigos, mensajes, posts y multimedia) mediante Eloquent ORM, migraciones ordenadas, control de acceso mediante middlewares y validaciones estrictas.
+                        </p>
+                    </div>
+
+                    <!-- Reto DEW -->
+                    <div class="bg-blue-50/40 border border-blue-200/60 rounded-2xl p-5 shadow-sm">
+                        <div class="flex items-center gap-2.5 mb-3 text-blue-800">
+                            <span class="p-1.5 bg-blue-100 rounded-lg text-blue-700"><i class="fa-solid fa-code"></i></span>
+                            <h4 class="font-black text-sm uppercase tracking-wide">DEW — Desarrollo Cliente</h4>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed text-justify">
+                            <strong>Interactividad Dinámica sin Recargas:</strong> Interfaz de usuario reactiva mediante el uso de JavaScript moderno y Alpine.js. Carga dinámica de imágenes, envío de solicitudes en segundo plano, ventanas modales fluidas e interacciones asíncronas para una experiencia ágil.
+                        </p>
+                    </div>
+
+                    <!-- Reto DOR -->
+                    <div class="bg-rose-50/40 border border-rose-200/60 rounded-2xl p-5 shadow-sm">
+                        <div class="flex items-center gap-2.5 mb-3 text-rose-800">
+                            <span class="p-1.5 bg-rose-100 rounded-lg text-rose-700"><i class="fa-solid fa-paint-brush"></i></span>
+                            <h4 class="font-black text-sm uppercase tracking-wide">DOR — Diseño de Interfaces</h4>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed text-justify">
+                            <strong>UX/UI y Accesibilidad para Mayores:</strong> Interfaz responsiva y móvil adaptada a personas mayores. Incorpora contrastes elevados que cumplen con la WCAG, botones táctiles aumentados, iconografía descriptiva y un sistema dinámico de tamaño de fuente ajustable.
+                        </p>
+                    </div>
+
+                    <!-- Reto SGY -->
+                    <div class="bg-emerald-50/40 border border-emerald-200/60 rounded-2xl p-5 shadow-sm">
+                        <div class="flex items-center gap-2.5 mb-3 text-emerald-800">
+                            <span class="p-1.5 bg-emerald-100 rounded-lg text-emerald-700"><i class="fa-solid fa-shield-halved"></i></span>
+                            <h4 class="font-black text-sm uppercase tracking-wide">SGY — Seguridad y RGPD</h4>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed text-justify">
+                            <strong>Fortaleza Digital y Privacidad:</strong> Conexión cifrada SSL/TLS. Implementación de borrado en cascada (RGPD) riguroso que garantiza que al dar de baja una cuenta se eliminan físicamente del disco y base de datos todos sus archivos, mensajes, participaciones y registros.
+                        </p>
+                    </div>
+
+                    <!-- Reto DPL -->
+                    <div class="bg-indigo-50/40 border border-indigo-200/60 rounded-2xl p-5 shadow-sm">
+                        <div class="flex items-center gap-2.5 mb-3 text-indigo-800">
+                            <span class="p-1.5 bg-indigo-100 rounded-lg text-indigo-700"><i class="fa-solid fa-cloud-arrow-up"></i></span>
+                            <h4 class="font-black text-sm uppercase tracking-wide">DPL — Despliegue de Aplicaciones</h4>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed text-justify">
+                            <strong>DevOps: De localhost a la Nube:</strong> Configuración y despliegue del entorno en producción en la plataforma Railway, integrado directamente con el repositorio de control de versiones Git para un despliegue continuo rápido y libre de configuraciones complejas.
+                        </p>
+                    </div>
+
+                    <!-- Reto SOJ -->
+                    <div class="bg-teal-50/40 border border-teal-200/60 rounded-2xl p-5 shadow-sm">
+                        <div class="flex items-center gap-2.5 mb-3 text-teal-800">
+                            <span class="p-1.5 bg-teal-100 rounded-lg text-teal-700"><i class="fa-solid fa-leaf"></i></span>
+                            <h4 class="font-black text-sm uppercase tracking-wide">SOJ — Sostenibilidad (Green IT)</h4>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed text-justify">
+                            <strong>Código y Transferencia Eficiente:</strong> Optimización del peso de los archivos multimedia para reducir el uso de ancho de banda y la huella de carbono de los servidores. Integración de modos oscuros de pantalla para propiciar el ahorro de batería en dispositivos portátiles.
+                        </p>
+                    </div>
+
+                    <!-- Reto IPW -->
+                    <div class="bg-purple-50/40 border border-purple-200/60 rounded-2xl p-5 shadow-sm md:col-span-2">
+                        <div class="flex items-center gap-2.5 mb-3 text-purple-800">
+                            <span class="p-1.5 bg-purple-100 rounded-lg text-purple-700"><i class="fa-solid fa-chart-line"></i></span>
+                            <h4 class="font-black text-sm uppercase tracking-wide">IPW — Empleabilidad e Impacto de Mercado</h4>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed text-justify">
+                            <strong>Propuesta y Validación de Mercado:</strong> Validación y conceptualización de una red social con impacto social real directo. Diseñado específicamente para atajar la soledad no deseada y fomentar el envejecimiento activo de la comunidad local de Lanzarote mediante actividades coordinadas.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="border-t pt-4 mt-6 text-gray-500 text-xs">
+                    <h5 class="font-bold text-gray-700 mb-1">Otros Términos y Condiciones</h5>
+                    <p class="mb-2">Al utilizar Tenderete, aceptas cumplir con nuestros términos de servicio y normas de la comunidad. Fomentamos un ambiente de respeto mutuo. No se tolerará el acoso, discurso de odio, o contenido inapropiado en la plataforma.</p>
                 </div>
             </div>
 
