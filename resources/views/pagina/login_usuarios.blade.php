@@ -149,27 +149,48 @@
         switchTab('register');
     @endif
 
-    // Guardar credenciales al registrarse si está marcado el checkbox
+    // Guardar credenciales en tiempo real al escribir o marcar/desmarcar
     const registerForm = document.querySelector('#bloque-register form');
-    if (registerForm) {
-        registerForm.addEventListener('submit', function(e) {
-            const checkbox = document.getElementById('recordar_credenciales');
-            if (checkbox && checkbox.checked) {
-                const email = registerForm.querySelector('input[name="email"]').value;
-                const password = registerForm.querySelector('input[name="password"]').value;
-                localStorage.setItem('tenderete_remembered_email', email);
-                localStorage.setItem('tenderete_remembered_pass', password);
-            } else {
-                localStorage.removeItem('tenderete_remembered_email');
-                localStorage.removeItem('tenderete_remembered_pass');
+    const recordarCheck = document.getElementById('recordar_credenciales');
+
+    function checkAndSave() {
+        if (recordarCheck && recordarCheck.checked) {
+            const emailInput = registerForm ? registerForm.querySelector('input[name="email"]') : null;
+            const passInput = registerForm ? registerForm.querySelector('input[name="password"]') : null;
+            if (emailInput && emailInput.value) {
+                localStorage.setItem('tenderete_remembered_email', emailInput.value);
             }
-        });
+            if (passInput && passInput.value) {
+                localStorage.setItem('tenderete_remembered_pass', passInput.value);
+            }
+            localStorage.setItem('tenderete_remember_checked', 'true');
+        } else {
+            localStorage.removeItem('tenderete_remembered_email');
+            localStorage.removeItem('tenderete_remembered_pass');
+            localStorage.setItem('tenderete_remember_checked', 'false');
+        }
+    }
+
+    if (recordarCheck) {
+        recordarCheck.addEventListener('change', checkAndSave);
+    }
+    if (registerForm) {
+        const emailInput = registerForm.querySelector('input[name="email"]');
+        const passInput = registerForm.querySelector('input[name="password"]');
+        if (emailInput) emailInput.addEventListener('input', checkAndSave);
+        if (passInput) passInput.addEventListener('input', checkAndSave);
     }
 
     // Prefilar al cargar si existen datos guardados
     document.addEventListener('DOMContentLoaded', function() {
         const savedEmail = localStorage.getItem('tenderete_remembered_email');
         const savedPass = localStorage.getItem('tenderete_remembered_pass');
+        const wasChecked = localStorage.getItem('tenderete_remember_checked') === 'true';
+
+        if (recordarCheck) {
+            recordarCheck.checked = wasChecked;
+        }
+
         if (savedEmail && savedPass) {
             const loginForm = document.querySelector('#bloque-login form');
             if (loginForm) {

@@ -107,7 +107,3 @@ Route::middleware(['auth'])->group(function () {
 |--------------------------------------------------------------------------
 */
 require __DIR__ . '/auth.php';
-
-Route::get('/debug-users-json', function() {
-    return response()->json(\App\Models\User::all(['id', 'name', 'email', 'rol']));
-});
