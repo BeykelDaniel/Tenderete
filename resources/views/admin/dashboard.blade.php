@@ -45,13 +45,13 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach ($media as $item)
+                                @forelse ($media as $item)
                                 <tr class="hover:bg-gray-50 transition-colors">
                                     {{-- Acciones --}}
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <div class="flex items-center space-x-3">
                                             {{-- Consultar --}}
-                                            <a href="{{ route('album.show', $item) }}"
+                                            <a href="{{ asset($item->url) }}" target="_blank"
                                                 class="text-blue-600 hover:text-blue-900" title="Ver detalles">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -59,9 +59,9 @@
                                                 </svg>
                                             </a>
                                             {{-- Eliminar --}}
-                                            <form action="{{ route('album.destroy', $item) }}" method="POST"
+                                            <form action="{{ route('fotos.destroy', $item->id) }}" method="POST"
                                                 class="inline"
-                                                onsubmit="return confirm('¿Estás seguro de eliminar este álbum?')">
+                                                onsubmit="return confirm('¿Estás seguro de eliminar este archivo multimedia de forma permanente?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="text-red-600 hover:text-red-900" title="Eliminar">
@@ -73,35 +73,39 @@
                                         </div>
                                     </td>
 
-                                    {{-- Preview (Imagen desde BBDD) --}}
+                                    {{-- Preview --}}
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="h-12 w-12 flex-shrink-0">
-                                                @if($item->imagen)
-                                                    {{-- Opción A: Si guardas la ruta pública en tu BBDD (Ej: 'imagenes/disco.jpg') --}}
-                                                    <img class="h-12 w-12 rounded-md object-cover shadow-sm border border-gray-200" 
-                                                         src="{{ asset('storage/' . $item->imagen) }}" 
-                                                         alt="Portada de {{ $item->disco }}">
+                                                @if($item->existe)
+                                                    @if($item->tipo == 'video')
+                                                        <div class="h-12 w-12 rounded-md bg-gray-200 flex items-center justify-center text-gray-500 shadow-sm">
+                                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                            </svg>
+                                                        </div>
+                                                    @else
+                                                        <img class="h-12 w-12 rounded-md object-cover shadow-sm border border-gray-200" 
+                                                             src="{{ asset($item->url) }}" 
+                                                             alt="Preview">
+                                                    @endif
                                                 @else
-                                                    {{-- Imagen por defecto en caso de que no tenga preview --}}
-                                                    <div class="h-12 w-12 rounded-md bg-gray-200 flex items-center justify-center text-gray-400">
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                                                        </svg>
-                                                    </div>
+                                                    <div class="h-12 w-12 bg-red-50 rounded-md flex items-center justify-center text-red-500 shadow-sm font-bold text-[10px] text-center border border-red-200 leading-none">Roto<br>(404)</div>
                                                 @endif
                                             </div>
                                         </div>
                                     </td>
 
-                                    {{-- Disco --}}
+                                    {{-- Disco (Nombre Archivo) --}}
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-semibold">
-                                        {{ $item->disco }}
+                                        {{ basename($item->url) }}
                                     </td>
 
                                     {{-- Autor --}}
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                        {{ $item->autor }}
+                                        <div class="font-bold text-gray-700">{{ $item->autor }}</div>
+                                        <div class="text-xs text-gray-500">{{ $item->email }}</div>
                                     </td>
 
                                     {{-- Actividad --}}
@@ -111,18 +115,22 @@
 
                                     {{-- Estado --}}
                                     <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                        @if($item->estado == 'activo' || $item->estado == 'publicado')
+                                        @if($item->existe)
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                {{ ucfirst($item->estado) }}
+                                                Físico OK
                                             </span>
                                         @else
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-amber-100 text-amber-800">
-                                                {{ ucfirst($item->estado) }}
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                Perdido (404)
                                             </span>
                                         @endif
                                     </td>
                                 </tr>
-                                @endforeach
+                                @empty
+                                <tr>
+                                    <td colspan="6" class="px-6 py-8 text-center text-gray-500 font-bold">No hay archivos multimedia subidos.</td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
