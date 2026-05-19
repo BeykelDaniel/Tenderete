@@ -179,6 +179,11 @@
         const passInput = registerForm.querySelector('input[name="password"]');
         if (emailInput) emailInput.addEventListener('input', checkAndSave);
         if (passInput) passInput.addEventListener('input', checkAndSave);
+        
+        // Ejecutar también al enviar el formulario para capturar datos autofiltrados
+        registerForm.addEventListener('submit', function() {
+            checkAndSave();
+        });
     }
 
     // Prefilar al cargar si existen datos guardados
