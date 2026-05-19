@@ -45,7 +45,7 @@
             </div>
 
             <!-- TABLA DE USUARIOS (RGPD) -->
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-8 border border-gray-100">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-8 border border-gray-150">
                 <div class="bg-[#32424D] p-4 text-white">
                     <h2 class="text-xl font-bold flex items-center gap-2">
                         <i class="bi bi-people-fill"></i> Gestión de Usuarios y Comunidades (RGPD)
@@ -53,24 +53,57 @@
                     <p class="text-sm opacity-80 mt-1">Borrado en cascada: Elimina usuario, fotos, actividades e inscripciones.</p>
                 </div>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-gray-100 border-b border-gray-200 text-gray-600 text-sm uppercase">
-                                <th class="p-4 font-bold">ID</th>
-                                <th class="p-4 font-bold">Nombre</th>
-                                <th class="p-4 font-bold">Email</th>
-                                <th class="p-4 font-bold">Actividades Creadas</th>
-                                <th class="p-4 font-bold text-center">Acciones</th>
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Acciones</th>
+                                <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">ID</th>
+                                <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Nombre</th>
+                                <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Email</th>
+                                <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Actividades Creadas</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="bg-white divide-y divide-gray-200">
                             @foreach($usuarios as $u)
-                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
-                                <td class="p-4 font-bold text-gray-500">#{{ $u->id }}</td>
-                                <td class="p-4">
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <div class="flex items-center space-x-3">
+                                        {{-- Consultar --}}
+                                        <a href="{{ route('usuarios.show', $u) }}"
+                                            class="text-blue-600 hover:text-blue-900" title="Ver detalles">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </a>
+                                        {{-- Editar --}}
+                                        <a href="{{ route('usuarios.edit', $u) }}"
+                                            class="text-green-600 hover:text-green-900" title="Editar">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </a>
+                                        {{-- Eliminar --}}
+                                        @if($u->id !== Auth::id())
+                                        <form action="{{ route('usuarios.destroy', $u->id) }}" method="POST"
+                                            class="inline"
+                                            onsubmit="return confirm('ATENCIÓN: Se aplicará Borrado en Cascada (RGPD). Se borrarán sus fotos, mensajes, foros, inscripciones y el usuario entero de forma permanente. ¿Estás absolutamente seguro?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:text-red-900" title="Eliminar Usuario">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                        @endif
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">#{{ $u->id }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">
                                     <div class="flex items-center gap-3">
                                         @if($u->perfil_foto)
-                                            <img src="{{ asset($u->perfil_foto) }}" class="w-8 h-8 rounded-full object-cover">
+                                            <img src="{{ asset($u->perfil_foto) }}" class="w-8 h-8 rounded-full object-cover shadow-sm">
                                         @else
                                             <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
                                                 <i class="bi bi-person"></i>
@@ -79,24 +112,11 @@
                                         <span class="font-bold text-gray-700">{{ $u->name }}</span>
                                     </div>
                                 </td>
-                                <td class="p-4 text-gray-600">{{ $u->email }}</td>
-                                <td class="p-4">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $u->email }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                                     <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-0.5 rounded-full">
                                         {{ $u->actividades_count }}
                                     </span>
-                                </td>
-                                <td class="p-4 text-center">
-                                    @if($u->id !== Auth::id())
-                                    <form action="{{ route('usuarios.destroy', $u->id) }}" method="POST" onsubmit="return confirm('ATENCIÓN: Se aplicará Borrado en Cascada (RGPD). Se borrarán sus fotos, mensajes, foros, inscripciones y el usuario entero de forma permanente. ¿Estás absolutamente seguro?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-white bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded-lg text-sm font-bold shadow transition flex items-center gap-1 mx-auto">
-                                            <i class="bi bi-trash-fill"></i> Eliminar Usuario
-                                        </button>
-                                    </form>
-                                    @else
-                                    <span class="text-xs font-bold text-gray-400">Administrador actual</span>
-                                    @endif
                                 </td>
                             </tr>
                             @endforeach
@@ -106,7 +126,7 @@
             </div>
 
             <!-- TABLA DE MEDIA (MODERACIÓN) -->
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-150">
                 <div class="bg-[#bc6a50] p-4 text-white">
                     <h2 class="text-xl font-bold flex items-center gap-2">
                         <i class="bi bi-images"></i> Moderación de Álbumes (Limpieza Disco Duro)
@@ -114,55 +134,70 @@
                     <p class="text-sm opacity-80 mt-1">Borrado físico del disco de Railway y de la base de datos.</p>
                 </div>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-gray-100 border-b border-gray-200 text-gray-600 text-sm uppercase">
-                                <th class="p-4 font-bold w-24">Preview</th>
-                                <th class="p-4 font-bold">Autor</th>
-                                <th class="p-4 font-bold">Actividad</th>
-                                <th class="p-4 font-bold">Estado Disco</th>
-                                <th class="p-4 font-bold text-center">Acciones</th>
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Acciones</th>
+                                <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Preview</th>
+                                <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Autor</th>
+                                <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Actividad</th>
+                                <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Estado Disco</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($media as $m)
-                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
-                                <td class="p-4">
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <div class="flex items-center space-x-3">
+                                        {{-- Consultar --}}
+                                        <a href="{{ asset($m->url) }}" target="_blank"
+                                            class="text-blue-600 hover:text-blue-900" title="Ver archivo">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </a>
+                                        {{-- Eliminar --}}
+                                        <form action="{{ route('fotos.destroy', $m->id) }}" method="POST"
+                                            class="inline"
+                                            onsubmit="return confirm('¿Borrar definitivamente este archivo físico?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:text-red-900" title="Borrar Archivo">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     @if($m->existe)
                                         @if($m->tipo == 'video')
-                                            <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-gray-500 shadow"><i class="bi bi-play-circle text-2xl"></i></div>
+                                            <div class="w-16 h-16 bg-gray-200 rounded-xl flex items-center justify-center text-gray-500 shadow-sm"><i class="bi bi-play-circle text-2xl"></i></div>
                                         @else
-                                            <img src="{{ asset($m->url) }}" class="w-16 h-16 object-cover rounded shadow">
+                                            <img src="{{ asset($m->url) }}" class="w-16 h-16 object-cover rounded-xl shadow-sm">
                                         @endif
                                     @else
-                                        <div class="w-16 h-16 bg-red-100 rounded flex items-center justify-center text-red-500 shadow font-bold text-xs text-center border border-red-300">Roto<br>(404)</div>
+                                        <div class="w-16 h-16 bg-red-50 rounded-xl flex items-center justify-center text-red-500 shadow-sm font-bold text-xs text-center border border-red-200">Roto<br>(404)</div>
                                     @endif
                                 </td>
-                                <td class="p-4">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                     <div class="font-bold text-gray-700">{{ $m->autor }}</div>
                                     <div class="text-xs text-gray-500">{{ $m->email }}</div>
                                 </td>
-                                <td class="p-4 text-sm font-semibold text-gray-600">{{ $m->actividad }}</td>
-                                <td class="p-4">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-medium">{{ $m->actividad }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                                     @if($m->existe)
-                                        <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-full"><i class="bi bi-check-circle"></i> Físico OK</span>
+                                        <span class="bg-green-100 text-green-800 text-xs font-bold px-2.5 py-1 rounded-full"><i class="bi bi-check-circle"></i> Físico OK</span>
                                     @else
-                                        <span class="bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded-full"><i class="bi bi-x-circle"></i> Perdido (Volátil)</span>
+                                        <span class="bg-red-100 text-red-800 text-xs font-bold px-2.5 py-1 rounded-full"><i class="bi bi-x-circle"></i> Perdido (Volátil)</span>
                                     @endif
-                                </td>
-                                <td class="p-4 text-center">
-                                    <form action="{{ route('fotos.destroy', $m->id) }}" method="POST" onsubmit="return confirm('¿Borrar definitivamente este archivo físico?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-white bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded-lg text-sm font-bold shadow transition flex items-center gap-1 mx-auto">
-                                            <i class="bi bi-trash-fill"></i> Borrar
-                                        </button>
-                                    </form>
                                 </td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5" class="p-8 text-center text-gray-500 font-bold">No hay archivos multimedia subidos.</td>
+                                <td colspan="5" class="px-6 py-8 text-center text-gray-500 font-bold">No hay archivos multimedia subidos.</td>
                             </tr>
                             @endforelse
                         </tbody>
