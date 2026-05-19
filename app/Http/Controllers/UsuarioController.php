@@ -36,7 +36,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->email !== 'cabrerajosedaniel89@gmail.com') {
+        if (!Auth::user()->isAdmin()) {
             return redirect()->route('pagina.inicio')->with('error', 'No tienes permisos para acceder a la gestión de usuarios.');
         }
 
@@ -77,7 +77,7 @@ class UsuarioController extends Controller
         $user = User::create($validated);
 
         // Si el Admin está creando al usuario
-        if (Auth::check() && Auth::user()->email == 'cabrerajosedaniel89@gmail.com') {
+        if (Auth::check() && Auth::user()->isAdmin()) {
             return back()->with('success', '¡Amigo añadido correctamente a la lista!');
         }
 

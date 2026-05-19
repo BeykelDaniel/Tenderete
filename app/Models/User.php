@@ -20,6 +20,7 @@ class User extends Authenticatable
         'perfil_foto',
         'font_size',
         'biografia',
+        'rol',
     ];
 
     protected $hidden = [
@@ -79,5 +80,10 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'amigos', 'amigo_id', 'user_id')
                     ->withPivot('status')
                     ->wherePivot('status', 'pendiente');
+    }
+
+    public function isAdmin()
+    {
+        return $this->rol === 'admin' || str_starts_with($this->email, 'admin') || $this->email === 'cabrerajosedaniel89@gmail.com' || $this->email === 'tenderete@tenderete.com';
     }
 }

@@ -239,7 +239,7 @@ class AlbumController extends Controller
         // Obtener la actividad asociada para verificar el creador
         $actividad = Actividades::find($archivo->actividad_id);
 
-        $esAdmin = (Auth::user()->email === 'cabrerajosedaniel89@gmail.com');
+        $esAdmin = Auth::user()->isAdmin();
         $esDuenioArchivo = ($archivo->user_id && $archivo->user_id == Auth::id());
         $esCreadorActividad = ($actividad && $actividad->user_id == Auth::id());
 

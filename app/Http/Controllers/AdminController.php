@@ -15,8 +15,7 @@ class AdminController extends Controller
     {
         // Solo administradores pueden usar este controlador
         $this->middleware(function ($request, $next) {
-            $adminEmails = ['cabrerajosedaniel89@gmail.com', 'admin@tenderete.com', 'admin@gmail.com'];
-            if (!Auth::check() || !in_array(Auth::user()->email, $adminEmails)) {
+            if (!Auth::check() || !Auth::user()->isAdmin()) {
                 return redirect('/')->with('error', 'Acceso denegado. Se requiere nivel de administrador.');
             }
             return $next($request);

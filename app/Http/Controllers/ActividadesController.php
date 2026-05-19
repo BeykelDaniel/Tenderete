@@ -16,7 +16,7 @@ class ActividadesController extends Controller
      */
     public function index(Request $request)
     {
-        if (Auth::user()->email !== 'cabrerajosedaniel89@gmail.com') {
+        if (!Auth::user()->isAdmin()) {
             return redirect()->route('pagina.inicio')->with('error', 'No tienes permisos para acceder a esta sección.');
         }
 
@@ -84,7 +84,7 @@ class ActividadesController extends Controller
      */
     public function store(Request $request)
     {
-        $isAdmin = Auth::user()->email == 'cabrerajosedaniel89@gmail.com';
+        $isAdmin = Auth::user()->isAdmin();
         
         $validated = $request->validate([
             'nombre'           => 'required|string|max:255',

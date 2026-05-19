@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             
-            @if(Auth::check() && (Auth::user()->email === 'cabrerajosedaniel89@gmail.com' || Auth::user()->email === 'tenderete@tenderete.com'))
+            @if(Auth::check() && Auth::user()->isAdmin())
                 <!-- Sección para Administradores -->
                 <div class="mb-8 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-2xl border border-gray-150 dark:border-gray-700">
                     <div class="p-8 text-gray-900 dark:text-gray-100">
