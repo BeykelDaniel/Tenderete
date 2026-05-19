@@ -49,7 +49,10 @@
                                 ->push(auth()->id());
 
                             $usuarios_db = \App\Models\User::whereNotIn('id', $idsOcultar)
+                                ->where('rol', '!=', 'admin')
                                 ->where('email', '!=', 'cabrerajosedaniel89@gmail.com')
+                                ->where('email', '!=', 'tenderete@tenderete.com')
+                                ->where('email', 'not like', 'admin%')
                                 ->latest()->take(25)->get(); // Aumentado a 25 para que tenga sentido el scroll
                         @endphp
                         

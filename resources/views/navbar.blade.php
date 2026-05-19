@@ -22,11 +22,11 @@
     </div>
 
     <!-- Enlaces (Desktop) -->
-    <ul id="nav-lista-desktop" class="w-full flex flex-col items-start px-6 gap-y-6 font-black text-[#32424D] text-lg pb-6">
+    <ul id="nav-lista-desktop" class="w-full flex flex-col items-start px-6 gap-y-6 font-black text-[#32424D] text-[1.45rem] pb-6">
         
         <li class="w-full">
             <a href="{{ route('pagina.amigos') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-3 w-full uppercase hover:translate-x-1">
-               <i class="bi bi-people-fill text-xl w-6 text-center"></i> Mis Amigos
+               <i class="bi bi-people-fill text-2xl w-6 text-center"></i> Mis Amigos
             </a>
         </li>
         
@@ -41,7 +41,7 @@
 
         <li class="w-full">
             <a href="{{ route('pagina.comunidades') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-3 w-full uppercase hover:translate-x-1 transition-transform">
-                <i class="fa-solid fa-users text-xl w-6 text-center"></i> Comunidades
+                <i class="fa-solid fa-users text-2xl w-6 text-center"></i> Comunidades
             </a>
         </li>
 
@@ -61,7 +61,7 @@
                 @if(Auth::check() && Auth::user()->perfil_foto)
                     <img src="{{ asset(Auth::user()->perfil_foto) }}" class="w-8 h-8 rounded-full border-2 border-[#32424D] object-cover" alt="">
                 @else
-                    <i class="bi bi-gear-fill text-xl w-6 text-center" aria-hidden="true"></i>
+                    <i class="bi bi-gear-fill text-2xl w-6 text-center" aria-hidden="true"></i>
                 @endif
                 Ajustes
             </a>
@@ -69,7 +69,7 @@
         
         <li class="w-full">
             <a href="{{ route('pagina.saber_mas') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-3 w-full uppercase hover:translate-x-1">
-                 <i class="bi bi-info-circle-fill text-xl w-6 text-center"></i> Saber Mas
+                 <i class="bi bi-info-circle-fill text-2xl w-6 text-center"></i> Saber Mas
             </a>
         </li>
 
@@ -77,7 +77,7 @@
             <form method="POST" action="{{ route('logout') }}" class="w-full">
                 @csrf
                 <button type="submit" class="hover:text-[#C2841D] transition-colors flex items-center gap-3 w-full text-[#bc6a50] uppercase text-left">
-                    <i class="fa-solid fa-right-from-bracket text-xl w-6 text-center" aria-hidden="true"></i>
+                    <i class="fa-solid fa-right-from-bracket text-2xl w-6 text-center" aria-hidden="true"></i>
                     Salir
                 </button>
             </form>
@@ -85,7 +85,7 @@
         @else
         <li class="w-full mt-auto pt-8 border-t border-[#32424D]/20 mb-8 hover:translate-x-1">
             <a href="{{ route('pagina.login_usuarios') }}" class="hover:text-[#C2841D] transition-colors flex items-center gap-3 w-full uppercase text-xl">
-                <i class="fa-solid fa-user text-xl w-6 text-center"></i> Entrar
+                <i class="fa-solid fa-user text-2xl w-6 text-center"></i> Entrar
             </a>
         </li>
         @endauth
@@ -111,7 +111,7 @@
     </div>
 
     <!-- Enlaces (Móvil) -->
-    <ul id="nav-lista-movil" class="w-full flex flex-col items-start px-8 gap-y-8 font-black text-[#32424D] text-lg">
+    <ul id="nav-lista-movil" class="w-full flex flex-col items-start px-8 gap-y-8 font-black text-[#32424D] text-2xl">
         
         @auth
         <li class="w-full mt-auto pt-6 border-t border-[#32424D]/20 ">
@@ -150,12 +150,12 @@
 <!-- Barra de Navegación Inferior (Móvil) -->
 <div id="barra-inferior" class="lg:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 z-[9999] flex justify-around items-center py-2 shadow-[0_-10px_40px_rgba(0,0,0,0.15)] rounded-t-[30px]">
     <a href="{{ route('pagina.inicio') }}" class="flex-1 flex flex-col items-center gap-1 transition-all active:scale-90 {{ request()->routeIs('pagina.inicio') ? 'text-[#bc6a50]' : 'text-[#32424D]/60' }}" style="color: {{ request()->routeIs('pagina.inicio') ? '#bc6a50' : '#32424Dbb' }} !important;">
-        <i class="bi bi-house-door-fill text-[1.4rem]"></i>
-        <span class="text-[10px] font-black uppercase leading-none">Inicio</span>
+        <i class="bi bi-house-door-fill text-[1.60rem]"></i>
+        <span class="text-[12px] font-black uppercase leading-none">Inicio</span>
     </a>
     <a href="{{ route('pagina.amigos') }}" class="flex-1 flex flex-col items-center gap-1 transition-all active:scale-90 {{ request()->routeIs('pagina.amigos') ? 'text-[#bc6a50]' : 'text-[#32424D]/60' }}" style="color: {{ request()->routeIs('pagina.amigos') ? '#bc6a50' : '#32424Dbb' }} !important;">
-        <i class="bi bi-people-fill text-[1.4rem]"></i>
-        <span class="text-[10px] font-black uppercase leading-none">Amigos</span>
+        <i class="bi bi-people-fill text-[1.60rem]"></i>
+        <span class="text-[12px] font-black uppercase leading-none">Amigos</span>
     </a>
     <calendario-navbar class="flex-1 flex justify-center"
         :initial-inscripciones="{{ json_encode(array_values($inscripciones_data ?? [])) }}" 
@@ -164,12 +164,12 @@
         :is-mobile-mode="true">
     </calendario-navbar>
     <a href="{{ route('pagina.comunidades') }}" class="flex-1 flex flex-col items-center justify-center gap-1 transition-all active:scale-90 {{ request()->routeIs('pagina.comunidades') ? 'text-[#bc6a50]' : 'text-[#32424D]/60' }}" style="color: {{ request()->routeIs('pagina.comunidades') ? '#bc6a50' : '#32424Dbb' }} !important;">
-        <i class="fa-solid fa-users text-[1.4rem]"></i>
-        <span class="text-[10px] font-black uppercase leading-none">Comunidad</span>
+        <i class="fa-solid fa-users text-[1.60rem]"></i>
+        <span class="text-[12px] font-black uppercase leading-none">Comunidad</span>
     </a>
     <button id="menu-toggle" class="flex-1 flex flex-col items-center justify-center gap-1 transition-all active:scale-90 text-[#32424D]/60 focus:outline-none" style="color: #32424Dbb !important;">
-        <i class="bi bi-list text-[1.8rem] leading-none mb-[-2px]"></i>
-        <span class="text-[10px] font-black uppercase leading-none">Menú</span>
+        <i class="bi bi-list text-[2.0rem] leading-none mb-[-2px]"></i>
+        <span class="text-[12px] font-black uppercase leading-none">Menú</span>
     </button>
 </div>
 

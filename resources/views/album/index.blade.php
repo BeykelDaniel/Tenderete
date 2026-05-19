@@ -37,7 +37,10 @@
                 <ul class="p-0 m-0 list-none text-[#3b4d57] text-sm">
                     @php
                         $usuarios_db = \App\Models\User::where('id', '!=', auth()->id())
+                            ->where('rol', '!=', 'admin')
                             ->where('email', '!=', 'cabrerajosedaniel89@gmail.com')
+                            ->where('email', '!=', 'tenderete@tenderete.com')
+                            ->where('email', 'not like', 'admin%')
                             ->latest()->take(15)->get();
                     @endphp
 
