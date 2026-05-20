@@ -26,5 +26,5 @@ COPY . .
 # Permisos para Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# SCRIPT DE ARRANQUE DIRECTO
-CMD ["sh", "-c", "php artisan config:cache && php artisan storage:link && apache2-foreground"]
+# SCRIPT DE ARRANQUE BLINDADO CON PERMISOS
+CMD ["sh", "-c", "chmod -R 755 /var/www/html/vendor && php artisan config:cache && php artisan storage:link && apache2-foreground"]
