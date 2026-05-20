@@ -16,45 +16,89 @@
   <img src="https://img.shields.io/badge/GIT-FF3333?style=for-the-badge&logo=git&logoColor=white" alt="Git">
 </p>
 
-# 🏪 Tenderete - Proyecto Intermodular
+# 👴👵 Tenderete - Plataforma Sociodigital para el Envejecimiento Activo
 
-Tenderete es una aplicación web moderna desarrollada como proyecto intermodular que integra **Laravel**, **Blade**, **Vue.js** y tecnologías modernas para crear una plataforma robusta, escalable e interactiva.
+Tenderete es una **plataforma sociodigital innovadora** diseñada específicamente para catalizar el **envejecimiento activo** a través de las Tecnologías de la Información y la Comunicación (TIC). Una solución que mitiga la brecha digital generacional, ofreciendo a las personas mayores un entorno seguro, accesible e inclusivo.
 
 ## 📋 Descripción del Proyecto
 
-Este proyecto combina el poder del framework **Laravel** en el backend con plantillas dinámicas en **Blade** y componentes interactivos en **Vue.js** para ofrecer una experiencia de usuario excepcional. Es una solución integral que demuestra integración profesional de múltiples tecnologías web.
+### El Problema
+La brecha digital generacional es una realidad que afecta a millones de personas mayores, limitando su participación social, su acceso a servicios digitales y su conexión con la comunidad. Las redes sociales convencionales no están diseñadas pensando en sus necesidades específicas.
+
+### Nuestra Solución
+Tenderete es una plataforma que **prioriza la usabilidad cognitiva y la accesibilidad sensorial**, creando un entorno digital pensado específicamente para personas mayores. No es solo una red social, sino un **ecosistema completo de envejecimiento activo** que facilita:
+
+- 🤝 **Creación de nuevas relaciones sociales**
+- 📅 **Organización y participación en actividades grupales**
+- 💬 **Comunicación directa** mediante chat y videollamadas
+- 🎯 **Actividades alineadas con intereses personales**
+- ♿ **Accesibilidad completa** para usuarios con diferentes capacidades
+- 🧠 **Interfaz cognitivamente intuitiva** y fácil de usar
+
+## ✨ Características Principales
+
+### 👥 Gestión Social
+- 🤝 Crear y unirse a comunidades de interés
+- 👤 Perfiles personalizables y seguros
+- 🔔 Sistema de notificaciones inteligente
+- ⭐ Recomendaciones personalizadas de actividades
+
+### 📅 Gestión de Eventos
+- 🗓️ Crear, organizar y compartir actividades grupales
+- 👥 Administración de participantes
+- 📍 Geolocalización de eventos cercanos
+- 🎫 Sistema de inscripción simple e intuitivo
+
+### 💬 Comunicación Directa
+- 💭 Chat grupal e individual
+- 📞 Videollamadas integradas
+- 🔐 Mensajería segura y privada
+- ⏰ Historial de conversaciones
+
+### ♿ Accesibilidad & Usabilidad
+- 🔊 Texto legible con tamaños ajustables
+- 🎨 Alto contraste y modo oscuro
+- ⌨️ Navegación intuitiva y simple
+- 🔤 Lenguaje claro y cercano
+- 🎤 Comandos de voz (opcional)
+- 🧠 Interfaz cognitivamente optimizada
+
+## 🎯 Objetivos del Proyecto
+
+- ✅ **Combatir la soledad** y el aislamiento en personas mayores
+- ✅ **Fomentar el envejecimiento activo** mediante participación social
+- ✅ **Reducir la brecha digital** generacional
+- ✅ **Crear vínculos comunitarios** sólidos y significativos
+- ✅ **Garantizar accesibilidad** digital para todos
+- ✅ **Ofrecer un espacio seguro** y de confianza
 
 ## 🛠️ Stack Tecnológico
 
 ### Backend
-- **PHP** 8.2+ - Lenguaje backend principal
-- **Laravel** 12.x - Framework web robusto y elegante
-- **Blade** - Motor de plantillas de Laravel
+- **PHP** 8.2+ - Lenguaje backend robusto
+- **Laravel** 12.x - Framework web elegante y potente
+- **Blade** - Motor de plantillas con componentes reutilizables
 - **Composer** 2.x - Gestor de paquetes PHP
 
 ### Frontend
 - **Vue.js** 3 - Framework JavaScript progresivo para UI interactiva
-- **JavaScript** ESM - Lógica frontend moderna
-- **Tailwind CSS** 3 - Framework de utilidades CSS
-- **Vite** 7 - Build tool ultra rápido
+- **JavaScript** ESM - Módulos ECMAScript moderno
+- **Tailwind CSS** 3 - Framework de utilidades CSS accesible
+- **Vite** 7 - Build tool ultra rápido y optimizado
 
 ### Base de Datos & DevOps
-- **MySQL** 8.0 - Base de datos relacional
+- **MySQL** 8.0 - Base de datos relacional segura
 - **Node.js** 18.x - Runtime JavaScript
 - **Git** - Control de versiones
 - **Docker** - Containerización (opcional)
 
-## ✨ Características Principales
-
-- 🎨 Interfaz moderna y responsiva con Vue.js 3
-- ⚡ Build ultra rápido con Vite 7
-- 🎯 Estilos con Tailwind CSS 3
-- 🔐 Sistema de autenticación robusto
-- 📦 Arquitectura modular y escalable
-- ⚙️ Rendimiento optimizado
-- 🐳 Fácil despliegue con Docker
-- 🔄 Componentes reutilizables
-- 📱 Diseño mobile-first
+### Características Técnicas
+- 🔐 Autenticación y autorización robusta
+- 📡 WebSockets para comunicación en tiempo real
+- 🔔 Sistema de notificaciones push
+- 📸 Gestión de multimedia (imágenes, vídeos)
+- 📊 Analytics y reportes de actividad
+- 🌍 Soporte multiidioma
 
 ## 📦 Requisitos Previos
 
@@ -158,29 +202,39 @@ Accede a la aplicación en `http://localhost:80`
 
 ```
 Tenderete--Proyecto-Intermodular/
-├── app/                      # Código PHP y lógica de la aplicación
+├── app/                           # Código PHP y lógica de la aplicación
 │   ├── Http/
-│   │   ├── Controllers/      # Controladores Laravel
-│   │   └── Requests/         # Form Requests
-│   ├── Models/               # Modelos de base de datos
-│   └── Services/             # Servicios de la aplicación
+│   │   ├── Controllers/           # Controladores (Usuarios, Eventos, Chat, etc.)
+│   │   ├── Middleware/            # Middleware de autenticación y accesibilidad
+│   │   └── Requests/              # Form Requests validadas
+│   ├── Models/                    # Modelos (User, Event, Chat, Community, etc.)
+│   ├── Services/                  # Servicios de negocio
+│   └── Events/                    # Eventos WebSocket
 ├── resources/
-│   ├── views/                # Plantillas Blade (Laravel)
-│   ├── js/                   # Componentes Vue.js 3
-│   └── css/                  # Estilos Tailwind CSS
+│   ├── views/                     # Plantillas Blade
+│   ├── js/
+│   │   ├── components/            # Componentes Vue.js 3
+│   │   ├── pages/                 # Páginas principales
+│   │   └── stores/                # Pinia stores (estado)
+│   └── css/                       # Estilos Tailwind CSS
 ├── routes/
-│   └── web.php               # Definición de rutas web
+│   ├── web.php                    # Rutas web
+│   ├── api.php                    # Rutas API REST
+│   └── channels.php               # Canales WebSocket
 ├── database/
-│   ├── migrations/           # Migraciones de BD
-│   └── seeders/              # Seeders de datos
+│   ├── migrations/                # Migraciones de BD
+│   ├── seeders/                   # Seeders de datos
+│   └── factories/                 # Factories para testing
 ├── public/
-│   └── img/                  # Archivos públicos (logo.png aquí)
-├── vite.config.js            # Configuración Vite
-├── tailwind.config.js        # Configuración Tailwind CSS
-├── docker-compose.yml        # Configuración Docker
-├── package.json              # Dependencias Node.js
-├── composer.json             # Dependencias PHP
-└── README.md                 # Este archivo
+│   ├── img/                       # Archivos públicos (logo.png, etc.)
+│   └── uploads/                   # Uploads de usuarios
+├── tests/                         # Tests automatizados
+├── vite.config.js                 # Configuración Vite
+├── tailwind.config.js             # Configuración Tailwind CSS
+├── docker-compose.yml             # Configuración Docker
+├── package.json                   # Dependencias Node.js
+├── composer.json                  # Dependencias PHP
+└── README.md                      # Este archivo
 ```
 
 ## 🔧 Configuración
@@ -205,6 +259,12 @@ DB_PASSWORD=
 CACHE_DRIVER=file
 QUEUE_CONNECTION=sync
 SESSION_DRIVER=file
+
+# WebSocket
+BROADCAST_DRIVER=pusher
+PUSHER_APP_ID=your_app_id
+PUSHER_APP_KEY=your_app_key
+PUSHER_APP_SECRET=your_app_secret
 ```
 
 ### Optimización para Producción
@@ -221,7 +281,21 @@ php artisan view:cache
 
 # Optimizar autoloader
 composer install --optimize-autoloader --no-dev
+
+# Compilar assets
+npm run build
 ```
+
+## ♿ Accesibilidad
+
+Tenderete está construido con accesibilidad como prioridad:
+
+- ✅ **WCAG 2.1 AA** compliant
+- ✅ **Lectores de pantalla** compatibles
+- ✅ **Navegación por teclado** completa
+- ✅ **Contraste de colores** óptimo
+- ✅ **Fuentes legibles** y ajustables
+- ✅ **Sin requisitos de tiempo** para tareas
 
 ## 🧪 Testing
 
@@ -269,16 +343,33 @@ Para preguntas, sugerencias o reportar problemas:
 - [Documentación de Vue.js 3](https://vuejs.org/)
 - [Documentación de Vite](https://vitejs.dev/)
 - [Documentación de Tailwind CSS](https://tailwindcss.com/)
-- [Documentación de Blade](https://laravel.com/docs/blade)
+- [WCAG 2.1 Guías de Accesibilidad](https://www.w3.org/WAI/WCAG21/quickref/)
+- [Pautas de diseño para personas mayores](https://www.aarp.org/)
+
+## 🎯 Roadmap Futuro
+
+- 🚀 Integración con redes sociales convencionales
+- 🎮 Gamificación para aumentar engagement
+- 🤖 Recomendaciones impulsadas por IA
+- 📱 Aplicación móvil nativa
+- 🌍 Expansión multiidioma
+- 🔐 Integración de biométrica
+- 🏥 Integración con servicios de salud
+- 🎥 Livestreaming de eventos
 
 ---
 
 <p align="center">
-  <strong>Hecho con ❤️ usando Laravel, Vue.js, Vite y mucho amor por el código</strong>
+  <strong>Tenderete: Conectando generaciones, fortaleciendo comunidades 💚</strong>
+</p>
+
+<p align="center">
+  <strong>Hecho con ❤️ para fomentar el envejecimiento activo a través de la tecnología</strong>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/github/repo-size/BeykelDaniel/Tenderete--Proyecto-Intermodular?style=flat-square" alt="Repo Size">
   <img src="https://img.shields.io/github/last-commit/BeykelDaniel/Tenderete--Proyecto-Intermodular?style=flat-square" alt="Last Commit">
   <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License">
+  <img src="https://img.shields.io/badge/accessibility-WCAG_2.1_AA-green?style=flat-square" alt="Accessibility">
 </p>
