@@ -27,16 +27,11 @@ COPY . .
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# TRUCO: Forzamos la instalación de symfony/filesystem ANTES del install global para que no falle el script de storage
-RUN composer require symfony/filesystem --no-update && composer install --no-dev --optimize-autoloader
+# INSTALACIÓN LIMPIA: Usamos los flags mágicos para que Render no gaste RAM calculando nada
+RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --no-progress
 
 # Permisos para Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-CMD ["apache2-foreground"]
-
-# Permisos para Laravel
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
-# SCRIPT DE ARRANQUE: Ejecuta migraciones, crea el link del storage y arranca Apache
-CMD php artisan migrate --force && php artisan storage:link && apache2-foreground
+# SCRIPT DE ARRANQUE: Ya no hacemos migraciones aquí porque las hiciste tú en local. Solo encendemos la web.
+CMD php artisan config:cache && php artisan storage:link && apache2-foreground
