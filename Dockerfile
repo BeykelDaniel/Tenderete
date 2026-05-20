@@ -26,7 +26,9 @@ COPY . .
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-RUN composer install --no-dev --optimize-autoloader
+
+# TRUCO: Forzamos la instalación de symfony/filesystem ANTES del install global para que no falle el script de storage
+RUN composer require symfony/filesystem --no-update && composer install --no-dev --optimize-autoloader
 
 # Permisos para Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
