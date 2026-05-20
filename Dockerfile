@@ -27,11 +27,11 @@ COPY . .
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# INSTALACIÓN LIMPIA: Usamos los flags mágicos para que Render no gaste RAM calculando nada
-RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --no-progress
+# INSTALACIÓN TOTALMENTE OPTIMIZADA: Instalamos dependencias y generamos el autoloader de golpe
+RUN composer install --no-dev --no-scripts --prefer-dist --no-progress --optimize-autoloader
 
 # Permisos para Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# SCRIPT DE ARRANQUE: Ya no hacemos migraciones aquí porque las hiciste tú en local. Solo encendemos la web.
-CMD php artisan config:cache && php artisan storage:link && apache2-foreground
+# SCRIPT DE ARRANQUE BLINDADO: Usamos la sintaxis correcta para que procese los comandos en orden sin morir
+CMD ["sh", "-c", "php artisan config:cache && php artisan storage:link && apache2-foreground"]
