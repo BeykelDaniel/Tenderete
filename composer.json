@@ -13,6 +13,7 @@
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
         "resend/resend-laravel": "*",
+        "symfony/filesystem": "^7.4",
         "twbs/bootstrap-icons": "^1.13"
     },
     "require-dev": {
