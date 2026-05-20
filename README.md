@@ -1,66 +1,143 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel"></p>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<img src="https://img.shields.io/badge/Blade-FF2D20?style=flat-square" alt="Blade 63.4%">
+<img src="https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP 29.8%">
+<img src="https://img.shields.io/badge/Vue.js-35495E?style=flat-square&logo=vue.js&logoColor=4FC08D" alt="Vue 5.8%">
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript 0.4%">
+<img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS 0.4%">
+<img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker">
 </p>
 
-## About Laravel
+# 🏪 Tenderete - Proyecto Intermodular
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Tenderete es una aplicación web moderna desarrollada como proyecto intermodular que integra **Laravel**, **Blade**, **Vue.js** y tecnologías de frontend para crear una plataforma robusta y escalable.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 Descripción del Proyecto
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Este proyecto combina el poder del framework **Laravel** en el backend con plantillas dinámicas en **Blade** y componentes interactivos en **Vue.js** para ofrecer una experiencia de usuario excepcional.
 
-## Learning Laravel
+## 🛠️ Tecnologías Utilizadas
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Backend
+- **PHP** (29.8%) - Lenguaje backend principal
+- **Laravel** - Framework web robusto y elegante
+- **Blade** (63.4%) - Motor de plantillas de Laravel
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Frontend
+- **Vue.js** (5.8%) - Framework JavaScript progresivo
+- **JavaScript** (0.4%) - Lógica frontend
+- **CSS** (0.4%) - Estilos personalizados
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### DevOps & Containerización
+- **Docker** (0.1%) - Containerización de la aplicación
+- **Shell** (0.1%) - Scripts de automatización
 
-## Laravel Sponsors
+## 🚀 Características Principales
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- ✨ Interfaz moderna y responsiva
+- 🔐 Sistema de autenticación robusto
+- 📦 Arquitectura modular
+- ⚡ Rendimiento optimizado
+- 🐳 Fácil despliegue con Docker
 
-### Premium Partners
+## 📦 Requisitos Previos
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- PHP 8.0 o superior
+- Composer
+- Node.js y npm
+- Docker (opcional)
+- MySQL/PostgreSQL
 
-## Contributing
+## 🔧 Instalación
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/BeykelDaniel/Tenderete--Proyecto-Intermodular.git
+cd Tenderete--Proyecto-Intermodular
+```
 
-## Code of Conduct
+### 2. Instalar dependencias de PHP
+```bash
+composer install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 3. Instalar dependencias de frontend
+```bash
+npm install
+```
 
-## Security Vulnerabilities
+### 4. Configurar el archivo .env
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 5. Configurar la base de datos
+Edita el archivo `.env` con tus credenciales de base de datos y ejecuta:
+```bash
+php artisan migrate
+```
 
-## License
+### 6. Compilar assets
+```bash
+npm run dev
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 📝 Uso
+
+### Desarrollo local
+```bash
+php artisan serve
+npm run dev
+```
+
+### Build para producción
+```bash
+npm run build
+```
+
+### Con Docker
+```bash
+docker-compose up -d
+```
+
+## 📁 Estructura del Proyecto
+
+```
+├── app/                 # Código PHP de la aplicación
+├── resources/
+│   ├── views/          # Plantillas Blade (63.4%)
+│   └── js/             # Componentes Vue.js (5.8%)
+├── routes/             # Definición de rutas
+├── database/           # Migraciones y seeders
+├── public/             # Archivos públicos
+├── docker-compose.yml  # Configuración Docker
+└── package.json        # Dependencias frontend
+```
+
+## 🤝 Contribuciones
+
+Las contribuciones son bienvenidas. Por favor:
+
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+## 👤 Autor
+
+**BeykelDaniel** - [GitHub](https://github.com/BeykelDaniel)
+
+## 📞 Contacto
+
+Para más información o preguntas sobre el proyecto, no dudes en abrir un issue en el repositorio.
+
+---
+
+<p align="center">Hecho con ❤️ usando Laravel, Vue.js y amor por el código</p>
