@@ -1,14 +1,19 @@
 <p align="center"><img src="public/logo.png" alt="Tenderete Logo" width="250" height="250"></p>
 
 <p align="center">
-<img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel">
-<img src="https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D" alt="Vue.js">
-<img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
+  <img src="https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP 8.2+">
+  <img src="https://img.shields.io/badge/LARAVEL-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 12.x">
+  <img src="https://img.shields.io/badge/MYSQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL 8.0">
+  <img src="https://img.shields.io/badge/JAVASCRIPT-ESM-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript ESM">
+  <img src="https://img.shields.io/badge/VUE.JS-3-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D" alt="Vue.js 3">
 </p>
 
 <p align="center">
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript 0.4%">
-<img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS 0.4%">
+  <img src="https://img.shields.io/badge/TAILWIND_CSS-3-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS 3">
+  <img src="https://img.shields.io/badge/VITE-7-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite 7">
+  <img src="https://img.shields.io/badge/NODE.JS-18.x-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js 18.x">
+  <img src="https://img.shields.io/badge/COMPOSER-2.x-885630?style=for-the-badge&logo=composer&logoColor=white" alt="Composer 2.x">
+  <img src="https://img.shields.io/badge/GIT-FF3333?style=for-the-badge&logo=git&logoColor=white" alt="Git">
 </p>
 
 # 🏪 Tenderete - Proyecto Intermodular
@@ -22,40 +27,44 @@ Este proyecto combina el poder del framework **Laravel** en el backend con plant
 ## 🛠️ Stack Tecnológico
 
 ### Backend
-- **PHP** (29.8%) - Lenguaje backend principal
-- **Laravel** - Framework web robusto y elegante
-- **Blade** (63.4%) - Motor de plantillas de Laravel
+- **PHP** 8.2+ - Lenguaje backend principal
+- **Laravel** 12.x - Framework web robusto y elegante
+- **Blade** - Motor de plantillas de Laravel
+- **Composer** 2.x - Gestor de paquetes PHP
 
 ### Frontend
-- **Vue.js** (5.8%) - Framework JavaScript progresivo para UI interactiva
-- **JavaScript** (0.4%) - Lógica frontend
-- **CSS** (0.4%) - Estilos personalizados y diseño responsivo
+- **Vue.js** 3 - Framework JavaScript progresivo para UI interactiva
+- **JavaScript** ESM - Lógica frontend moderna
+- **Tailwind CSS** 3 - Framework de utilidades CSS
+- **Vite** 7 - Build tool ultra rápido
 
-### DevOps & Containerización
-- **Docker** (0.1%) - Containerización y orquestación
-- **Shell** (0.1%) - Scripts de automatización
-
-### Base de Datos
-- **MySQL/PostgreSQL** - Gestión de datos persistentes
+### Base de Datos & DevOps
+- **MySQL** 8.0 - Base de datos relacional
+- **Node.js** 18.x - Runtime JavaScript
+- **Git** - Control de versiones
+- **Docker** - Containerización (opcional)
 
 ## ✨ Características Principales
 
-- 🎨 Interfaz moderna y responsiva con Vue.js
+- 🎨 Interfaz moderna y responsiva con Vue.js 3
+- ⚡ Build ultra rápido con Vite 7
+- 🎯 Estilos con Tailwind CSS 3
 - 🔐 Sistema de autenticación robusto
 - 📦 Arquitectura modular y escalable
-- ⚡ Rendimiento optimizado
+- ⚙️ Rendimiento optimizado
 - 🐳 Fácil despliegue con Docker
 - 🔄 Componentes reutilizables
 - 📱 Diseño mobile-first
 
 ## 📦 Requisitos Previos
 
-- **PHP** >= 8.0
-- **Composer** - Gestor de paquetes de PHP
-- **Node.js** >= 14.x
+- **PHP** >= 8.2
+- **Composer** 2.x - Gestor de paquetes de PHP
+- **Node.js** >= 18.x
 - **npm** o **yarn**
+- **MySQL** 8.0 o superior
 - **Docker** (opcional pero recomendado)
-- **MySQL/PostgreSQL** - Base de datos
+- **Git** - Control de versiones
 
 ## 🚀 Instalación
 
@@ -124,7 +133,7 @@ npm run build
 # Terminal 1: Iniciar servidor Laravel
 php artisan serve
 
-# Terminal 2: Compilar assets en tiempo real
+# Terminal 2: Compilar assets en tiempo real con Vite
 npm run dev
 ```
 
@@ -151,14 +160,14 @@ Accede a la aplicación en `http://localhost:80`
 Tenderete--Proyecto-Intermodular/
 ├── app/                      # Código PHP y lógica de la aplicación
 │   ├── Http/
-│   │   ├── Controllers/      # Controladores
+│   │   ├── Controllers/      # Controladores Laravel
 │   │   └── Requests/         # Form Requests
 │   ├── Models/               # Modelos de base de datos
 │   └── Services/             # Servicios de la aplicación
 ├── resources/
-│   ├── views/                # Plantillas Blade (63.4%)
-│   ├── js/                   # Componentes Vue.js (5.8%)
-│   └── css/                  # Estilos CSS
+│   ├── views/                # Plantillas Blade (Laravel)
+│   ├── js/                   # Componentes Vue.js 3
+│   └── css/                  # Estilos Tailwind CSS
 ├── routes/
 │   └── web.php               # Definición de rutas web
 ├── database/
@@ -166,10 +175,11 @@ Tenderete--Proyecto-Intermodular/
 │   └── seeders/              # Seeders de datos
 ├── public/
 │   └── img/                  # Archivos públicos (logo.png aquí)
+├── vite.config.js            # Configuración Vite
+├── tailwind.config.js        # Configuración Tailwind CSS
 ├── docker-compose.yml        # Configuración Docker
 ├── package.json              # Dependencias Node.js
 ├── composer.json             # Dependencias PHP
-├── webpack.mix.js            # Configuración de assets
 └── README.md                 # Este archivo
 ```
 
@@ -200,10 +210,17 @@ SESSION_DRIVER=file
 ### Optimización para Producción
 
 ```bash
+# Cachear configuración
 php artisan config:cache
+
+# Cachear rutas
 php artisan route:cache
+
+# Cachear vistas
 php artisan view:cache
-php artisan optimize
+
+# Optimizar autoloader
+composer install --optimize-autoloader --no-dev
 ```
 
 ## 🧪 Testing
@@ -249,14 +266,15 @@ Para preguntas, sugerencias o reportar problemas:
 ## 📚 Recursos Útiles
 
 - [Documentación de Laravel](https://laravel.com/docs)
-- [Documentación de Vue.js](https://vuejs.org/)
+- [Documentación de Vue.js 3](https://vuejs.org/)
+- [Documentación de Vite](https://vitejs.dev/)
+- [Documentación de Tailwind CSS](https://tailwindcss.com/)
 - [Documentación de Blade](https://laravel.com/docs/blade)
-- [Docker Documentation](https://docs.docker.com/)
 
 ---
 
 <p align="center">
-  <strong>Hecho con ❤️ usando Laravel, Vue.js y mucho amor por el código</strong>
+  <strong>Hecho con ❤️ usando Laravel, Vue.js, Vite y mucho amor por el código</strong>
 </p>
 
 <p align="center">
