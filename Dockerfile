@@ -34,3 +34,9 @@ RUN composer require symfony/filesystem --no-update && composer install --no-dev
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 CMD ["apache2-foreground"]
+
+# Permisos para Laravel
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# SCRIPT DE ARRANQUE: Ejecuta migraciones, crea el link del storage y arranca Apache
+CMD php artisan migrate --force && php artisan storage:link && apache2-foreground
