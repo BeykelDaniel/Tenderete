@@ -16,11 +16,11 @@
   <img src="https://img.shields.io/badge/GIT-FF3333?style=for-the-badge&logo=git&logoColor=white" alt="Git">
 </p>
 
-# 👴👵 Tenderete - Plataforma Sociodigital para el Envejecimiento Activo
+# Tenderete - Plataforma Sociodigital para el Envejecimiento Activo
 
 Tenderete es una **plataforma sociodigital innovadora** diseñada específicamente para catalizar el **envejecimiento activo** a través de las Tecnologías de la Información y la Comunicación (TIC). Una solución que mitiga la brecha digital generacional, ofreciendo a las personas mayores un entorno seguro, accesible e inclusivo.
 
-## 📋 Descripción del Proyecto
+##  Descripción del Proyecto
 
 ### El Problema
 La brecha digital generacional es una realidad que afecta a millones de personas mayores, limitando su participación social, su acceso a servicios digitales y su conexión con la comunidad. Las redes sociales convencionales no están diseñadas pensando en sus necesidades específicas.
@@ -28,51 +28,49 @@ La brecha digital generacional es una realidad que afecta a millones de personas
 ### Nuestra Solución
 Tenderete es una plataforma que **prioriza la usabilidad cognitiva y la accesibilidad sensorial**, creando un entorno digital pensado específicamente para personas mayores. No es solo una red social, sino un **ecosistema completo de envejecimiento activo** que facilita:
 
-- 🤝 **Creación de nuevas relaciones sociales**
-- 📅 **Organización y participación en actividades grupales**
-- 💬 **Comunicación directa** mediante chat y videollamadas
-- 🎯 **Actividades alineadas con intereses personales**
-- ♿ **Accesibilidad completa** para usuarios con diferentes capacidades
-- 🧠 **Interfaz cognitivamente intuitiva** y fácil de usar
+-  **Creación de nuevas relaciones sociales**
+-  **Organización y participación en actividades grupales**
+-  **Comunicación directa** mediante chat y videollamadas
+-  **Actividades alineadas con intereses personales**
+-  **Accesibilidad completa** para usuarios con diferentes capacidades
+-  **Interfaz cognitivamente intuitiva** y fácil de usar
 
-## ✨ Características Principales
+##  Características Principales
 
-### 👥 Gestión Social
-- 🤝 Crear y unirse a comunidades de interés
-- 👤 Perfiles personalizables y seguros
-- 🔔 Sistema de notificaciones inteligente
-- ⭐ Recomendaciones personalizadas de actividades
+###  Gestión Social
+-  Crear y unirse a comunidades de interés
+-  Perfiles personalizables y seguros
+-  Sistema de notificaciones inteligente
+-  Recomendaciones personalizadas de actividades
 
-### 📅 Gestión de Eventos
-- 🗓️ Crear, organizar y compartir actividades grupales
-- 👥 Administración de participantes
-- 📍 Geolocalización de eventos cercanos
-- 🎫 Sistema de inscripción simple e intuitivo
+###  Gestión de Eventos
+-  Crear, organizar y compartir actividades grupales
+-  Administración de participantes
+-  Sistema de inscripción simple e intuitivo
 
-### 💬 Comunicación Directa
-- 💭 Chat grupal e individual
-- 📞 Videollamadas integradas
-- 🔐 Mensajería segura y privada
-- ⏰ Historial de conversaciones
+###  Comunicación Directa
+-  Chat grupal e individual
+-  Mensajería segura y privada
 
-### ♿ Accesibilidad & Usabilidad
-- 🔊 Texto legible con tamaños ajustables
-- 🎨 Alto contraste y modo oscuro
-- ⌨️ Navegación intuitiva y simple
-- 🔤 Lenguaje claro y cercano
-- 🎤 Comandos de voz (opcional)
-- 🧠 Interfaz cognitivamente optimizada
 
-## 🎯 Objetivos del Proyecto
+###  Accesibilidad & Usabilidad
+-  Texto legible con tamaños ajustables
+-  Alto contraste y modo oscuro
+-  Navegación intuitiva y simple
+-  Lenguaje claro y cercano
+-  Comandos de voz (opcional)
+-  Interfaz cognitivamente optimizada
 
-- ✅ **Combatir la soledad** y el aislamiento en personas mayores
-- ✅ **Fomentar el envejecimiento activo** mediante participación social
-- ✅ **Reducir la brecha digital** generacional
-- ✅ **Crear vínculos comunitarios** sólidos y significativos
-- ✅ **Garantizar accesibilidad** digital para todos
-- ✅ **Ofrecer un espacio seguro** y de confianza
+##  Objetivos del Proyecto
 
-## 🛠️ Stack Tecnológico
+-  **Combatir la soledad** y el aislamiento en personas mayores
+-  **Fomentar el envejecimiento activo** mediante participación social
+-  **Reducir la brecha digital** generacional
+-  **Crear vínculos comunitarios** sólidos y significativos
+-  **Garantizar accesibilidad** digital para todos
+-  **Ofrecer un espacio seguro** y de confianza
+
+##  Stack Tecnológico
 
 ### Backend
 - **PHP** 8.2+ - Lenguaje backend robusto
@@ -93,24 +91,21 @@ Tenderete es una plataforma que **prioriza la usabilidad cognitiva y la accesibi
 - **Docker** - Containerización (opcional)
 
 ### Características Técnicas
-- 🔐 Autenticación y autorización robusta
-- 📡 WebSockets para comunicación en tiempo real
-- 🔔 Sistema de notificaciones push
-- 📸 Gestión de multimedia (imágenes, vídeos)
-- 📊 Analytics y reportes de actividad
-- 🌍 Soporte multiidioma
+-  Autenticación y autorización robusta
+-  WebSockets para comunicación en tiempo real
+-  Sistema de notificaciones push
+-  Gestión de multimedia (imágenes, vídeos)
 
-## 📦 Requisitos Previos
+##  Requisitos Previos
 
 - **PHP** >= 8.2
 - **Composer** 2.x - Gestor de paquetes de PHP
 - **Node.js** >= 18.x
-- **npm** o **yarn**
+- **npm** 
 - **MySQL** 8.0 o superior
-- **Docker** (opcional pero recomendado)
 - **Git** - Control de versiones
 
-## 🚀 Instalación
+##  Instalación
 
 ### 1. Clonar el repositorio
 
@@ -169,7 +164,7 @@ Para producción:
 npm run build
 ```
 
-## 💻 Uso
+##  Uso
 
 ### Desarrollo Local
 
@@ -190,15 +185,7 @@ npm run build
 php artisan optimize
 ```
 
-### Con Docker
-
-```bash
-docker-compose up -d
-```
-
-Accede a la aplicación en `http://localhost:80`
-
-## 📁 Estructura del Proyecto
+##  Estructura del Proyecto
 
 ```
 Tenderete--Proyecto-Intermodular/
@@ -237,7 +224,7 @@ Tenderete--Proyecto-Intermodular/
 └── README.md                      # Este archivo
 ```
 
-## 🔧 Configuración
+##  Configuración
 
 ### Variables de Entorno
 
@@ -286,18 +273,18 @@ composer install --optimize-autoloader --no-dev
 npm run build
 ```
 
-## ♿ Accesibilidad
+##  Accesibilidad
 
 Tenderete está construido con accesibilidad como prioridad:
 
-- ✅ **WCAG 2.1 AA** compliant
-- ✅ **Lectores de pantalla** compatibles
-- ✅ **Navegación por teclado** completa
-- ✅ **Contraste de colores** óptimo
-- ✅ **Fuentes legibles** y ajustables
-- ✅ **Sin requisitos de tiempo** para tareas
+-  **WCAG 2.1 AA** compliant
+-  **Lectores de pantalla** compatibles
+-  **Navegación por teclado** completa
+-  **Contraste de colores** óptimo
+-  **Fuentes legibles** y ajustables
+-  **Sin requisitos de tiempo** para tareas
 
-## 🧪 Testing
+##  Testing
 
 ```bash
 php artisan test
@@ -309,7 +296,7 @@ Con reporte de cobertura:
 php artisan test --coverage
 ```
 
-## 🤝 Contribuciones
+##  Contribuciones
 
 Las contribuciones son bienvenidas. Por favor sigue estos pasos:
 
@@ -319,25 +306,25 @@ Las contribuciones son bienvenidas. Por favor sigue estos pasos:
 4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abre un **Pull Request**
 
-## 📄 Licencia
+##  Licencia
 
 Este proyecto está bajo la **Licencia MIT**. Ver el archivo `LICENSE` para más detalles.
 
-## 👤 Autor
+##  Autor
 
 **BeykelDaniel**
 
 - GitHub: [@BeykelDaniel](https://github.com/BeykelDaniel)
 - Repositorio: [Tenderete--Proyecto-Intermodular](https://github.com/BeykelDaniel/Tenderete--Proyecto-Intermodular)
 
-## 📞 Contacto y Soporte
+##  Contacto y Soporte
 
 Para preguntas, sugerencias o reportar problemas:
 
 - Abre un [issue](https://github.com/BeykelDaniel/Tenderete--Proyecto-Intermodular/issues)
 - Contacta directamente a través de GitHub
 
-## 📚 Recursos Útiles
+##  Recursos Útiles
 
 - [Documentación de Laravel](https://laravel.com/docs)
 - [Documentación de Vue.js 3](https://vuejs.org/)
@@ -346,25 +333,25 @@ Para preguntas, sugerencias o reportar problemas:
 - [WCAG 2.1 Guías de Accesibilidad](https://www.w3.org/WAI/WCAG21/quickref/)
 - [Pautas de diseño para personas mayores](https://www.aarp.org/)
 
-## 🎯 Roadmap Futuro
+##  Roadmap Futuro
 
-- 🚀 Integración con redes sociales convencionales
-- 🎮 Gamificación para aumentar engagement
-- 🤖 Recomendaciones impulsadas por IA
-- 📱 Aplicación móvil nativa
-- 🌍 Expansión multiidioma
-- 🔐 Integración de biométrica
-- 🏥 Integración con servicios de salud
-- 🎥 Livestreaming de eventos
+-  Integración con redes sociales convencionales
+-  Gamificación para aumentar engagement
+-  Recomendaciones impulsadas por IA
+-  Aplicación móvil nativa
+-  Expansión multiidioma
+-  Integración de biométrica
+-  Integración con servicios de salud
+-  Livestreaming de eventos
 
 ---
 
 <p align="center">
-  <strong>Tenderete: Conectando generaciones, fortaleciendo comunidades 💚</strong>
+  <strong>Tenderete: Conectando generaciones, fortaleciendo comunidades</strong>
 </p>
 
 <p align="center">
-  <strong>Hecho con ❤️ para fomentar el envejecimiento activo a través de la tecnología</strong>
+  <strong>Hecho con amor para fomentar el envejecimiento activo a través de la tecnología</strong>
 </p>
 
 <p align="center">
