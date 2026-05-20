@@ -1,4 +1,4 @@
-<p align="center"><img src="logo.png" alt="Tenderete Logo" width="250" height="250"></p>
+<p align="center"><img src="public/logo.png" alt="Tenderete Logo" width="250" height="250"></p>
 
 <p align="center">
 <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel">
